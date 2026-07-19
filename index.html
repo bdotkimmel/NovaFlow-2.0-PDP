@@ -48,14 +48,14 @@ a{color:inherit;text-decoration:none}
 .ann-timer{display:inline-block;font-weight:800;color:#F87171;font-family:'Playfair Display',serif}
 
 /* Sticky header */
-.hdr{position:sticky;top:0;z-index:900;background:var(--cream);border-bottom:1px solid var(--border);padding:14px 0;text-align:center}
+.hdr{position:relative;z-index:900;background:var(--cream);border-bottom:1px solid var(--border);padding:14px 0;text-align:center}
 .hdr-logo{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;letter-spacing:.02em;color:var(--dark);text-decoration:none;display:inline-block}
 .hdr-logo:hover{opacity:.75;transition:opacity .2s}
 
 /* Hero */
 .hero{background:var(--cream);padding:0}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;align-items:start}
-.hero-grid > div:first-child{display:flex;flex-direction:column;position:sticky;top:57px;align-self:start;padding-top:32px}
+.hero-grid > div:first-child{display:flex;flex-direction:column;position:sticky;top:0;align-self:start;padding-top:32px}
 .hero-copy{padding:32px 36px;display:flex;flex-direction:column;gap:0}
 /* UGC inside hero */
 .ugc-in-hero{margin-top:64px;padding-top:48px;border-top:1px solid var(--border)}
@@ -341,6 +341,13 @@ a{color:inherit;text-decoration:none}
 
 /* Offer */
 .offer-sec{background:var(--cream)}
+.cd-timer-wrap{text-align:center;margin-bottom:28px}
+.cd-timer-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.cd-timer{display:inline-flex;align-items:center;gap:4px;background:var(--dark);border-radius:14px;padding:14px 20px}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:44px}
+.cd-num{font-size:clamp(24px,4vw,36px);font-weight:900;color:#fff;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.cd-unit-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:4px}
+.cd-sep{font-size:clamp(22px,3.5vw,32px);font-weight:900;color:var(--red);line-height:1;padding-bottom:14px;user-select:none}
 .timer-bar{background:var(--dark);color:#fff;border-radius:12px;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
 .timer-n{font-family:'Playfair Display',serif;font-weight:900;font-size:42px;color:#fff;line-height:1}
 .timer-unit{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
@@ -500,9 +507,9 @@ a{color:inherit;text-decoration:none}
 .faq-q:hover{background:var(--cream)}
 .faq-icon{font-size:18px;font-weight:300;color:var(--muted);flex-shrink:0;transition:transform .25s}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s}
-.faq-item.open .faq-a{max-height:400px}
-.faq-a-inner{padding:0 20px 16px;font-size:16px;color:var(--dark);line-height:1.75}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s ease,padding .35s}
+.faq-item.open .faq-a{max-height:800px}
+.faq-a-inner{padding:12px 20px 20px;font-size:16px;color:var(--dark);line-height:1.75}
 /* Inline FAQ (product column) */
 .faq-inline{margin-top:28px;padding-top:28px;border-top:1px solid var(--border)}
 .faq-inline .faq-item{background:none;border:none;border-radius:0;border-bottom:1px solid var(--border)}
@@ -1416,6 +1423,19 @@ a{color:inherit;text-decoration:none}
 
     <p style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--dark);margin-bottom:20px;line-height:1.3">This discount is only available before our official launch. Once we release on July 31st, this discount is gone.</p>
 
+    <div class="cd-timer-wrap">
+      <div class="cd-timer-label">Sale ends in</div>
+      <div class="cd-timer">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-unit-lbl">Days</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-unit-lbl">Hours</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-unit-lbl">Mins</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-unit-lbl">Secs</span></div>
+      </div>
+    </div>
+
     <!-- Bundle cards — 3-col vertical (cleriva.com format) -->
     <div class="bc-grid" id="o-bc" style="margin-top:20px">
 
@@ -1534,52 +1554,62 @@ a{color:inherit;text-decoration:none}
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">What's new in NovaFlow 2.0 vs the original?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds a calibrated blue light (450nm) to the existing red light (660nm). The original device used only red light, which supports tissue recovery in the nasal lining. The 2.0 adds blue light, which is studied for antibacterial activity in soft tissue — addressing something red light alone cannot. The device has two separate modes — blue light first (10 minutes), then red light (10 minutes) — for a total of 20 minutes per session. Both modes are built into the same device.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds a second wavelength: blue light (450nm) studied for antibacterial activity in nasal tissue — something red light alone can't address. The device runs two separate 10-minute modes (blue first, then red) for 20 minutes total. Same device, complete approach.</div></div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q" onclick="faq(this)">Will this fit smaller nostrils?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 comes with soft silicone sleeves that fit most nostrils comfortably. If your nostrils are on the smaller side, you can use it without the sleeves for a better fit.</div></div>
+        <div class="faq-q" onclick="faq(this)">I can't stop using nasal spray. Can NovaFlow help?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — this is one of the most common reasons people find us. Sprays like Afrin cause rebound congestion (rhinitis medicamentosa) after just a few days of use. NovaFlow uses light therapy with no chemicals and nothing to become dependent on. Many users have used it to step off spray dependency. We recommend working with your doctor during the transition.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">I wake up congested every morning. Will this fix it?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Morning congestion is one of the most common complaints our users report improving. Nasal tissue swells overnight when you're lying flat — red light supports the tissue's ability to manage that swelling, and blue light targets bacterial buildup that makes it worse. Most users see improvement within 2–4 weeks of consistent use. Results vary.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Can I breathe normally while using it?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The silicone tips rest gently inside your nostrils. They don't create a seal or block airflow — you breathe completely normally during every session.</div></div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">Can it be used with a deviated septum?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. Many users with deviated septums find that NovaFlow 2.0 supports their symptoms. It won't fix the structural issue — but it can be used to help manage the congestion that arises from it.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. It won't correct the structural issue, but many users with a deviated septum report meaningful relief from the congestion that comes with it.</div></div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q" onclick="faq(this)">Can I breathe with this in my nose?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. The silicone tips rest gently inside your nostrils. They don't create a seal or block airflow — you breathe completely normally during the entire 10-minute session.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="faq(this)">Is NovaFlow 2.0 safe for kids?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 uses calibrated red and blue light with no UV or harmful emissions. Red and blue light therapy is generally considered safe for children over the age of 3. We always recommend consulting a doctor first, especially for children with pre-existing conditions.</div></div>
+        <div class="faq-q" onclick="faq(this)">Will this fit smaller nostrils?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 comes with soft silicone sleeves. If they feel too large, you can use the device without them for a smaller, more comfortable fit.</div></div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">Will the light affect my eyes?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">The light is projected inside your nasal passages. Most users use it right before bed with no issues. If you have sensitive eyes, we recommend our protective glasses, available as an add-on.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">No. The light is projected inside your nasal passages and doesn't reach your eyes during normal use. If you have particularly light-sensitive eyes, protective glasses are available as an optional add-on.</div></div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q" onclick="faq(this)">Is the device rechargeable?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 is USB rechargeable. No batteries needed. The device auto shuts off after 10 minutes, so a full charge lasts multiple sessions.</div></div>
+        <div class="faq-q" onclick="faq(this)">Is it safe for kids?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Generally yes for children over 3 — no UV, no harmful emissions. We always recommend consulting your child's doctor before starting any new therapy.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Is it rechargeable?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. USB rechargeable, no batteries required. A full charge lasts multiple sessions before needing to recharge.</div></div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">Does it emit heat?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">No. The device doesn't emit any heat and you won't feel the light during use. It's designed to be completely comfortable, even for sensitive users.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">No. Low-level light therapy only — no heat, nothing you'll feel. Comfortable even for sensitive nasal passages.</div></div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q" onclick="faq(this)">How is this different from the Clear Breathing Kit?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">The Clear Breathing Kit is a standalone add-on. It includes a UV-C sterilizing unit and extra silicone sleeves to extend the life of your device. It does not change the device itself — NovaFlow 2.0 is the device.</div></div>
+        <div class="faq-q" onclick="faq(this)">What's the Clear Breathing Kit?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">It's an optional add-on — a UV-C sterilizing unit and extra silicone sleeves to extend the life of your device. The kit doesn't change the device itself.</div></div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">What does the 120-day guarantee cover?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Every purchase is backed by a 120-day money-back guarantee with free refunds. If you use NovaFlow 2.0 consistently for 4 months and don't notice a difference, contact us and we'll refund you in full — no questions asked.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Everything. If you use NovaFlow 2.0 for 4 months and don't notice a difference, contact us for a full refund — no questions asked.</div></div>
       </div>
 
     </div>
@@ -1593,77 +1623,6 @@ a{color:inherit;text-decoration:none}
     <h2>Start breathing clearly.<br/>Or get your money back.</h2>
     <p>120 days. No questions. Nothing to lose except the congestion.</p>
     <button class="fcta-btn" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Get NovaFlow 2.0 →</button>
-  </div>
-</section>
-
-<!-- FAQ SECTION -->
-<section class="sec" style="background:var(--cream);padding:72px 0">
-  <div class="wrap">
-    <p class="label center" style="margin-bottom:8px">Common questions</p>
-    <h2 style="text-align:center;font-size:clamp(32px,4vw,48px);margin-bottom:40px;line-height:1.2">Frequently Asked Questions</h2>
-    <div class="faq-list">
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">How do I use NovaFlow 2.0?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 has two modes — run blue light first for 10 minutes, then red light for 10 minutes, for a total of 20 minutes per session. Insert the soft silicone tips gently into your nostrils, press the button to start each mode, and the device automatically powers off after each 10-minute cycle. Up to 3 sessions daily.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Will it fit my nostrils?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 comes with soft silicone sleeves. If the sleeves feel too large, the device can also be used without them for a smaller, more comfortable fit.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Can I breathe normally while using it?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. The tips rest gently inside your nostrils without creating a seal, so your airflow stays completely open during every session.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Will the light affect my eyes?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">No. The light is projected inside your nasal passages and doesn't reach your eyes during normal use. If you have particularly light-sensitive eyes, protective glasses are available as an optional accessory.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Is it rechargeable?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 charges via USB — no batteries required. A full charge gives you multiple sessions before needing to recharge.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Does it emit heat?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">No heat is emitted. NovaFlow 2.0 uses low-level light therapy only, making it comfortable for all users — including those with sensitive nasal passages.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Can it be used with a deviated septum?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 can help manage congestion symptoms associated with a deviated septum. It won't correct the structural issue, but many users with a deviated septum report meaningful relief.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Is it safe for kids?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 is safe for children over the age of 3. It emits no UV light or harmful radiation. We always recommend consulting your child's doctor before starting any new therapy.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">What's your return policy?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Every order is backed by our 120-Day Money-Back Guarantee. If you're not satisfied for any reason, contact us within 120 days for a free return and full refund — no questions asked.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">Shipping &amp; delivery<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Free shipping on all orders. NovaFlow 2.0 ships within 2 weeks of your order date. You'll receive a tracking number as soon as your order leaves our warehouse.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">I'm addicted to nasal spray and can't stop using it. Can NovaFlow help?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">This is one of the most common reasons people find us. Nasal sprays like Afrin work by constricting blood vessels — but use them for more than a few days and your nasal tissue becomes dependent on them just to stay open. This is called rhinitis medicamentosa, and it's a trap millions of people are stuck in. NovaFlow works differently: it supports your nasal tissue directly through light therapy, with nothing chemical and nothing to become dependent on. Many users have used it to help step off spray dependency. We recommend working with your doctor during the transition.</div></div>
-      </div>
-
-      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
-        <div class="faq-q">I wake up stuffed up every single morning. Is this something NovaFlow can actually fix?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Morning congestion is one of the most frustrating symptoms — and one of the most common ones our users report improving. It typically happens because nasal tissue swells overnight when you're lying flat and not moving. NovaFlow's red light mode supports the tissue's ability to manage that swelling, while blue light targets the bacterial environment that can make it worse. Most users who use NovaFlow consistently report noticeable improvement in morning breathing within the first 2–4 weeks. Results vary by individual.</div></div>
-      </div>
-
-    </div>
   </div>
 </section>
 
@@ -1724,7 +1683,34 @@ function hcRender(){
 function hcMove(dir){hcIdx=(hcIdx+dir+HC_TOTAL)%HC_TOTAL;hcRender();}
 function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)return;var card=c.querySelector('.nv');var w=card?card.offsetWidth+16:296;c.scrollBy({left:dir*w,behavior:'smooth'});}
 
-// Stock counter — bumps 91%→92% once after 10s, then persists via localStorage
+// Countdown to July 31 2026 midnight ET
+(function(){
+  var deadline=new Date('2026-08-01T04:00:00Z'); // midnight ET = UTC-4 → 04:00 UTC
+  function pad(n){return n<10?'0'+n:n;}
+  function tick(){
+    var now=new Date();
+    var diff=deadline-now;
+    if(diff<=0){
+      document.getElementById('cd-d').textContent='00';
+      document.getElementById('cd-h').textContent='00';
+      document.getElementById('cd-m').textContent='00';
+      document.getElementById('cd-s').textContent='00';
+      return;
+    }
+    var d=Math.floor(diff/86400000);
+    var h=Math.floor((diff%86400000)/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    var s=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-d').textContent=pad(d);
+    document.getElementById('cd-h').textContent=pad(h);
+    document.getElementById('cd-m').textContent=pad(m);
+    document.getElementById('cd-s').textContent=pad(s);
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+// Stock counter — bumps 91%→92% once when bar crosses viewport midpoint, then persists
 (function(){
   function applyStockBump(){
     var fill=document.getElementById('stock-bar-fill');
@@ -1735,10 +1721,19 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   if(localStorage.getItem('nf_stock_seen')){
     applyStockBump();
   } else {
-    setTimeout(function(){
+    var target=document.getElementById('stock-bar-lbl');
+    if(target&&'IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){
+          applyStockBump();
+          localStorage.setItem('nf_stock_seen','1');
+          obs.disconnect();
+        }
+      },{rootMargin:'0px 0px -50% 0px'});
+      obs.observe(target);
+    } else {
       applyStockBump();
-      localStorage.setItem('nf_stock_seen','1');
-    },10000);
+    }
   }
 })();
 function hcGo(n){hcIdx=n;hcRender();}
@@ -2058,11 +2053,8 @@ document.querySelectorAll('.ugc-inner').forEach(function(inner){
       btn.classList.add('hidden');
       if(video.readyState===0){video.preload='auto';video.load();}
       video.controls=true;
-      video.play().catch(function(){});
+      video.play().catch(function(){video.controls=true;});
     });
-    video.addEventListener('pause',function(){video.controls=false;btn.classList.remove('hidden');});
-    video.addEventListener('ended',function(){video.controls=false;btn.classList.remove('hidden');});
-    video.addEventListener('play',function(){btn.classList.add('hidden');});
   });
 })();
 
@@ -2104,13 +2096,21 @@ window.addEventListener('resize',function(){revIdx=0;revBuildDots();revGo(0);});
 revBuildDots();
 // Touch swipe for reviews
 (function(){
-  const el=document.getElementById('rev-track');
+  const el=document.querySelector('.rev-overflow');
   if(!el)return;
-  let sx=0;
-  el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
-  el.addEventListener('touchend',e=>{
+  let sx=0,sy=0,locked=null;
+  el.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;locked=null;},{passive:true});
+  el.addEventListener('touchmove',function(e){
+    if(locked===null){
+      const dx=Math.abs(e.touches[0].clientX-sx);
+      const dy=Math.abs(e.touches[0].clientY-sy);
+      locked=dx>dy?'h':'v';
+    }
+    if(locked==='h')e.preventDefault();
+  },{passive:false});
+  el.addEventListener('touchend',function(e){
     const dx=e.changedTouches[0].clientX-sx;
-    if(Math.abs(dx)>40){dx<0?revNext():revPrev();}
+    if(locked==='h'&&Math.abs(dx)>40){dx<0?revNext():revPrev();}
   },{passive:true});
 })();
 
