@@ -370,6 +370,7 @@ a{color:inherit;text-decoration:none}
 .bc-pill{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:100px;white-space:nowrap;z-index:1}
 .pop{background:var(--dark);color:#fff}
 .val{background:var(--green);color:#fff}
+.deal{background:var(--red);color:#fff}
 
 /* Addon */
 .addon{background:#fff;border:2px solid var(--border);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:11px;margin-bottom:16px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
@@ -543,7 +544,7 @@ a{color:inherit;text-decoration:none}
 .satc{position:fixed;bottom:0;left:0;right:0;z-index:999;background:#fff;border-top:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px;transform:translateY(100%);transition:transform .3s}
 .satc.show{transform:translateY(0)}
 .satc-name{flex:1;min-width:0}
-.satc-name h5{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--dark)}
+.satc-name h5{font-size:18px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--dark)}
 .satc-name p{font-size:13px;color:var(--muted);margin-top:1px}
 .satc-btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:13px 18px;font-size:15px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .2s}
 .satc-btn:hover{opacity:.88}
@@ -863,6 +864,7 @@ a{color:inherit;text-decoration:none}
           <div class="bc-bottom">2 Free Gifts!</div>
         </div>
         <div class="bc" id="h-b3" onclick="hqty(3)">
+          <div class="bc-pill deal">Best Deal</div>
           <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="3 Devices"/>
           <div class="bc-name">3 Devices</div>
           <span class="bc-save-lbl save-red">Buy 2, Get 1 Free</span>
@@ -1461,6 +1463,7 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <div class="bc" id="o-b3" onclick="obc(3)">
+        <div class="bc-pill deal">Best Deal</div>
         <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="3 Devices"/>
         <div class="bc-name">3 Devices</div>
         <span class="bc-save-lbl save-red">Buy 2, Get 1 Free</span>
@@ -1645,7 +1648,6 @@ a{color:inherit;text-decoration:none}
 <div class="satc" id="satc">
   <div class="satc-name">
     <h5>NovaFlow 2.0 — Sale Ends July 31st</h5>
-    <p id="satc-cd">Loading...</p>
   </div>
   <button class="satc-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Get Yours ↑</button>
 </div>
@@ -1689,8 +1691,6 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
     document.getElementById('cd-h').textContent=pad(h);
     document.getElementById('cd-m').textContent=pad(m);
     document.getElementById('cd-s').textContent=pad(s);
-    var satcCd=document.getElementById('satc-cd');
-    if(satcCd)satcCd.textContent=d+'d '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s — then it\'s gone';
   }
   tick();
   setInterval(tick,1000);
@@ -1839,6 +1839,11 @@ let cdColors=['black','black','black'];
 function openCart(qty){
   cdQty=qty;
   cdColors=['black','black','black'];
+  cdPriorityOn=false;
+  const prow=document.getElementById('cd-priority-row');
+  const pck=document.getElementById('cd-priority-ck');
+  if(prow)prow.classList.remove('addon-on');
+  if(pck)pck.textContent='+';
 
   // Carry sterilizer selection from whichever page addon is checked
   const heroOn=document.getElementById('h-uvc-addon')&&document.getElementById('h-uvc-addon').classList.contains('addon-on');
@@ -1856,19 +1861,20 @@ function openCart(qty){
 }
 
 function syncCartKitUI(){
-  const upsellSec=document.getElementById('cd-upsell-sec');
   const addedSec=document.getElementById('cd-kit-added');
   const krow=document.getElementById('cd-kit-row');
   const kck=document.getElementById('cd-kit-ck');
+  const upsellLbl=document.querySelector('#cd-upsell-sec .cd-upsell-lbl');
   if(cdAddonOn){
-    // Already selected — show confirmed line item, hide upsell prompt
-    if(upsellSec)upsellSec.style.display='none';
+    // Already selected — show confirmed line item, hide only the kit upsell row (not the whole section)
+    if(krow)krow.style.display='none';
+    if(upsellLbl)upsellLbl.style.display='none';
     if(addedSec){addedSec.style.display='flex';document.getElementById('cd-kit-added-n').textContent=cdAddonQty;}
   } else {
-    // Not selected — show upsell, hide confirmed row
-    if(upsellSec)upsellSec.style.display='block';
+    // Not selected — show kit upsell row
+    if(krow){krow.style.display='';krow.classList.remove('addon-on');}
+    if(upsellLbl)upsellLbl.style.display='';
     if(addedSec)addedSec.style.display='none';
-    if(krow)krow.classList.remove('addon-on');
     if(kck)kck.textContent='+';
     document.getElementById('cd-kit-n').textContent=1;
   }
