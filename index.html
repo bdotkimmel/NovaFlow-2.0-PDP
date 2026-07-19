@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>NovaFlow 2.0 — Your Nose Knows What Your Body Has Been Missing.</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23191919'/%3E%3Ctext x='50' y='72' font-family='Arial Black,Helvetica Neue,sans-serif' font-weight='900' font-size='68' fill='white' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800&display=swap"/>
@@ -53,14 +54,21 @@ a{color:inherit;text-decoration:none}
 
 /* Hero */
 .hero{background:var(--cream);padding:0}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;align-items:center}
-.hero-grid > div:first-child{display:flex;flex-direction:column}
-.hero-copy{padding:32px 36px;display:flex;flex-direction:column;justify-content:center;gap:0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;align-items:start}
+.hero-grid > div:first-child{display:flex;flex-direction:column;position:sticky;top:57px;align-self:start;padding-top:32px}
+.hero-copy{padding:32px 36px;display:flex;flex-direction:column;gap:0}
+/* UGC inside hero */
+.ugc-in-hero{margin-top:64px;padding-top:48px;border-top:1px solid var(--border)}
+.ugc-in-hero .ugc-headline{font-size:clamp(16px,1.8vw,22px);margin-bottom:20px}
+.ugc-in-hero .ugc-grid{max-width:100%}
 
 /* Hero carousel */
 .hero-carousel{position:relative;overflow:hidden;background:var(--cream);height:500px}
-.hc-arrow-next{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;background:none;border:none;cursor:pointer;color:rgba(0,0,0,.45);padding:8px;line-height:0;transition:color .2s}
-.hc-arrow-next:hover{color:var(--dark)}
+.hc-arrow-next,.hc-arrow-prev{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:none;border:none;cursor:pointer;color:#fff;padding:8px;line-height:0;transition:color .2s,opacity .2s;filter:drop-shadow(0 1px 3px rgba(0,0,0,.4))}
+.hc-arrow-next{right:12px}
+.hc-arrow-prev{left:12px}
+.hc-arrow-next:hover,.hc-arrow-prev:hover{color:rgba(255,255,255,.75)}
+.hc-arrow-prev.hidden,.hc-arrow-next.hidden{opacity:0;pointer-events:none}
 .hc-track{display:flex;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1);will-change:transform}
 .hc-slide{flex:0 0 100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center}
 .hc-slide img{width:100%;height:100%;object-fit:contain;display:block;background:var(--cream)}
@@ -233,7 +241,7 @@ a{color:inherit;text-decoration:none}
 .play-btn:before{content:'';border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent var(--dark);margin-left:3px}
 
 /* Stats bar */
-.stats-sec{background:var(--red);padding:56px 0}
+.stats-sec{background:var(--dark);padding:56px 0}
 /* Proof banner */
 .proof-banner{background:var(--dark);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
 .proof-banner-inner{max-width:1100px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center}
@@ -258,14 +266,24 @@ a{color:inherit;text-decoration:none}
 .sl{font-size:14px;font-weight:600;color:#fff;margin-top:8px;line-height:1.4}
 .ss{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px;font-style:italic}
 
-/* Expert */
+/* Expert card */
 .expert-sec{background:var(--cream2);padding:72px 0}
-.expert-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.expert-img{border-radius:16px;overflow:hidden}
-.expert-img img{width:100%;height:auto;display:block}
-.expert-quote{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;line-height:1.7;color:var(--dark);margin-bottom:20px}
-.expert-name{font-weight:700;font-size:14px;color:var(--dark)}
-.expert-title{font-size:12px;color:var(--muted);margin-top:3px}
+.expert-card-wrap{max-width:380px;margin:0 auto}
+.expert-card{position:relative;border-radius:20px;overflow:hidden;background:#111;aspect-ratio:3/4;cursor:pointer}
+.expert-card-photo{position:absolute;inset:0}
+.expert-card-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.expert-card-overlay{position:absolute;bottom:0;left:0;right:0;padding:16px 18px 18px;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,0) 100%)}
+.expert-card-name{color:#fff;font-weight:700;font-size:16px;line-height:1.3}
+.expert-card-title{color:rgba(255,255,255,.72);font-size:13px;margin-top:3px}
+.expert-toggle{position:absolute;top:14px;left:14px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;font-size:22px;font-weight:300;display:flex;align-items:center;justify-content:center;color:var(--dark);z-index:10;transition:transform .2s;line-height:1;padding-bottom:1px}
+.expert-toggle:hover{transform:scale(1.08)}
+.expert-story{position:absolute;inset:0;background:#fff;overflow-y:auto;padding:20px;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);border-radius:20px}
+.expert-card.open .expert-story{transform:translateY(0)}
+.expert-story-inner{padding-top:8px}
+.expert-story p{font-size:14px;line-height:1.8;color:var(--dark);margin-bottom:12px}
+.expert-story p:last-child{margin-bottom:0}
+.expert-story-name{font-weight:700;font-size:14px;color:var(--dark);margin-top:16px}
+.expert-story-title{font-size:12px;color:var(--muted);margin-top:3px}
 
 /* UGC video testimonials */
 .ugc-sec{background:#fff;padding:64px 0}
@@ -481,6 +499,14 @@ a{color:inherit;text-decoration:none}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s}
 .faq-item.open .faq-a{max-height:400px}
 .faq-a-inner{padding:0 20px 16px;font-size:16px;color:var(--dark);line-height:1.75}
+/* Inline FAQ (product column) */
+.faq-inline{margin-top:28px;padding-top:28px;border-top:1px solid var(--border)}
+.faq-inline .faq-item{background:none;border:none;border-radius:0;border-bottom:1px solid var(--border)}
+.faq-inline .faq-item:first-child{border-top:1px solid var(--border)}
+.faq-inline .faq-q{padding:16px 0;font-size:15px}
+.faq-inline .faq-q:hover{background:none}
+.faq-inline .faq-a-inner{padding:0 0 16px;font-size:14px;color:var(--dark);line-height:1.7}
+.faq-inline .faq-icon{color:var(--muted);font-size:20px;font-weight:400}
 
 /* Final CTA */
 .fcta-sec{background:var(--red);padding:72px 0;text-align:center}
@@ -575,7 +601,9 @@ a{color:inherit;text-decoration:none}
   /* Hero — grid */
   .hero-grid{grid-template-columns:1fr;width:100%;overflow:hidden}
   .hero-grid > *{min-width:0;width:100%;max-width:100%}
-  .hero-grid > div:first-child{position:static}
+  .hero-grid > div:first-child{position:static;top:auto;padding-top:0}
+  .ugc-in-hero{padding:40px 0 24px;border-top:none;margin-top:0}
+  .ugc-in-hero .ugc-headline{font-size:clamp(18px,4vw,24px)}
 
   /* Hero — carousel */
   .hero-carousel{width:100%;aspect-ratio:1/1;height:auto;overflow:hidden}
@@ -628,8 +656,7 @@ a{color:inherit;text-decoration:none}
   .sn{font-size:40px}
 
   /* Expert */
-  .expert-grid{grid-template-columns:1fr;gap:24px}
-  .expert-img{max-width:360px;margin:0 auto}
+  .expert-card-wrap{max-width:320px}
 
   /* Comparison table — no horizontal scroll, allow text wrap */
   .cmp-wrap{overflow-x:visible}
@@ -689,7 +716,7 @@ a{color:inherit;text-decoration:none}
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent-2026-07-03T183927.871_11600979-2b24-452f-b4f0-1507c0b7556a.png?v=1784151225"/>
   <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930"/>
-  <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223"/>
+  <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517"/>
 </head>
 <body>
 
@@ -711,15 +738,18 @@ a{color:inherit;text-decoration:none}
         <div class="hc-track" id="hc-track">
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094" alt="NovaFlow 2.0" loading="eager"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930" alt="NovaFlow 2.0" loading="eager"/></div>
-          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_29_fe525cff-2a90-4512-873a-1d0920b35a13.png?v=1784424841" alt="NovaFlow 2.0" loading="lazy"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015" alt="NovaFlow 2.0" loading="lazy"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895" alt="NovaFlow 2.0" loading="lazy"/></div>
-          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_35_1906735a-27fc-405d-9358-017902313220.png?v=1784427297" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_39_2b391f11-514f-46c2-aa9a-5ca194c4d482.png?v=1784440314" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_29_fe525cff-2a90-4512-873a-1d0920b35a13.png?v=1784424841" alt="NovaFlow 2.0" loading="lazy"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_11.png?v=1784275885" alt="NovaFlow 2.0" loading="lazy"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_10.png?v=1784275569" alt="NovaFlow 2.0" loading="lazy"/></div>
         </div>
-        <!-- Swipe arrow -->
-        <button class="hc-arrow-next" onclick="hcMove(1)" aria-label="Next image">
+        <!-- Carousel arrows -->
+        <button class="hc-arrow-prev hidden" id="hc-prev" onclick="hcMove(-1)" aria-label="Previous image">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="hc-arrow-next" id="hc-next" onclick="hcMove(1)" aria-label="Next image">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
         <div class="hc-dots" id="hc-dots">
@@ -737,10 +767,10 @@ a{color:inherit;text-decoration:none}
       <div class="hc-thumbs" id="hc-thumbs" style="padding:8px 12px 4px;background:var(--cream)">
         <div class="hc-thumb on" onclick="hcGo(0)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094" alt=""/></div>
         <div class="hc-thumb" onclick="hcGo(1)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930" alt="" loading="lazy"/></div>
-        <div class="hc-thumb" onclick="hcGo(2)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_29_fe525cff-2a90-4512-873a-1d0920b35a13.png?v=1784424841" alt="" loading="lazy"/></div>
-        <div class="hc-thumb" onclick="hcGo(3)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015" alt="" loading="lazy"/></div>
-        <div class="hc-thumb" onclick="hcGo(4)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895" alt="" loading="lazy"/></div>
-        <div class="hc-thumb" onclick="hcGo(5)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_35_1906735a-27fc-405d-9358-017902313220.png?v=1784427297" alt="" loading="lazy"/></div>
+        <div class="hc-thumb" onclick="hcGo(2)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015" alt="" loading="lazy"/></div>
+        <div class="hc-thumb" onclick="hcGo(3)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895" alt="" loading="lazy"/></div>
+        <div class="hc-thumb" onclick="hcGo(4)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_39_2b391f11-514f-46c2-aa9a-5ca194c4d482.png?v=1784440314" alt="" loading="lazy"/></div>
+        <div class="hc-thumb" onclick="hcGo(5)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_29_fe525cff-2a90-4512-873a-1d0920b35a13.png?v=1784424841" alt="" loading="lazy"/></div>
         <div class="hc-thumb" onclick="hcGo(6)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_11.png?v=1784275885" alt="" loading="lazy"/></div>
         <div class="hc-thumb" onclick="hcGo(7)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_10.png?v=1784275569" alt="" loading="lazy"/></div>
       </div>
@@ -755,25 +785,25 @@ a{color:inherit;text-decoration:none}
       <!-- Product info block -->
       <p class="pi-label">Daily Nasal Support</p>
       <h1 class="hero-h1">Breathe Clearer.<br/><em style="color:var(--dark);font-style:normal">Feel Better.</em></h1>
-      <p class="hero-ids">Powered by dual light therapy to support nasal tissue health and cellular wellness, naturally.†</p>
+      <p class="hero-ids">Powered by dual light therapy to support nasal tissue health and cellular wellness, naturally.</p>
 
       <!-- Benefits grid -->
       <div class="pi-benefits">
         <div class="pi-b">
           <span class="pi-icon pi-red"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 7 5.5 7 8v7c0 1.1-.4 2-1 2.5"/><path d="M12 3c3 0 5 2.5 5 5v7c0 1.1.4 2 1 2.5"/><path d="M9 17.5C9 19 10.3 20 12 20s3-1 3-2.5"/></svg></span>
-          <span>Nasal Tissue Support†</span>
+          <span>Nasal Tissue Support</span>
         </div>
         <div class="pi-b">
           <span class="pi-icon pi-blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <span>Immune Wellness†</span>
+          <span>Immune Wellness</span>
         </div>
         <div class="pi-b">
           <span class="pi-icon pi-amber"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
-          <span>Cellular Energy Support†</span>
+          <span>Cellular Energy Support</span>
         </div>
         <div class="pi-b">
           <span class="pi-icon pi-green"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
-          <span>Antimicrobial Support†</span>
+          <span>Antimicrobial Support</span>
         </div>
       </div>
 
@@ -789,31 +819,31 @@ a{color:inherit;text-decoration:none}
       <div class="vs-label" style="margin-bottom:8px">Bundle up and save:</div>
       <div class="bc-grid" style="margin-bottom:16px">
         <div class="bc" id="h-b1" onclick="hqty(1)">
-          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="1 Device"/>
+          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="1 Device"/>
           <div class="bc-name">1 Device</div>
           <span class="bc-save-lbl save-red">Full Price</span>
-          <div class="bc-per" data-usd="39.99">$39.99</div>
+          <div class="bc-per" data-usd="59.99">$59.99</div>
           <div class="bc-per-ea">ea</div>
-          <div class="bc-was" style="visibility:hidden">$39.99</div>
+          <div class="bc-was" style="visibility:hidden">$59.99</div>
           <div class="bc-bottom"></div>
         </div>
         <div class="bc on" id="h-b2" onclick="hqty(2)">
           <div class="bc-pill pop">Most Popular</div>
-          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="2 Devices"/>
+          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="2 Devices"/>
           <div class="bc-name">2 Devices</div>
           <span class="bc-save-lbl save-red">B1G1 50% Off</span>
-          <div class="bc-per" data-usd="29.99">$29.99</div>
+          <div class="bc-per" data-usd="44.99">$44.99</div>
           <div class="bc-per-ea">ea</div>
-          <div class="bc-was" data-usd="39.99">$39.99</div>
+          <div class="bc-was" data-usd="59.99">$59.99</div>
           <div class="bc-bottom">2 Free Gifts!</div>
         </div>
         <div class="bc" id="h-b3" onclick="hqty(3)">
-          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="3 Devices"/>
+          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="3 Devices"/>
           <div class="bc-name">3 Devices</div>
           <span class="bc-save-lbl save-red">Buy 2, Get 1 Free</span>
-          <div class="bc-per" data-usd="26.99">$26.99</div>
+          <div class="bc-per" data-usd="39.99">$39.99</div>
           <div class="bc-per-ea">ea</div>
-          <div class="bc-was" data-usd="39.99">$39.99</div>
+          <div class="bc-was" data-usd="59.99">$59.99</div>
           <div class="bc-bottom">3 Free Gifts!</div>
         </div>
       </div>
@@ -851,7 +881,7 @@ a{color:inherit;text-decoration:none}
           <button class="aq-btn" onclick="adjQty('h-uvc',1,event)">+</button>
         </div>
       </div>
-      <button class="atc" onclick="atcHero()">Add to Cart — Get NovaFlow 2.0</button>
+      <button class="atc" id="hero-atc-btn" onclick="atcHero()">Pick your color →</button>
       <div class="trust-block">
         <div class="trust-guarantee">
           <div class="trust-guar-ico">✓</div>
@@ -862,41 +892,98 @@ a{color:inherit;text-decoration:none}
           <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships in 2 weeks</span></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      <!-- Product detail panels (Solawave-style) -->
+      <div class="faq-inline">
+        <div style="display:flex;flex-direction:column">
 
-<!-- UGC VIDEO TESTIMONIALS -->
-<section class="ugc-sec">
-  <div class="wrap">
-    <h2 class="ugc-headline">From non-allergic rhinitis to chronic congestion.<br/>Hear from real NovaFlow users</h2>
-    <div class="ugc-grid">
-      <div class="ugc-col">
-        <div class="ugc-card">
-          <div class="ugc-inner">
-            <video src="https://cdn.shopify.com/videos/c/o/v/a38475dc6e004d94875ddbf22e388b04.mp4" playsinline preload="metadata"></video>
-            <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+          <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
+            <div class="faq-q">How NovaFlow 2.0 works<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner" style="display:flex;flex-direction:column;gap:10px">
+              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red)">Red light (660nm)</strong><br/>Penetrates nasal tissue to reduce inflammation at the cellular level.</div>
+              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#1d6fd8">Blue light (450nm)</strong><br/>Targets bacteria in the nasal passages linked to chronic congestion.</div>
+              <div style="padding-top:4px"><strong>10 min per session</strong> · Up to 3× daily · Auto powers off</div>
+            </div></div>
           </div>
+
+          <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
+            <div class="faq-q">Why it's different from sprays &amp; pills<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner" style="display:flex;flex-direction:column;gap:10px">
+              <div><strong>Sprays (Afrin, etc.)</strong> — shrink blood vessels temporarily. Use more than 3 days and congestion rebounds worse than before.</div>
+              <div><strong>Pills (Claritin, Allegra)</strong> — suppress your immune response system-wide. Side effects, dependency, doesn't fix the root cause.</div>
+              <div style="padding-top:4px"><strong>NovaFlow 2.0</strong> — targets inflamed tissue directly with light. Zero drugs. Zero rebound. Zero side effects.</div>
+            </div></div>
+          </div>
+
+          <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
+            <div class="faq-q">What's in the box<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px">
+                <li>✓ NovaFlow 2.0 device (white or black)</li>
+                <li>✓ Soft silicone nasal sleeves (included)</li>
+                <li>✓ USB charging cable</li>
+                <li>✓ The Breathing Reset guide by Dr. Julian Fattison <em style="color:var(--muted);font-style:normal">(digital)</em></li>
+              </ul>
+            </div></div>
+          </div>
+
+          <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
+            <div class="faq-q">120-Day Money-Back Guarantee<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px">
+                <li>✓ 120 days to try it — the longest guarantee in the category</li>
+                <li>✓ Free returns, no restocking fees</li>
+                <li>✓ Full refund, no questions asked</li>
+              </ul>
+              <p style="margin-top:10px;font-size:13px;color:var(--muted)">We offer 120 days because we know it takes time to see results. Most people notice a difference within 2–4 weeks of consistent use.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
+            <div class="faq-q">Shipping &amp; returns<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px">
+                <li>✓ Ships in 2 weeks (secure pre-launch price)</li>
+                <li>✓ Tracking number sent when your order ships</li>
+                <li>✓ 120-day free return window</li>
+              </ul>
+            </div></div>
+          </div>
+
         </div>
-        <div class="ugc-lbl">Cold / Sick</div>
       </div>
-      <div class="ugc-col">
-        <div class="ugc-card">
-          <div class="ugc-inner">
-            <video src="https://cdn.shopify.com/videos/c/o/v/3adf639993dd4c97803a6839c8511550.mp4" playsinline preload="metadata"></video>
-            <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+
+      <!-- UGC videos nested in hero -->
+      <div class="ugc-in-hero">
+        <h2 class="ugc-headline">From non-allergic rhinitis to chronic congestion.<br/>Hear from real NovaFlow users</h2>
+        <div class="ugc-grid">
+          <div class="ugc-col">
+            <div class="ugc-card">
+              <div class="ugc-inner">
+                <video src="https://cdn.shopify.com/videos/c/o/v/a38475dc6e004d94875ddbf22e388b04.mp4" playsinline preload="metadata"></video>
+                <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+              </div>
+            </div>
+            <div class="ugc-lbl">Cold / Sick</div>
+          </div>
+          <div class="ugc-col">
+            <div class="ugc-card">
+              <div class="ugc-inner">
+                <video src="https://cdn.shopify.com/videos/c/o/v/3adf639993dd4c97803a6839c8511550.mp4" playsinline preload="metadata"></video>
+                <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+              </div>
+            </div>
+            <div class="ugc-lbl">Chronic Spray User</div>
+          </div>
+          <div class="ugc-col">
+            <div class="ugc-card">
+              <div class="ugc-inner">
+                <video src="https://cdn.shopify.com/videos/c/o/v/be47900628194f60a4429969003f1af4.mp4" playsinline preload="metadata"></video>
+                <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+              </div>
+            </div>
+            <div class="ugc-lbl">Hormonal Rhinitis</div>
           </div>
         </div>
-        <div class="ugc-lbl">Chronic Spray User</div>
-      </div>
-      <div class="ugc-col">
-        <div class="ugc-card">
-          <div class="ugc-inner">
-            <video src="https://cdn.shopify.com/videos/c/o/v/be47900628194f60a4429969003f1af4.mp4" playsinline preload="metadata"></video>
-            <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
-          </div>
-        </div>
-        <div class="ugc-lbl">Hormonal Rhinitis</div>
       </div>
     </div>
   </div>
@@ -927,7 +1014,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- PULL QUOTE -->
 <div style="background:var(--dark);padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255,.06)">
-  <p style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;line-height:1.2;max-width:720px;margin:0 auto">"NovaFlow 2.0 redefines <em style="font-style:normal;color:var(--red)">congestion-relief</em> completely"</p>
+  <p style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;line-height:1.2;max-width:1100px;margin:0 auto">"NovaFlow 2.0 redefines <em style="font-style:normal;color:var(--red)">congestion-relief</em><br/>completely"</p>
 </div>
 
 <!-- WHY NOTHING WORKS -->
@@ -1147,24 +1234,37 @@ a{color:inherit;text-decoration:none}
 <!-- EXPERT SECTION -->
 <section class="sec expert-sec">
   <div class="wrap">
-    <div class="expert-grid reveal">
-      <div class="expert-img">
-        <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260527_083258_673f0404-89cb-4dbe-bd85-50bcadd5c77d.png?v=1779870876" alt="Julien Fattisson"/>
-      </div>
-      <div>
-        <p class="label">From the practitioner</p>
-        <h2 style="font-size:clamp(22px,3vw,30px);margin-bottom:20px;line-height:1.3">How a breathing expert ended up recommending a light device</h2>
-        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:14px">Julien came into breathwork the hard way. Before this, he was a scientist on a stable career path — until anxiety, burnout, and chronic pain took him down. He couldn't digest food. Couldn't hug his kids. Couldn't sit still. In his own words: <em>"I was a living dead."</em></p>
-        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:14px">Medicine offered him nothing that worked. Then he found breathwork. He spent the next decade studying it — Oxygen Advantage, Buteyko, osteopathy, resonant breathing, HRV coherence — and teaching it to thousands of clients who came to him with anxiety, burnout, and chronic pain of their own.</p>
-        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:14px">But he kept hitting the same wall. His clients wanted to breathe through their nose. They couldn't. Allergies, dry air, chronic inflammation — it didn't matter. The pathway was blocked, so everything he taught them had nowhere to go.</p>
-        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:24px">He tried NovaFlow on himself first. It worked. Then he started recommending it to his clients. Then he reached out to us to make it official. Every device now ships with his Breathing Reset guide — the same routine he walks every new client through in their first session.</p>
-        <div class="expert-name">Julien Fattisson</div>
-        <div class="expert-title">Breathing Physiologist &amp; Buteyko Practitioner · Author, <em>The Breathing Reset</em></div>
-        <div style="margin-top:24px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px">
-          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446" alt="The Breathing Reset" style="width:52px;height:52px;border-radius:6px;object-fit:cover;flex-shrink:0"/>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--dark)">Free with every order: The Breathing Reset</div>
-            <div style="font-size:12px;color:var(--muted);margin-top:2px">The same routine Julien walks every new client through — now yours with every NovaFlow 2.0 order.</div>
+    <p class="label center" style="margin-bottom:8px">Expert endorsement</p>
+    <h2 style="text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:32px;line-height:1.3">Why Breathwork Experts<br/>Choose NovaFlow</h2>
+    <div class="expert-card-wrap reveal">
+      <div class="expert-card" id="expert-card">
+        <!-- Photo layer -->
+        <div class="expert-card-photo">
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260527_083258_673f0404-89cb-4dbe-bd85-50bcadd5c77d.png?v=1779870876" alt="Dr. Julian Fattison" loading="lazy"/>
+        </div>
+        <!-- Name overlay -->
+        <div class="expert-card-overlay">
+          <div class="expert-card-name">Dr. Julian Fattison, PhD</div>
+          <div class="expert-card-title">Osteopath · Breathwork Coach</div>
+        </div>
+        <!-- Toggle button -->
+        <button class="expert-toggle" id="expert-toggle" onclick="expertToggle()" aria-label="Read story">+</button>
+        <!-- Story panel -->
+        <div class="expert-story" id="expert-story">
+          <div class="expert-story-inner">
+            <p>Julian came into breathwork the hard way. Before this, he was a scientist on a stable career path — until anxiety, burnout, and chronic pain took him down. He couldn't digest food. Couldn't hug his kids. Couldn't sit still. In his own words: <em>"I was a living dead."</em></p>
+            <p>Medicine offered him nothing that worked. Then he found breathwork. He spent the next decade studying it — Oxygen Advantage, Buteyko, osteopathy, resonant breathing, HRV coherence — and teaching it to thousands of clients who came to him with anxiety, burnout, and chronic pain of their own.</p>
+            <p>But he kept hitting the same wall. His clients wanted to breathe through their nose. They couldn't. Allergies, dry air, chronic inflammation — it didn't matter. The pathway was blocked, so everything he taught them had nowhere to go.</p>
+            <p>He tried NovaFlow on himself first. It worked. Then he started recommending it to his clients. Then he reached out to us to make it official. Every device now ships with his Breathing Reset guide — the same routine he walks every new client through in their first session.</p>
+            <div style="margin-top:16px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px">
+              <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446" alt="The Breathing Reset" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0"/>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--dark)">Free with every order: The Breathing Reset</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px">The same routine Julian walks every new client through.</div>
+              </div>
+            </div>
+            <div class="expert-story-name">Dr. Julian Fattison, PhD</div>
+            <div class="expert-story-title">Osteopath · Breathwork Coach</div>
           </div>
         </div>
       </div>
@@ -1181,7 +1281,7 @@ a{color:inherit;text-decoration:none}
     <div class="neal-videos">
       <div class="nv">
         <div class="nv-inner">
-          <video src="https://cdn.shopify.com/videos/c/o/v/9bc1315929ec4cb6b757cde2b9bae53f.mp4" controls playsinline preload="none" data-lazy></video>
+          <video src="https://cdn.shopify.com/videos/c/o/v/9bc1315929ec4cb6b757cde2b9bae53f.mp4" playsinline preload="none" data-lazy></video>
           <button class="nv-play-btn" aria-label="Play"></button>
         </div>
         <div class="nv-label">
@@ -1192,7 +1292,7 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="nv">
         <div class="nv-inner">
-          <video src="https://cdn.shopify.com/videos/c/o/v/cb0ffb8f2cab48b9810733156619bfaa.mp4" controls playsinline preload="none" data-lazy></video>
+          <video src="https://cdn.shopify.com/videos/c/o/v/cb0ffb8f2cab48b9810733156619bfaa.mp4" playsinline preload="none" data-lazy></video>
           <button class="nv-play-btn" aria-label="Play"></button>
         </div>
         <div class="nv-label">
@@ -1203,7 +1303,7 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="nv">
         <div class="nv-inner">
-          <video src="https://cdn.shopify.com/videos/c/o/v/e670e949161d439aa8d4733fb13a7b2d.mp4" controls playsinline preload="none" data-lazy></video>
+          <video src="https://cdn.shopify.com/videos/c/o/v/e670e949161d439aa8d4733fb13a7b2d.mp4" playsinline preload="none" data-lazy></video>
           <button class="nv-play-btn" aria-label="Play"></button>
         </div>
         <div class="nv-label">
@@ -1287,13 +1387,13 @@ a{color:inherit;text-decoration:none}
 <section class="offer-sec" id="offer" style="padding:56px 0">
   <div class="wrap" style="max-width:600px">
 
-    <p style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--dark);margin-bottom:20px;line-height:1.3">This discount is only available at launch. Once we sell out, this price is gone — forever.</p>
+    <p style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--dark);margin-bottom:20px;line-height:1.3">This discount is only available before our official launch. Once we release on July 31st, this discount is gone.</p>
 
     <!-- Bundle cards — 3-col vertical (cleriva.com format) -->
     <div class="bc-grid" id="o-bc" style="margin-top:20px">
 
       <div class="bc" id="o-b1" onclick="obc(1)">
-        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="1 Device"/>
+        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="1 Device"/>
         <div class="bc-name">1 Device</div>
         <span class="bc-save-lbl save-red">Full Price</span>
         <div class="bc-per" data-usd="39.99">$39.99</div>
@@ -1304,7 +1404,7 @@ a{color:inherit;text-decoration:none}
 
       <div class="bc on" id="o-b2" onclick="obc(2)">
         <div class="bc-pill pop">Most Popular</div>
-        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="2 Devices"/>
+        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="2 Devices"/>
         <div class="bc-name">2 Devices</div>
         <span class="bc-save-lbl save-red">B1G1 50% Off</span>
         <div class="bc-per" data-usd="29.99">$29.99</div>
@@ -1314,7 +1414,7 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <div class="bc" id="o-b3" onclick="obc(3)">
-        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="3 Devices"/>
+        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="3 Devices"/>
         <div class="bc-name">3 Devices</div>
         <span class="bc-save-lbl save-red">Buy 2, Get 1 Free</span>
         <div class="bc-per" data-usd="26.99">$26.99</div>
@@ -1359,7 +1459,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
 
-    <button class="atc" style="font-size:16px;padding:17px;margin-top:16px" onclick="atcMain()">ADD TO CART</button>
+    <button class="atc" id="offer-atc-btn" style="font-size:16px;padding:17px;margin-top:16px" onclick="atcMain()">Pick your color →</button>
 
     <!-- Trust section -->
     <div class="trust-block">
@@ -1469,6 +1569,67 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- FAQ SECTION -->
+<section class="sec" style="background:var(--cream);padding:72px 0">
+  <div class="wrap">
+    <p class="label center" style="margin-bottom:8px">Common questions</p>
+    <h2 style="text-align:center;font-size:clamp(24px,3vw,36px);margin-bottom:40px;line-height:1.25">Frequently Asked Questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">How do I use NovaFlow 2.0?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Use NovaFlow 2.0 for 10 minutes per session, up to 3 times daily. Insert the soft silicone tips gently into your nostrils, press the button, and let the dual-light therapy work. The device automatically powers off after each session.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Will it fit my nostrils?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 comes with soft silicone sleeves. If the sleeves feel too large, the device can also be used without them for a smaller, more comfortable fit.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Can I breathe normally while using it?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The tips rest gently inside your nostrils without creating a seal, so your airflow stays completely open during every session.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Will the light affect my eyes?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">No. The light is projected inside your nasal passages and doesn't reach your eyes during normal use. If you have particularly light-sensitive eyes, protective glasses are available as an optional accessory.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Is it rechargeable?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 charges via USB — no batteries required. A full charge gives you multiple sessions before needing to recharge.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Does it emit heat?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">No heat is emitted. NovaFlow 2.0 uses low-level light therapy only, making it comfortable for all users — including those with sensitive nasal passages.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Can it be used with a deviated septum?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 can help manage congestion symptoms associated with a deviated septum. It won't correct the structural issue, but many users with a deviated septum report meaningful relief.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Is it safe for kids?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 is safe for children over the age of 3. It emits no UV light or harmful radiation. We always recommend consulting your child's doctor before starting any new therapy.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">What's your return policy?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Every order is backed by our 120-Day Money-Back Guarantee. If you're not satisfied for any reason, contact us within 120 days for a free return and full refund — no questions asked.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">Shipping &amp; delivery<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Free shipping on all orders. NovaFlow 2.0 ships within 2 weeks of your order date. You'll receive a tracking number as soon as your order leaves our warehouse.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
@@ -1504,7 +1665,7 @@ a{color:inherit;text-decoration:none}
 <div class="satc" id="satc">
   <div class="satc-name">
     <h5>NovaFlow 2.0 — Red + Blue Light</h5>
-    <p>From $39.99 · 120-day guarantee · Free shipping</p>
+    <p>From $59.99 · 120-day guarantee · Free shipping</p>
   </div>
   <button class="satc-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Choose Bundle ↑</button>
 </div>
@@ -1518,6 +1679,10 @@ function hcRender(){
   if(track)track.style.transform=`translateX(-${hcIdx*100}%)`;
   document.querySelectorAll('.hc-dot').forEach((d,i)=>d.classList.toggle('on',i===hcIdx));
   document.querySelectorAll('.hc-thumb').forEach((t,i)=>t.classList.toggle('on',i===hcIdx));
+  const prev=document.getElementById('hc-prev');
+  const next=document.getElementById('hc-next');
+  if(prev)prev.classList.toggle('hidden',hcIdx===0);
+  if(next)next.classList.toggle('hidden',hcIdx===HC_TOTAL-1);
 }
 function hcMove(dir){hcIdx=(hcIdx+dir+HC_TOTAL)%HC_TOTAL;hcRender();}
 function hcGo(n){hcIdx=n;hcRender();}
@@ -1553,12 +1718,17 @@ function setGiftCards(prefix,n){
     }
   });
 }
+function updateAtcLabel(n,btnId){
+  const btn=document.getElementById(btnId);
+  if(btn)btn.textContent=(n===1?'Pick your color':'Pick your colors')+' →';
+}
 function hqty(n){
   [1,2,3].forEach(i=>{
     const el=document.getElementById('h-b'+i);
     if(el)el.classList.toggle('on',i===n);
   });
   setGiftCards('h-gift',n);
+  updateAtcLabel(n,'hero-atc-btn');
 }
 
 /* ── Offer bundle selector ── */
@@ -1568,6 +1738,7 @@ function obc(n){
     if(el)el.classList.toggle('on',i===n);
   });
   setGiftCards('o-gift',n);
+  updateAtcLabel(n,'offer-atc-btn');
 }
 
 /* ── UV-C Sterilizer toggles + qty ── */
@@ -1605,13 +1776,22 @@ function faq(q){
   if(!isOpen)item.classList.add('open');
 }
 
+/* ── Expert card toggle ── */
+function expertToggle(){
+  const card=document.getElementById('expert-card');
+  const btn=document.getElementById('expert-toggle');
+  const isOpen=card.classList.toggle('open');
+  btn.textContent=isOpen?'−':'+';
+  if(isOpen)document.getElementById('expert-story').scrollTop=0;
+}
+
 /* ── ATC functions ── */
 /* ── Variant IDs — update with real Shopify IDs ── */
-const VAR_WHITE='51642467189047'; // NovaFlow 2.0 White variant
-const VAR_BLACK='51642467189047'; // NovaFlow 2.0 Black variant — UPDATE
+const VAR_WHITE='52683193975095'; // NovaFlow 2.0 White variant
+const VAR_BLACK='52671196201271'; // NovaFlow 2.0 Black variant
 const VAR_KIT='52686809956663';   // Sterilizing Kit variant
 const KIT_PRICE=19.99;
-const DEVICE_PRICES={1:39.99,2:29.99,3:26.99};
+const DEVICE_PRICES={1:59.99,2:44.99,3:39.99};
 
 let cdQty=2,cdAddonQty=1,cdAddonOn=false;
 let cdColors=['white','white','white'];
@@ -1947,12 +2127,12 @@ revBuildDots();
 
   // Update cart drawer sub-label lookup
   window._cartPriceLabels={
-    1:window.fmtPrice(39.99)+'/ea',
-    2:window.fmtPrice(29.99)+'/ea',
-    3:window.fmtPrice(26.99)+'/ea'
+    1:window.fmtPrice(59.99)+'/ea',
+    2:window.fmtPrice(44.99)+'/ea',
+    3:window.fmtPrice(39.99)+'/ea'
   };
   // Override cart math globals so totals reflect converted prices
-  window._DEVICE_PRICES={1:up99(39.99*rate),2:up99(29.99*rate),3:up99(26.99*rate)};
+  window._DEVICE_PRICES={1:up99(59.99*rate),2:up99(44.99*rate),3:up99(39.99*rate)};
   window._KIT_PRICE=up99(19.99*rate);
 })();
 </script>
@@ -1967,7 +2147,7 @@ revBuildDots();
 
     <!-- Product row -->
     <div class="cd-prod">
-      <img class="cd-prod-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="NovaFlow 2.0"/>
+      <img class="cd-prod-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="NovaFlow 2.0"/>
       <div class="cd-prod-info">
         <div class="cd-prod-name">NovaFlow 2.0</div>
         <div class="cd-prod-sub" id="cd-prod-sub">2 devices · $29.99/ea</div>
