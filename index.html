@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NovaFlow 2.0 — Your Nose Knows What Your Body Has Been Missing.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --dark:#191919;
+  --red:#BE1820;
+  --cream:#FAF8F5;
+  --cream2:#F0EBE3;
+  --amber:#C8821E;
+  --blue:#2563EB;
+  --blue-glow:#3B82F6;
+  --muted:#6B7280;
+  --green:#16a34a;
+  --border:#E5E0D8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,h5{font-family:'Playfair Display',serif}
+a{color:inherit;text-decoration:none}
+
+/* Layout */
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.wrap-lg{max-width:1200px;margin:0 auto;padding:0 20px}
+.sec{padding:72px 0}
+.label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.label.center{text-align:center}
+.hl{background:linear-gradient(120deg,rgba(190,24,32,.15) 0%,rgba(190,24,32,.1) 100%);border-radius:3px;padding:1px 3px}
+
+/* Badge / chip */
+.v2-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#BE1820,#8B0E13);color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:12px}
+
+/* Announcement bar */
+.ann{background:var(--dark);color:#fff;text-align:center;font-size:15px;font-weight:600;padding:11px 16px;letter-spacing:.01em}
+.ann span{color:#F87171}
+.ann a{color:var(--cream);text-decoration:underline;margin-left:8px}
+.ann-timer{display:inline-block;font-weight:800;color:#F87171;font-family:'Playfair Display',serif}
+
+/* Sticky header */
+.hdr{position:sticky;top:0;z-index:900;background:var(--cream);border-bottom:1px solid var(--border);padding:14px 0;text-align:center}
+.hdr-logo{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;letter-spacing:.02em;color:var(--dark);text-decoration:none;display:inline-block}
+.hdr-logo:hover{opacity:.75;transition:opacity .2s}
+
+/* Hero */
+.hero{background:var(--cream);padding:0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;align-items:center}
+.hero-grid > div:first-child{display:flex;flex-direction:column}
+.hero-copy{padding:32px 36px;display:flex;flex-direction:column;justify-content:center;gap:0}
+
+/* Hero carousel */
+.hero-carousel{position:relative;overflow:hidden;background:var(--cream);height:500px}
+.hc-track{display:flex;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1);will-change:transform}
+.hc-slide{flex:0 0 100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center}
+.hc-slide img{width:100%;height:100%;object-fit:contain;display:block;background:var(--cream)}
+.hc-slide-vid video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+.hc-thumb-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);color:#fff;font-size:13px;border-radius:4px}
+
+.hc-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:10}
+.hc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:background .2s,transform .2s}
+.hc-dot.on{background:#fff;transform:scale(1.25)}
+.hc-thumbs{display:flex;gap:6px;padding:8px 0 0;overflow-x:auto;scrollbar-width:none}
+.hc-thumbs::-webkit-scrollbar{display:none}
+.hc-thumb{flex:0 0 52px;height:52px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s,opacity .15s;opacity:.65}
+.hc-thumb.on{border-color:var(--dark);opacity:1}
+.hc-thumb img{width:100%;height:100%;object-fit:cover}
+.hero-h1{font-size:clamp(26px,3.5vw,40px);font-weight:900;line-height:1.15;margin-bottom:14px;color:var(--dark)}
+.hero-ids{font-size:20px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.hero-ids strong{color:var(--dark)}
+.stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.stock-bar-track{flex:1;height:8px;background:#e5e0d8;border-radius:99px;overflow:hidden;position:relative}
+.stock-bar-fill{height:100%;width:91%;background:var(--red);border-radius:99px;box-shadow:0 0 10px rgba(190,24,32,.5)}
+.stock-bar-lbl{font-size:14px;font-weight:800;color:var(--red);white-space:nowrap;flex-shrink:0}
+.dual-chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;margin-bottom:18px}
+.chip-red{color:var(--red)}
+.chip-blue{color:var(--blue-glow)}
+
+/* Star row */
+.stars{display:flex;align-items:center;gap:6px;margin-bottom:20px}
+.stars-s{color:#F59E0B;font-size:14px;letter-spacing:1px}
+.stars-c{font-size:12px;color:var(--muted);font-weight:600}
+/* Trustpilot row */
+.tp-row{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.tp-stars{color:#00b67a;font-size:20px;letter-spacing:2px;line-height:1}
+.tp-partial-star{position:relative;display:inline-block}
+.tp-partial-bg{color:#ccc}
+.tp-partial-fill{position:absolute;top:0;left:0;width:60%;overflow:hidden;color:#00b67a;white-space:nowrap}
+.tp-text{font-size:14px;color:var(--muted);font-weight:500}
+.tp-text strong{color:var(--dark)}
+/* Product info block */
+.pi-label{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pi-benefits{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:20px}
+.pi-b{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--dark);font-weight:500;line-height:1.3}
+.pi-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pi-red{background:#fde8e9;color:#BE1820}
+.pi-blue{background:#dbeafe;color:#1d4ed8}
+.pi-amber{background:#fef3c7;color:#d97706}
+.pi-sky{background:#e0f2fe;color:#0369a1}
+.pi-green{background:#dcfce7;color:#15803d}
+.pi-muted{background:#f3f4f6;color:#374151}
+
+/* Hero variant selector */
+.vs-wrap{margin-bottom:20px}
+.vs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.vs-row{display:flex;gap:8px}
+.vs-btn{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .2s;position:relative}
+.vs-btn.on{border-color:var(--dark)}
+.vs-btn:after{content:'';position:absolute;inset:2px;border-radius:50%}
+.vs-black:after{background:#191919}
+.vs-red:after{background:#BE1820}
+.vs-white:after{background:#fff;border:1px solid #ddd}
+
+/* Quantity selector (hero) — defined below with bundle cards */
+
+/* ATC button */
+.atc{width:100%;background:var(--red);color:#fff;border:none;border-radius:10px;padding:17px;font-size:18px;font-weight:800;cursor:pointer;letter-spacing:.02em;transition:opacity .2s;margin-bottom:10px}
+.atc:hover{opacity:.88}
+.trust-row{display:flex;align-items:center;justify-content:center;gap:14px;font-size:13px;color:var(--muted);font-weight:600}
+.trust-row span{display:flex;align-items:center;gap:4px}
+
+/* Trust ticker */
+.ticker-wrap{background:var(--dark);padding:13px 0;overflow:hidden}
+.ticker-track{display:flex;gap:0;white-space:nowrap;animation:tick 28s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{display:inline-flex;align-items:center;gap:7px;padding:0 28px;font-size:13px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:.04em;text-transform:uppercase}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Problem section */
+.prob-sec{background:var(--dark)}
+.prob-body{max-width:680px;margin:0 auto;text-align:center}
+.prob-body p{color:rgba(255,255,255,.75);font-size:18px;line-height:1.85;margin-bottom:18px}
+.prob-pull{border-left:3px solid var(--red);padding:16px 20px;margin:28px 0;text-align:left;background:rgba(255,255,255,.04);border-radius:0 8px 8px 0}
+.prob-pull p{font-family:'Playfair Display',serif;font-size:18px;color:#fff;font-style:italic;margin:0;line-height:1.6}
+
+/* Fails section */
+.fails-sec{background:var(--cream2)}
+.fails-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:36px}
+.fcard{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px}
+.fcard-title{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.fcard-body{font-size:15px;color:var(--muted);line-height:1.6}
+.fcard-villain{background:#fff;border-color:var(--border)}
+.fcard-villain .fcard-title{color:var(--dark)}
+.fcard-villain .fcard-body{color:var(--muted)}
+
+/* Upgrade Bridge */
+.bridge-sec{background:var(--dark);padding:88px 0}
+.bridge-inner{max-width:740px;margin:0 auto;text-align:center}
+.bridge-inner h2{color:#fff;font-size:clamp(26px,4.5vw,40px);margin-bottom:28px;line-height:1.25}
+.bridge-inner p{color:rgba(255,255,255,.8);font-size:18px;line-height:1.85;margin-bottom:18px}
+.bridge-inner p:last-child{margin-bottom:0}
+.bridge-divider{width:48px;height:3px;background:var(--red);border-radius:2px;margin:0 auto 32px}
+
+/* Dual Mechanism */
+.dual-sec{background:#0D0D0D;padding:88px 0}
+.dual-panels{display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:18px;overflow:hidden;margin-bottom:12px}
+.dp{padding:40px 32px}
+.dp-red{background:linear-gradient(145deg,#1c0707 0%,#2d0b0b 100%)}
+.dp-blue{background:linear-gradient(145deg,#030b1a 0%,#071830 100%)}
+.dp-chip{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:6px 14px;margin-bottom:22px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.dp-chip-red{background:rgba(190,24,32,.18);border:1px solid rgba(190,24,32,.4);color:#F87171}
+.dp-chip-blue{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:#93C5FD}
+.dp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dp-dot-red{background:#BE1820;box-shadow:0 0 8px #BE1820}
+.dp-dot-blue{background:#3B82F6;box-shadow:0 0 8px #3B82F6}
+.dp-nm{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;line-height:1;margin-bottom:6px}
+.dp-nm-red{color:#F87171}
+.dp-nm-blue{color:#93C5FD}
+.dp-title{color:#fff;font-size:18px;font-weight:700;margin-bottom:14px}
+.dp-body{color:rgba(255,255,255,.75);font-size:17px;line-height:1.8;margin-bottom:22px}
+.dp-points{display:flex;flex-direction:column;gap:9px}
+.dp-pt{display:flex;align-items:flex-start;gap:9px;font-size:15px;color:rgba(255,255,255,.75);line-height:1.5}
+.dp-arr-red{color:#F87171;font-weight:700;flex-shrink:0}
+.dp-arr-blue{color:#93C5FD;font-weight:700;flex-shrink:0}
+.dual-together{background:linear-gradient(135deg,rgba(190,24,32,.12) 0%,rgba(37,99,235,.12) 100%);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:36px;text-align:center;margin-top:12px}
+.dual-together p.sup{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px}
+.dual-together h3{color:#fff;font-size:clamp(16px,2.5vw,22px);font-weight:700;margin-bottom:10px;line-height:1.4}
+.dual-together p.sub{color:rgba(255,255,255,.5);font-size:15px;max-width:540px;margin:0 auto}
+
+/* How it works split sections */
+.hw-sec-a{background:#fff;padding:72px 0}
+.hw-sec-b{background:var(--dark);padding:72px 0}
+/* Week-by-week timeline */
+.tl-sec{background:var(--dark);padding:72px 0}
+.tl-headline{color:#fff;font-size:clamp(32px,5vw,52px);text-align:center;margin-bottom:56px}
+.tl-track{max-width:600px;margin:0 auto}
+.tl-item{display:flex;gap:24px;align-items:stretch}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:52px}
+.tl-circle{width:52px;height:52px;border-radius:50%;border:2.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);transition:background .4s,border-color .4s,color .4s,box-shadow .4s;flex-shrink:0}
+.tl-circle.active{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 20px rgba(190,24,32,.4)}
+.tl-circle-end{border-style:solid}
+.tl-line{width:2px;background:rgba(255,255,255,.1);margin:0;flex:1;transition:background .4s;align-self:stretch}
+.tl-body{padding-bottom:40px}
+.tl-last .tl-body{padding-bottom:0}
+.tl-stage{font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:6px;opacity:.4;transition:opacity .4s}
+.tl-item.active .tl-stage{opacity:1}
+.tl-title{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,26px);font-weight:700;color:rgba(255,255,255,.3);margin-bottom:12px;transition:color .5s}
+.tl-item.active .tl-title{color:#fff}
+.tl-pts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.tl-pts li{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:rgba(255,255,255,.3);line-height:1.45;transition:color .5s}
+.tl-pts li::before{content:'✓';color:rgba(255,255,255,.15);font-weight:700;flex-shrink:0;transition:color .5s}
+.tl-item.active .tl-pts li{color:rgba(255,255,255,.75)}
+.tl-item.active .tl-pts li::before{color:var(--red)}
+.hw-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hw-split.rev{direction:rtl}
+.hw-split.rev > *{direction:ltr}
+.hw-visual{border-radius:16px;overflow:hidden;background:#111;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.hw-visual img{width:100%;height:100%;object-fit:cover}
+.hw-steps{display:flex;flex-direction:column;gap:24px}
+.hw-step{display:flex;align-items:flex-start;gap:14px}
+.hw-step-n{width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hw-step-n-dark{background:rgba(255,255,255,.12);color:#fff}
+.hw-step-body h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.hw-step-body p{font-size:15px;color:var(--muted);line-height:1.6}
+.hw-sec-b .hw-step-body h4{color:#fff}
+.hw-sec-b .hw-step-body p{color:rgba(255,255,255,.55)}
+
+/* Video wrapper */
+.vid-wrap{border-radius:16px;overflow:hidden;position:relative;background:#111}
+.vid-wrap video{width:100%;display:block}
+.play-btn{width:52px;height:52px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.play-btn:before{content:'';border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent var(--dark);margin-left:3px}
+
+/* Stats bar */
+.stats-sec{background:var(--red);padding:56px 0}
+/* Proof banner */
+.proof-banner{background:var(--dark);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.proof-banner-inner{max-width:1100px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center}
+.pb-stats{display:grid;grid-template-columns:1fr 1fr;gap:32px 40px}
+.pb-n{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;color:#fff;line-height:1;margin-bottom:6px}
+.pb-l{font-size:14px;color:rgba(255,255,255,.55);line-height:1.4}
+.pb-stat{padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.pb-stat:nth-child(3),.pb-stat:nth-child(4){padding-bottom:0;border-bottom:none}
+.pb-cta{background:#fff;border:none;border-radius:20px;padding:40px 36px;text-align:center}
+.pb-headline{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--dark);line-height:1.25;margin-bottom:14px}
+.pb-sub{font-size:14px;color:#555;line-height:1.6;margin-bottom:28px}
+.pb-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;padding:16px 24px;font-size:17px;font-weight:800;cursor:pointer;letter-spacing:.01em;transition:opacity .2s}
+.pb-btn:hover{opacity:.88}
+.pb-guar{font-size:12px;color:#888;margin-top:14px}
+@media(max-width:768px){
+  .proof-banner-inner{grid-template-columns:1fr;gap:40px;padding:40px 20px}
+  .pb-stats{grid-template-columns:1fr 1fr;gap:24px 24px}
+  .pb-stat{padding-bottom:20px}
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.sn{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:#fff;line-height:1}
+.sl{font-size:14px;font-weight:600;color:#fff;margin-top:8px;line-height:1.4}
+.ss{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px;font-style:italic}
+
+/* Expert */
+.expert-sec{background:var(--cream2);padding:72px 0}
+.expert-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.expert-img{border-radius:16px;overflow:hidden}
+.expert-img img{width:100%;height:auto;display:block}
+.expert-quote{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-style:italic;line-height:1.7;color:var(--dark);margin-bottom:20px}
+.expert-name{font-weight:700;font-size:14px;color:var(--dark)}
+.expert-title{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* UGC video testimonials */
+.ugc-sec{background:#fff;padding:64px 0}
+.ugc-headline{font-size:clamp(22px,3.5vw,32px);font-weight:800;text-align:center;color:var(--dark);margin-bottom:36px;line-height:1.25}
+.ugc-grid{display:flex;flex-direction:row;gap:12px;max-width:560px;margin:0 auto;justify-content:center}
+.ugc-col{display:flex;flex-direction:column;flex:1;min-width:0}
+.ugc-card{border-radius:14px;overflow:hidden;background:#111;position:relative}
+.ugc-inner{position:relative;aspect-ratio:9/16}
+.ugc-inner video{width:100%;height:100%;object-fit:cover;display:block}
+.ugc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:var(--red);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .2s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.ugc-play:hover{opacity:.88}
+.ugc-play-icon{border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left:3px}
+.ugc-play.hidden{opacity:0;pointer-events:none}
+.ugc-lbl{text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 0 4px}
+@media(max-width:600px){
+  .ugc-grid{max-width:100%;padding:0 16px 4px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;justify-content:flex-start}
+  .ugc-grid::-webkit-scrollbar{display:none}
+  .ugc-col{flex:0 0 44vw;scroll-snap-align:start}
+}
+
+/* Neal's journey */
+.neal-sec{background:var(--dark);padding:72px 0}
+.neal-videos{display:flex;gap:16px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.nv{flex:0 0 min(280px,80vw);border-radius:14px;overflow:hidden;background:#111;scroll-snap-align:center}
+.nv-inner{aspect-ratio:9/16;position:relative;overflow:hidden;background:#111}
+.nv-inner video{width:100%;height:100%;object-fit:cover;display:block}
+.nv-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .15s,opacity .2s;z-index:2;pointer-events:auto}
+.nv-play-btn:hover{transform:translate(-50%,-50%) scale(1.08)}
+.nv-play-btn.hidden{opacity:0;pointer-events:none}
+.nv-play-btn::after{content:'';border-style:solid;border-width:11px 0 11px 19px;border-color:transparent transparent transparent #191919;margin-left:5px}
+.nv-label{padding:10px 14px 14px;background:#111}
+.nv-part{color:rgba(255,255,255,.45);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.nv-title{color:#fff;font-size:15px;font-weight:700}
+.nv-quote{color:rgba(255,255,255,.55);font-size:12px;margin-top:2px}
+
+/* Reviews — styles now in .rev-slider block above */
+
+/* Comparison */
+.cmp-sec{background:var(--dark);padding:72px 0}
+.cmp-wrap{overflow-x:auto;margin-top:36px}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th{padding:14px 16px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.08)}
+.cmp td{padding:16px 16px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-size:15px;line-height:1.45}
+.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
+.cmp tr:last-child td{border-bottom:none}
+.cmp .hl-th{background:rgba(190,24,32,.12);color:var(--red);border-bottom:1px solid rgba(190,24,32,.2)}
+.cmp .hl-td{background:rgba(190,24,32,.06)}
+.cy{color:#4ade80;font-size:16px}
+.cn{color:#F87171;font-size:16px}
+.cw{color:rgba(255,255,255,.4);font-size:11px}
+
+/* Offer */
+.offer-sec{background:var(--cream)}
+.timer-bar{background:var(--dark);color:#fff;border-radius:12px;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.timer-n{font-family:'Playfair Display',serif;font-weight:900;font-size:42px;color:#fff;line-height:1}
+.timer-unit{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
+.timer-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+
+/* Bundle cards — 3-col vertical cards (matches cleriva.com PDP format) */
+.bc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.bc{border:2px solid var(--border);border-radius:14px;padding:14px 8px 12px;background:#fff;cursor:pointer;position:relative;transition:border-color .2s,box-shadow .2s;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bc:hover{border-color:#ccc}
+.bc.on{border-color:var(--dark);box-shadow:0 0 0 3px rgba(25,25,25,.07)}
+.bc-img{width:72px;height:72px;object-fit:contain;border-radius:8px;background:var(--cream2);margin-bottom:8px}
+.bc-name{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:5px}
+.bc-save-lbl{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;white-space:nowrap;margin-bottom:7px}
+.save-red{background:rgba(190,24,32,.12);color:var(--red)}
+.save-dark{background:var(--dark);color:#fff}
+.bc-per{font-size:18px;font-weight:900;color:var(--dark);line-height:1;margin-bottom:1px}
+.bc-per-ea{font-size:10px;color:var(--muted);margin-bottom:3px}
+.bc-was{font-size:11px;text-decoration:line-through;color:#bbb}
+.bc-bottom{font-size:10px;font-weight:700;color:var(--green);margin-top:8px;min-height:14px}
+.bc-pill{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:100px;white-space:nowrap;z-index:1}
+.pop{background:var(--dark);color:#fff}
+.val{background:var(--green);color:#fff}
+
+/* Addon */
+.addon{background:#fff;border:2px solid var(--border);border-radius:10px;padding:13px 15px;display:flex;align-items:center;gap:11px;margin-bottom:16px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.addon:hover{border-color:#aaa}
+.addon.addon-on{border-color:var(--red);box-shadow:0 0 0 3px rgba(190,24,32,.1)}
+.addon-ck{width:22px;height:22px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--muted);transition:background .2s,border-color .2s,color .2s}
+.addon-on .addon-ck{background:var(--red);border-color:var(--red);color:#fff}
+.addon-b{flex:1}
+.addon-b h5{font-size:13px;font-weight:700;color:var(--dark)}
+.addon-b p{font-size:13px;color:var(--muted)}
+.addon-p{font-size:15px;font-weight:800;color:var(--dark);flex-shrink:0}
+.addon-qty{display:none;align-items:center;gap:6px;flex-shrink:0}
+.addon-on .addon-qty{display:flex}
+.addon-on .addon-p{display:none}
+.aq-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:border-color .15s;flex-shrink:0}
+.aq-btn:hover{border-color:var(--dark)}
+.aq-count{font-size:15px;font-weight:800;min-width:22px;text-align:center;color:var(--dark)}
+
+/* ── Cart Drawer ── */
+.cdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
+.cdrawer-overlay.show{opacity:1;pointer-events:auto}
+.cdrawer{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;z-index:1101;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow-y:auto;display:flex;flex-direction:column}
+.cdrawer.show{transform:translateY(0)}
+.cdrawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:1;flex-shrink:0}
+.cdrawer-head h3{font-size:17px;font-weight:900;color:var(--dark)}
+.cdrawer-close{width:32px;height:32px;border:none;background:var(--cream2);border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dark);font-weight:700}
+.cdrawer-body{padding:16px 20px 24px;flex:1;overflow-y:auto}
+.cd-prod{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.cd-prod-img{width:58px;height:58px;object-fit:contain;border-radius:10px;background:var(--cream2);flex-shrink:0}
+.cd-prod-info{flex:1}
+.cd-prod-name{font-size:15px;font-weight:800;color:var(--dark)}
+.cd-prod-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.cd-prod-price{font-size:17px;font-weight:900;color:var(--dark);flex-shrink:0}
+.cd-sec-lbl{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.cd-device-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cd-device-lbl{font-size:14px;font-weight:600;color:var(--dark)}
+.cd-swatches{display:flex;gap:7px}
+.cd-swatch{display:flex;align-items:center;gap:5px;padding:5px 13px;border-radius:100px;border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;transition:all .15s;user-select:none}
+.cd-swatch.on-white{border-color:#555;background:#f7f7f7;color:#222}
+.cd-swatch.on-black{border-color:var(--dark);background:var(--dark);color:#fff}
+.cd-swatch-dot{width:26px;height:26px;border-radius:6px;flex-shrink:0;object-fit:cover;border:1px solid rgba(0,0,0,.1)}
+.cd-divider{height:1px;background:var(--border);margin:16px 0}
+.cd-upsell-lbl{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.cd-kit-row{background:var(--cream);border:2px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.cd-kit-row.addon-on{border-color:var(--red);box-shadow:0 0 0 3px rgba(190,24,32,.09)}
+.cd-kit-ck{width:22px;height:22px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--muted);transition:all .15s}
+.cd-kit-row.addon-on .cd-kit-ck{background:var(--red);border-color:var(--red);color:#fff}
+.cd-kit-img{width:40px;height:40px;object-fit:contain;border-radius:7px;background:#fff;flex-shrink:0}
+.cd-kit-info{flex:1;min-width:0}
+.cd-kit-info h5{font-size:13px;font-weight:800;color:var(--dark)}
+.cd-kit-info p{font-size:12px;color:var(--muted);margin-top:1px}
+.cd-kit-price{font-size:14px;font-weight:800;color:var(--dark);flex-shrink:0}
+.cd-kit-row.addon-on .cd-kit-price{display:none}
+.cd-kit-row .addon-qty{display:none;align-items:center;gap:5px;flex-shrink:0}
+.cd-kit-row.addon-on .addon-qty{display:flex}
+.cd-total-row{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0 0;border-top:2px solid var(--border);margin-top:14px}
+.cd-total-lbl{font-size:14px;font-weight:700;color:var(--muted)}
+.cd-total-amt{font-size:22px;font-weight:900;color:var(--dark)}
+.cd-cta{width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;padding:17px;font-size:17px;font-weight:900;cursor:pointer;margin-top:14px;transition:opacity .2s;letter-spacing:.01em}
+.cd-cta:hover{opacity:.88}
+.cd-guarantee{text-align:center;font-size:12px;color:var(--muted);margin-top:10px}
+
+/* IS / IS NOT */
+.isin{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 20px 14px;margin-bottom:22px}
+.isin-sup{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.isin-rows{display:flex;flex-direction:column;gap:9px}
+.isin-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5}
+.isin-is{font-weight:800;color:var(--green);flex-shrink:0;min-width:48px}
+.isin-not{font-weight:800;color:var(--red);flex-shrink:0;min-width:48px}
+
+/* Gift tier */
+.gift-wrap{background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:18px 16px;margin-bottom:16px}
+.gift-sup{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;text-align:center}
+.gift-grid{display:flex;flex-direction:column;gap:10px}
+.gift-row{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:8px;font-size:12px}
+.gift-lbl{font-weight:700;color:var(--dark)}
+.gift-col{font-size:10px;font-weight:700;text-align:center;width:54px}
+.gift-col-1{color:var(--muted)}
+.gift-col-2{color:var(--dark)}
+.gift-col-3{color:var(--red)}
+.gift-icon{text-align:center;font-size:14px;width:54px}
+
+/* Gift cards — 3-col horizontal (cleriva.com format) */
+.gift-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.gift-card{border-radius:12px;border:1.5px solid var(--border);padding:14px 8px 10px;text-align:center;position:relative;transition:border-color .2s,background .2s}
+.gift-card.unlocked{background:rgba(250,248,245,.8);border-color:rgba(190,24,32,.25)}
+.gift-card.locked{background:#1e1e1e;border-color:#333}
+.gift-free-pill{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;white-space:nowrap}
+.gift-card.unlocked .gift-free-pill{background:var(--red);color:#fff}
+.gift-card.locked .gift-free-pill{background:#333;color:#666}
+.gift-card img{width:60px;height:60px;object-fit:cover;border-radius:8px;margin:0 auto 8px;display:block}
+.gift-lock-ico{font-size:26px;display:block;text-align:center;margin:4px auto 8px;color:#555}
+.gift-card-name{font-size:11px;font-weight:700;line-height:1.35}
+.gift-card.unlocked .gift-card-name{color:var(--dark)}
+.gift-card.locked .gift-card-name{color:#555}
+
+/* Trust section below ATC */
+.trust-block{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.trust-guarantee{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.trust-guar-ico{width:48px;height:48px;flex-shrink:0;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.trust-guar-txt{font-size:15px;color:var(--dark);line-height:1.55}
+.trust-guar-txt strong{font-weight:700}
+.trust-ship{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;color:var(--dark)}
+.trust-ship-r{display:flex;align-items:center;gap:6px;color:var(--dark)}
+.trust-ship-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.trust-pay{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:4px 0}
+.pay-ico{height:28px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;vertical-align:middle}
+.pay-visa{background:#1a1f71;color:#fff;font-family:serif;font-style:italic;font-size:13px;padding:0 9px;letter-spacing:-.5px}
+.pay-mc{background:#fff;border:1px solid #e0e0e0;padding:0 5px}
+.pay-amex{background:#2e77bc;color:#fff;font-size:8px;font-weight:700;letter-spacing:.03em;padding:0 6px;line-height:1;text-align:center;flex-direction:column;gap:0}
+.pay-amex span{display:block;line-height:1.1}
+.pay-discover{background:#fff;border:1px solid #e0e0e0;overflow:hidden;padding:0 6px;gap:4px;font-size:9px;font-weight:800;color:#231f20;letter-spacing:-.3px;position:relative}
+.pay-discover::after{content:'';position:absolute;bottom:-6px;right:-6px;width:28px;height:28px;border-radius:50%;background:#f76f20;opacity:.9}
+.pay-discover span{position:relative;z-index:1}
+.pay-apple{background:#1c1c1e;color:#fff;font-size:10px;font-weight:500;padding:0 8px;gap:3px;letter-spacing:-.2px}
+
+/* Payment badges */
+.pay-badges{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px;opacity:.6}
+.pay-badge{background:var(--dark);color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.05em}
+
+/* Guarantee */
+.guar-sec{background:var(--dark);padding:72px 0}
+.guar-inner{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;max-width:760px;margin:0 auto}
+.guar-badge{width:120px;height:120px;border-radius:50%;border:3px solid rgba(255,255,255,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex-shrink:0;gap:2px}
+.guar-badge span:first-child{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:#fff;line-height:1;display:block}
+.guar-badge span:last-child{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);line-height:1.3;display:block;max-width:70px;text-align:center}
+.guar-copy h2{color:#fff;font-size:clamp(22px,3.5vw,30px);margin-bottom:12px}
+.guar-copy p{color:rgba(255,255,255,.65);font-size:14px;line-height:1.75}
+
+/* FAQ */
+.faq-sec{background:var(--cream2);padding:72px 0}
+.faq-list{max-width:720px;margin:32px auto 0;display:flex;flex-direction:column;gap:8px}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.faq-q{padding:16px 20px;font-size:14px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--dark)}
+.faq-q:hover{background:var(--cream)}
+.faq-icon{font-size:18px;font-weight:300;color:var(--muted);flex-shrink:0;transition:transform .25s}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a-inner{padding:0 20px 16px;font-size:16px;color:var(--dark);line-height:1.75}
+
+/* Final CTA */
+.fcta-sec{background:var(--red);padding:72px 0;text-align:center}
+.fcta-sec h2{color:#fff;font-size:clamp(26px,4.5vw,40px);margin-bottom:16px}
+.fcta-sec p{color:rgba(255,255,255,.8);font-size:15px;margin-bottom:32px}
+.fcta-btn{display:inline-block;background:#fff;color:var(--red);font-size:15px;font-weight:800;padding:16px 40px;border-radius:10px;cursor:pointer;transition:opacity .2s}
+.fcta-btn:hover{opacity:.9}
+
+/* Footer */
+.footer{background:var(--dark);padding:40px 0 28px;color:rgba(255,255,255,.5)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px}
+.footer-brand h3{color:#fff;font-size:18px;margin-bottom:8px}
+.footer-brand p{font-size:12px;line-height:1.7}
+.footer-col h5{color:rgba(255,255,255,.7);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.footer-col a{display:block;font-size:12px;margin-bottom:8px;color:rgba(255,255,255,.45);transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.disclaimer{font-size:11px;color:rgba(255,255,255,.3);line-height:1.6;margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding-top:16px}
+
+/* Sticky ATC bar */
+.satc{display:none}
+@media(max-width:768px){
+.satc{position:fixed;bottom:0;left:0;right:0;z-index:999;background:#fff;border-top:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px;transform:translateY(100%);transition:transform .3s}
+.satc.show{transform:translateY(0)}
+.satc-name{flex:1;min-width:0}
+.satc-name h5{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--dark)}
+.satc-name p{font-size:13px;color:var(--muted);margin-top:1px}
+.satc-btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:13px 18px;font-size:15px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .2s}
+.satc-btn:hover{opacity:.88}
+}
+
+/* Protocol timeline */
+.proto-sec{background:var(--cream2);padding:72px 0}
+.proto-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.proto-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;position:relative}
+.proto-card:nth-child(1){border-top:4px solid #94A3B8}
+.proto-card:nth-child(2){border-top:4px solid var(--amber)}
+.proto-card:nth-child(3){border-top:4px solid var(--green)}
+.proto-phase{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.proto-week{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.proto-title{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.proto-body{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* Head-to-head vs Allegra */
+.h2h-sec{background:var(--cream2);padding:72px 0}
+.h2h-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:16px;overflow:hidden;margin-top:36px}
+.h2h-a{background:#fff;padding:32px}
+.h2h-b{background:var(--cream2);padding:32px;border:1px solid var(--border)}
+.h2h-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.h2h-label-good{color:var(--green)}
+.h2h-label-bad{color:var(--muted)}
+.h2h-pts{display:flex;flex-direction:column;gap:10px}
+.h2h-pt{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.5}
+
+/* Review slider — 3 per page desktop, 1 mobile */
+.rev-slider{position:relative;margin-top:32px}
+.rev-overflow{overflow:hidden}
+.rev-track{display:flex;gap:16px;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.rcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;flex:0 0 calc(33.333% - 11px)}
+@media(max-width:768px){
+  .rev-track{gap:0}
+  .rcard{flex:0 0 100%}
+}
+.r-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.r-av{width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r-name{font-size:14px;font-weight:700;color:#fff}
+.r-ver{color:var(--green);font-size:11px;font-weight:600;margin-top:2px}
+.r-stars{color:#F59E0B;font-size:13px;letter-spacing:1px}
+.rcard p{font-size:14px;color:rgba(255,255,255,.75);line-height:1.7}
+.rev-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px}
+.rev-arrow{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;flex-shrink:0}
+.rev-arrow:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4)}
+.rev-nav{display:flex;gap:6px}
+.rev-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:background .2s}
+.rev-dot.on{background:#fff}
+
+/* Scroll reveal animations */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .65s ease,transform .65s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .65s ease,transform .65s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* Mobile responsive */
+@media(max-width:768px){
+  /* Header */
+  .hdr-inner nav{display:none}
+  .logo{font-size:18px}
+
+  /* Hero */
+  /* Hero — grid */
+  .hero-grid{grid-template-columns:1fr;width:100%;overflow:hidden}
+  .hero-grid > *{min-width:0;width:100%;max-width:100%}
+  .hero-grid > div:first-child{position:static}
+
+  /* Hero — carousel */
+  .hero-carousel{width:100%;aspect-ratio:1/1;height:auto;overflow:hidden}
+  .hc-track{width:100%;height:100%;display:flex}
+  .hc-slide{flex:0 0 100%;min-width:0;height:100%}
+  .hc-slide img{width:100%;height:100%;object-fit:contain;background:var(--cream)}
+  .hc-dots{bottom:8px}
+  .hc-thumbs{overflow-x:auto;width:100%;padding:6px 12px 4px}
+
+  /* Hero — copy */
+  .hero-copy{padding:20px 16px;width:100%;box-sizing:border-box}
+  .hero-h1{font-size:32px}
+  .hero-ids{font-size:17px}
+  .dual-chip{font-size:10px;padding:4px 10px}
+
+  /* Bundle card — mobile tightening */
+  .bc-grid{gap:7px}
+  .bc{padding:10px 5px 9px}
+  .bc-img{width:52px;height:52px;margin-bottom:6px}
+  .bc-per{font-size:15px}
+  .bc-name{font-size:11px}
+  .bc-save-lbl{font-size:9px;padding:1px 6px}
+  .bc-pill{font-size:8px;padding:2px 6px}
+
+  /* ATC button */
+  .atc{font-size:16px;padding:15px 10px}
+
+  /* Trust row — wrap on mobile */
+  .trust-row{flex-wrap:wrap;gap:8px;justify-content:center}
+
+  /* Sections */
+  .sec{padding:48px 0}
+  .bridge-sec{padding:56px 0}
+  .dual-sec{padding:56px 0}
+
+  /* Dual mechanism */
+  .dual-panels{grid-template-columns:1fr;gap:3px}
+  .dp{padding:28px 20px}
+  .dp-nm{font-size:38px}
+
+  /* How it works */
+  .hw-split{grid-template-columns:1fr;gap:24px}
+  .hw-split.rev{direction:ltr}
+  .hw-visual{aspect-ratio:4/3}
+  .vid-wrap{aspect-ratio:1/1}
+  .vid-wrap video{height:100%;object-fit:cover;object-position:center center}
+
+  /* Stats bar */
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+  .sn{font-size:40px}
+
+  /* Expert */
+  .expert-grid{grid-template-columns:1fr;gap:24px}
+  .expert-img{max-width:360px;margin:0 auto}
+
+  /* Comparison table — no horizontal scroll, allow text wrap */
+  .cmp-wrap{overflow-x:visible}
+  .cmp{min-width:0;width:100%}
+  .cmp th{font-size:11px}
+  .cmp td{font-size:13px;padding:13px 8px;line-height:1.45}
+  .cmp td:first-child{line-height:1.45}
+
+  /* Offer — bundle cards */
+  .offer-sec .wrap{padding:0 16px}
+  .timer-bar{gap:8px;padding:14px 16px}
+  .timer-n{font-size:34px}
+  .isin{padding:16px 14px 12px}
+  .isin-row{gap:7px;font-size:12px}
+  .isin-is,.isin-not{min-width:40px;font-size:11px}
+
+  /* Gift tier */
+  .gift-row{grid-template-columns:1fr auto auto auto}
+  .gift-col{width:44px;font-size:9px}
+  .gift-icon{width:44px;font-size:12px}
+
+  /* Guarantee */
+  .guar-inner{grid-template-columns:1fr;text-align:center;gap:24px}
+  .guar-badge{margin:0 auto}
+
+  /* Fails */
+  .fails-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+
+  /* Neal's Journey — mobile: left-aligned, swipe, peek next card */
+  .neal-videos{justify-content:flex-start;padding-left:20px;padding-right:4px;scrollbar-width:none}
+  .neal-videos::-webkit-scrollbar{display:none}
+  .nv{flex:0 0 75vw;scroll-snap-align:start}
+
+  /* Proto / H2H (unused but kept safe) */
+  .proto-cards{grid-template-columns:1fr}
+  .h2h-grid{grid-template-columns:1fr}
+
+  /* Sticky bar padding for thumb */
+  .satc{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+}
+@media(max-width:480px){
+  .fails-grid{grid-template-columns:1fr}
+  .dual-together h3{font-size:15px}
+  .bridge-inner h2{font-size:22px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .sn{font-size:36px}
+  .hero-carousel{aspect-ratio:1}
+  .hc-thumbs{padding:6px 10px 4px}
+  .hc-thumb{flex:0 0 44px;height:44px}
+  .ann{font-size:13px;padding:9px 12px}
+}
+</style>
+  <!-- Preload critical assets -->
+  <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent-2026-07-03T183927.871_11600979-2b24-452f-b4f0-1507c0b7556a.png?v=1784151225"/>
+  <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930"/>
+  <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223"/>
+  <!-- Video prefetch — all 3 queued from page start so Part 3 is ready -->
+  <link rel="prefetch" as="video" href="https://cdn.shopify.com/videos/c/o/v/9bc1315929ec4cb6b757cde2b9bae53f.mp4"/>
+  <link rel="prefetch" as="video" href="https://cdn.shopify.com/videos/c/o/v/cb0ffb8f2cab48b9810733156619bfaa.mp4"/>
+  <link rel="prefetch" as="video" href="https://cdn.shopify.com/videos/c/o/v/e670e949161d439aa8d4733fb13a7b2d.mp4"/>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann">
+  <span>🔴 Introducing NovaFlow 2.0</span> — Now with Red <span>+</span> Blue Light Therapy &nbsp;·&nbsp; Sale ends in <span class="ann-timer" id="ann-cdown">--:--:--</span>
+</div>
+
+<!-- STICKY HEADER -->
+<header class="hdr">
+  <a href="https://cleriva.com" class="hdr-logo">CLERIVA</a>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-carousel" id="hcarousel">
+        <div class="hc-track" id="hc-track">
+          <div class="hc-slide hc-slide-vid"><video src="https://cdn.shopify.com/videos/c/o/v/41597a1937124b1ba94200186e990af5.mp4" autoplay muted loop playsinline></video></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094" alt="NovaFlow 2.0" loading="eager"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930" alt="NovaFlow 2.0" loading="eager"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_29_fe525cff-2a90-4512-873a-1d0920b35a13.png?v=1784424841" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_35_1906735a-27fc-405d-9358-017902313220.png?v=1784427297" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_11.png?v=1784275885" alt="NovaFlow 2.0" loading="lazy"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_10.png?v=1784275569" alt="NovaFlow 2.0" loading="lazy"/></div>
+        </div>
+        <div class="hc-dots" id="hc-dots">
+          <div class="hc-dot on" onclick="hcGo(0)"></div>
+          <div class="hc-dot" onclick="hcGo(1)"></div>
+          <div class="hc-dot" onclick="hcGo(2)"></div>
+          <div class="hc-dot" onclick="hcGo(3)"></div>
+          <div class="hc-dot" onclick="hcGo(4)"></div>
+          <div class="hc-dot" onclick="hcGo(5)"></div>
+          <div class="hc-dot" onclick="hcGo(6)"></div>
+          <div class="hc-dot" onclick="hcGo(7)"></div>
+          <div class="hc-dot" onclick="hcGo(8)"></div>
+        </div>
+      </div>
+      <!-- Thumbnails -->
+      <div class="hc-thumbs" id="hc-thumbs" style="padding:8px 12px 4px;background:var(--cream)">
+        <div class="hc-thumb on" onclick="hcGo(0)" style="position:relative">
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094" alt=""/>
+          <span class="hc-thumb-play">▶</span>
+        </div>
+        <div class="hc-thumb" onclick="hcGo(1)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(2)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(3)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_29_fe525cff-2a90-4512-873a-1d0920b35a13.png?v=1784424841" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(4)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(5)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(6)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_35_1906735a-27fc-405d-9358-017902313220.png?v=1784427297" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(7)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_11.png?v=1784275885" alt=""/></div>
+        <div class="hc-thumb" onclick="hcGo(8)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_10.png?v=1784275569" alt=""/></div>
+      </div>
+    </div>
+    <div class="hero-copy">
+      <!-- Trustpilot stars -->
+      <div class="tp-row">
+        <span class="tp-stars">★★★★<span class="tp-partial-star"><span class="tp-partial-bg">★</span><span class="tp-partial-fill">★</span></span></span>
+        <span class="tp-text">4.6 stars on <strong>Trustpilot</strong></span>
+      </div>
+
+      <!-- Product info block -->
+      <p class="pi-label">Daily Nasal Support</p>
+      <h1 class="hero-h1">Breathe Clearer.<br/><em style="color:var(--dark);font-style:normal">Feel Better.</em></h1>
+      <p class="hero-ids">Powered by dual light therapy to support nasal tissue health and cellular wellness, naturally.†</p>
+
+      <!-- Benefits grid -->
+      <div class="pi-benefits">
+        <div class="pi-b">
+          <span class="pi-icon pi-red"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 7 5.5 7 8v7c0 1.1-.4 2-1 2.5"/><path d="M12 3c3 0 5 2.5 5 5v7c0 1.1.4 2 1 2.5"/><path d="M9 17.5C9 19 10.3 20 12 20s3-1 3-2.5"/></svg></span>
+          <span>Nasal Tissue Support†</span>
+        </div>
+        <div class="pi-b">
+          <span class="pi-icon pi-blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span>Immune Wellness†</span>
+        </div>
+        <div class="pi-b">
+          <span class="pi-icon pi-amber"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span>Cellular Energy Support†</span>
+        </div>
+        <div class="pi-b">
+          <span class="pi-icon pi-green"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
+          <span>Antimicrobial Support†</span>
+        </div>
+      </div>
+
+      <!-- Stock bar -->
+      <div class="stock-bar-wrap">
+        <div class="stock-bar-track">
+          <div class="stock-bar-fill"></div>
+        </div>
+        <span class="stock-bar-lbl">91% Sold</span>
+      </div>
+
+      <!-- Quantity -->
+      <div class="vs-label" style="margin-bottom:8px">Bundle up and save:</div>
+      <div class="bc-grid" style="margin-bottom:16px">
+        <div class="bc" id="h-b1" onclick="hqty(1)">
+          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="1 Device"/>
+          <div class="bc-name">1 Device</div>
+          <span class="bc-save-lbl save-red">Full Price</span>
+          <div class="bc-per" data-usd="39.99">$39.99</div>
+          <div class="bc-per-ea">ea</div>
+          <div class="bc-was" style="visibility:hidden">$39.99</div>
+          <div class="bc-bottom"></div>
+        </div>
+        <div class="bc on" id="h-b2" onclick="hqty(2)">
+          <div class="bc-pill pop">Most Popular</div>
+          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="2 Devices"/>
+          <div class="bc-name">2 Devices</div>
+          <span class="bc-save-lbl save-red">B1G1 50% Off</span>
+          <div class="bc-per" data-usd="29.99">$29.99</div>
+          <div class="bc-per-ea">ea</div>
+          <div class="bc-was" data-usd="39.99">$39.99</div>
+          <div class="bc-bottom">2 Free Gifts!</div>
+        </div>
+        <div class="bc" id="h-b3" onclick="hqty(3)">
+          <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="3 Devices"/>
+          <div class="bc-name">3 Devices</div>
+          <span class="bc-save-lbl save-red">Buy 2, Get 1 Free</span>
+          <div class="bc-per" data-usd="26.99">$26.99</div>
+          <div class="bc-per-ea">ea</div>
+          <div class="bc-was" data-usd="39.99">$39.99</div>
+          <div class="bc-bottom">3 Free Gifts!</div>
+        </div>
+      </div>
+
+      <!-- Gift unlock row — hero -->
+      <p style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;text-align:center">Unlock more by selecting a higher bundle</p>
+      <div class="gift-cards" style="margin-bottom:14px">
+        <div class="gift-card unlocked" id="h-gift-1">
+          <span class="gift-free-pill">FREE</span>
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446" alt="Breathing Guide"/>
+          <div class="gift-card-name">Mucus clearing breathwork</div>
+        </div>
+        <div class="gift-card unlocked" id="h-gift-2">
+          <span class="gift-free-pill">FREE</span>
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_16_95353d2b-974d-4012-979d-b1dc30d7b834.png?v=1784281443" alt="Mystery Gift"/>
+          <div class="gift-card-name">Mystery Gift</div>
+        </div>
+        <div class="gift-card locked" id="h-gift-3">
+          <span class="gift-free-pill">FREE</span>
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_15.png?v=1784281288" alt="Portable Case" style="display:none"/>
+          <span class="gift-lock-ico">🔒</span>
+          <div class="gift-card-name">Purchase 3+ to unlock</div>
+        </div>
+      </div>
+
+      <!-- UV-C add-on — hero -->
+      <div class="addon" id="h-uvc-addon" onclick="toggleHAddon()" role="checkbox" aria-checked="false" style="margin-bottom:14px">
+        <div class="addon-ck" id="h-uvc-ck">+</div>
+        <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589" alt="UV-C Sterilizer" style="width:44px;height:44px;object-fit:contain;border-radius:6px;background:var(--cream2);flex-shrink:0"/>
+        <div class="addon-b"><h5>+Add Sterilizing Kit</h5><p>UV-C sterilizer + 6 extra silicone sleeve sets</p></div>
+        <div class="addon-p" id="h-uvc-p" data-usd="19.99">$19.99</div>
+        <div class="addon-qty" id="h-uvc-qty">
+          <button class="aq-btn" onclick="adjQty('h-uvc',-1,event)">−</button>
+          <span class="aq-count" id="h-uvc-n">1</span>
+          <button class="aq-btn" onclick="adjQty('h-uvc',1,event)">+</button>
+        </div>
+      </div>
+      <button class="atc" onclick="atcHero()">Add to Cart — Get NovaFlow 2.0</button>
+      <div class="trust-block">
+        <div class="trust-guarantee">
+          <div class="trust-guar-ico">✓</div>
+          <div class="trust-guar-txt">Enjoy <strong>120 days of free returns</strong>, with less than 3% of customers asking for their money back.</div>
+        </div>
+        <div class="trust-ship">
+          <span>🔒 <strong>Pre-order price ONLY</strong></span>
+          <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships in 2 weeks</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UGC VIDEO TESTIMONIALS -->
+<section class="ugc-sec">
+  <div class="wrap">
+    <h2 class="ugc-headline">From non-allergic rhinitis to chronic congestion.<br/>Hear from real NovaFlow users</h2>
+    <div class="ugc-grid">
+      <div class="ugc-col">
+        <div class="ugc-card">
+          <div class="ugc-inner">
+            <video src="https://cdn.shopify.com/videos/c/o/v/a38475dc6e004d94875ddbf22e388b04.mp4" playsinline preload="auto"></video>
+            <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+          </div>
+        </div>
+        <div class="ugc-lbl">Cold / Sick</div>
+      </div>
+      <div class="ugc-col">
+        <div class="ugc-card">
+          <div class="ugc-inner">
+            <video src="https://cdn.shopify.com/videos/c/o/v/3adf639993dd4c97803a6839c8511550.mp4" playsinline preload="auto"></video>
+            <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+          </div>
+        </div>
+        <div class="ugc-lbl">Chronic Spray User</div>
+      </div>
+      <div class="ugc-col">
+        <div class="ugc-card">
+          <div class="ugc-inner">
+            <video src="https://cdn.shopify.com/videos/c/o/v/be47900628194f60a4429969003f1af4.mp4" playsinline preload="auto"></video>
+            <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+          </div>
+        </div>
+        <div class="ugc-lbl">Hormonal Rhinitis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>30,000+ customers</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Red + Blue light — only NovaFlow 2.0</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Drug-free · No rebound</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>120-day money-back guarantee</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>660nm + 450nm calibrated wavelengths</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>10-minute sessions</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>USB rechargeable</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Free shipping on all orders</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><span class="ticker-dot"></span>30,000+ customers</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Red + Blue light — only NovaFlow 2.0</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Drug-free · No rebound</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>120-day money-back guarantee</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>660nm + 450nm calibrated wavelengths</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>10-minute sessions</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>USB rechargeable</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Free shipping on all orders</span>
+  </div>
+</div>
+
+<!-- PULL QUOTE -->
+<div style="background:var(--dark);padding:28px 24px;text-align:center;border-top:1px solid rgba(255,255,255,.06)">
+  <p style="font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;line-height:1.2;max-width:720px;margin:0 auto">"NovaFlow 2.0 redefines <em style="font-style:normal;color:var(--red)">congestion-relief</em> completely"</p>
+</div>
+
+<!-- WHY NOTHING WORKS -->
+<section class="sec fails-sec">
+  <div class="wrap">
+    <p class="label center">Why nothing has worked</p>
+    <h2 style="font-size:clamp(24px,4vw,34px);text-align:center;max-width:600px;margin:0 auto 0">Everything you've tried was treating a symptom.<br/><em>Not the cause.</em></h2>
+    <div class="fails-grid">
+      <div class="fcard fcard-villain reveal" style="transition-delay:.1s">
+        <div class="fcard-title">Decongestant Sprays</div>
+        <div class="fcard-body">Shrinks tissue fast but creates physical dependency within days. The longer you use it, the worse it gets when you stop.</div>
+      </div>
+      <div class="fcard reveal" style="transition-delay:.2s">
+        <div class="fcard-title">Antihistamines</div>
+        <div class="fcard-body">Built for allergies, not structural congestion. Work for some people, do nothing for others, and cause drowsiness all day.</div>
+      </div>
+      <div class="fcard reveal" style="transition-delay:.3s">
+        <div class="fcard-title">Saline Rinses</div>
+        <div class="fcard-body">Temporary symptom relief at best. Doesn't address the underlying tissue or the reason your nose keeps blocking.</div>
+      </div>
+      <div class="fcard reveal" style="transition-delay:.4s">
+        <div class="fcard-title">Nasal Strips</div>
+        <div class="fcard-body">Pulls your nostrils open mechanically. Does nothing for the swollen tissue inside. Works only while you're wearing it — and not even reliably.</div>
+      </div>
+      <div class="fcard reveal" style="transition-delay:.5s">
+        <div class="fcard-title">Surgery</div>
+        <div class="fcard-body">Invasive, expensive, and doesn't address rebound congestion. Many patients are back on spray within months of the procedure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPGRADE BRIDGE — WHY 2.0 EXISTS -->
+<section class="bridge-sec">
+  <div class="wrap">
+    <div class="bridge-inner reveal">
+      <p class="label center" style="color:rgba(255,255,255,.35)">Why we built 2.0</p>
+      <h2>Red light got 30,000 people breathing again.<br/><em style="color:rgba(255,255,255,.4)">Then we found what was still missing.</em></h2>
+      <div class="bridge-divider"></div>
+      <p>Our customers were getting off sprays. Sleeping through the night. Breathing through both nostrils for the first time in years. But a subset of them weren't getting all the way there — and we kept asking why.</p>
+      <p>The answer was bacteria. Research shows that many people with chronic nasal congestion have elevated bacterial populations in their nasal passages. Red light — for all its benefits to tissue recovery — cannot address them. That requires a different wavelength entirely.</p>
+      <p>Blue light at 450nm is well-studied for antibacterial activity in soft tissue. So we built it into the device. Same red light, now combined with blue in a single intranasal session. NovaFlow 2.0: the complete approach. Nothing else like it at home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL MECHANISM — RED + BLUE -->
+<section class="dual-sec" id="how">
+  <div class="wrap">
+    <p class="label center" style="color:rgba(255,255,255,.3)">The NovaFlow 2.0 mechanism</p>
+    <h2 style="color:#fff;font-size:clamp(26px,4.5vw,38px);text-align:center;margin-bottom:48px">Two lights. Two jobs.<br/><em style="color:rgba(255,255,255,.3)">One device.</em></h2>
+
+    <div class="dual-panels">
+      <!-- Red Light -->
+      <div class="dp dp-red reveal-left">
+        <div class="dp-chip dp-chip-red">
+          <div class="dp-dot dp-dot-red"></div>
+          Red Light
+        </div>
+        <div class="dp-nm dp-nm-red">660nm</div>
+        <div class="dp-title">Tissue Recovery</div>
+        <p class="dp-body">Stimulates your nasal cells to produce more energy — supporting the natural recovery of inflamed tissue. This is the wavelength researched for over 30 years in intranasal phototherapy. Present in the original NovaFlow. Now enhanced.</p>
+        <div class="dp-points">
+          <div class="dp-pt"><span class="dp-arr-red">→</span>Penetrates deeper into nasal passages</div>
+          <div class="dp-pt"><span class="dp-arr-red">→</span>Supports cellular energy production in nasal lining</div>
+          <div class="dp-pt"><span class="dp-arr-red">→</span>70% of users in clinical research reported reduced congestion</div>
+        </div>
+      </div>
+      <!-- Blue Light -->
+      <div class="dp dp-blue reveal-right">
+        <div class="dp-chip dp-chip-blue">
+          <div class="dp-dot dp-dot-blue"></div>
+          Blue Light · New in 2.0
+        </div>
+        <div class="dp-nm dp-nm-blue">450nm</div>
+        <div class="dp-title">Bacterial Clearance</div>
+        <p class="dp-body">Targets bacteria living in your nasal passages — something red light alone can never do. Research shows elevated bacterial presence is a common factor in chronic congestion sufferers. Blue light at 450nm is studied for antibacterial activity in soft tissue.</p>
+        <div class="dp-points">
+          <div class="dp-pt"><span class="dp-arr-blue">→</span>Targets surface bacteria in nasal passages</div>
+          <div class="dp-pt"><span class="dp-arr-blue">→</span>Addresses what red light alone cannot reach</div>
+          <div class="dp-pt"><span class="dp-arr-blue">→</span>Exclusive to NovaFlow 2.0. No other home device has this.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dual-together reveal">
+      <p class="sup">Together</p>
+      <h3>The only at-home intranasal device that works on both the tissue <em>and</em> the bacteria — in one 10-minute session</h3>
+      <p class="sub">Drug-free. No prescription. Nothing to keep buying. Individual results vary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WEEK BY WEEK TIMELINE -->
+<section class="tl-sec">
+  <div class="wrap">
+    <p class="label center" style="color:rgba(255,255,255,.4);margin-bottom:10px">Your recovery protocol</p>
+    <h2 class="tl-headline">What to expect<br/><em style="color:rgba(255,255,255,.35);font-style:normal">week by week.</em></h2>
+    <div class="tl-track">
+
+      <div class="tl-item" data-tl>
+        <div class="tl-left">
+          <div class="tl-circle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <p class="tl-stage">Weeks 1–2</p>
+          <h3 class="tl-title">Activation Phase</h3>
+          <ul class="tl-pts">
+            <li>Your nose starts responding to the light sessions</li>
+            <li>Some people notice easier breathing early on</li>
+            <li>Your body begins recovering what the spray was suppressing</li>
+            <li>Results vary — stay consistent</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item" data-tl>
+        <div class="tl-left">
+          <div class="tl-circle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <p class="tl-stage">Weeks 2–4</p>
+          <h3 class="tl-title">Transition Phase</h3>
+          <ul class="tl-pts">
+            <li>The urge to reach for the spray starts to weaken</li>
+            <li>Many people cut back on how often they use it</li>
+            <li>Keep doing 2–3 sessions a day, 10 minutes each</li>
+            <li>This is the window where the real change happens</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item" data-tl>
+        <div class="tl-left">
+          <div class="tl-circle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <p class="tl-stage">Week 4+</p>
+          <h3 class="tl-title">Recovery Phase</h3>
+          <ul class="tl-pts">
+            <li>Your nasal tissue settles into a healthier baseline</li>
+            <li>Most people stop using spray entirely in this phase</li>
+            <li>Use NovaFlow a few times a week to stay clear</li>
+            <li>You have 120 days to make sure it's working for you</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item tl-last" data-tl>
+        <div class="tl-left">
+          <div class="tl-circle tl-circle-end">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="tl-body">
+          <p class="tl-stage">Long-term</p>
+          <h3 class="tl-title">Breathing Freely</h3>
+          <ul class="tl-pts">
+            <li>No spray. No prescription. Nothing to restock.</li>
+            <li>A few sessions a week keeps you breathing clearly</li>
+            <li>Sleep better, wake up clearer, breathe through your nose again</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLINICAL PROOF STATS BAR -->
+<section class="stats-sec" id="proof">
+  <div class="wrap">
+    <p class="label center" style="color:#fff;font-size:16px;letter-spacing:.12em;margin-bottom:32px">Clinical research on intranasal red light therapy</p>
+    <div class="stats-grid">
+      <div>
+        <div class="sn">70%</div>
+        <div class="sl">Reported reduced<br/>nasal congestion</div>
+        <div class="ss">Neuman et al., 1997 — 40 participants</div>
+      </div>
+      <div>
+        <div class="sn">72%</div>
+        <div class="sl">Patient-reported improvement<br/>in nasal symptoms</div>
+        <div class="ss">Jung et al., 2021</div>
+      </div>
+      <div>
+        <div class="sn">2×</div>
+        <div class="sl">More effective than<br/>placebo in trials</div>
+        <div class="ss">Meta-analysis, 2024</div>
+      </div>
+      <div>
+        <div class="sn">433</div>
+        <div class="sl">Patients across<br/>peer-reviewed studies</div>
+        <div class="ss">SMD −1.4; 2024 meta-analysis</div>
+      </div>
+    </div>
+    <p style="text-align:center;color:#fff;font-size:12px;margin-top:24px;opacity:.7">Studies are based on intranasal red light therapy as a modality, not on NovaFlow specifically. Individual results vary.</p>
+
+    <!-- CTA panel -->
+    <div class="pb-cta" style="max-width:480px;margin:40px auto 0">
+      <h3 class="pb-headline">Clinically Studied.<br/>Drug-Free Relief.<br/>Zero Rebound.*</h3>
+      <p class="pb-sub">When decades of phototherapy research meet modern engineering, the results speak for themselves.</p>
+      <button class="pb-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Get NovaFlow 2.0 →</button>
+      <p class="pb-guar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle;margin-right:4px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>120-day money back guarantee</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERT SECTION -->
+<section class="sec expert-sec">
+  <div class="wrap">
+    <div class="expert-grid reveal">
+      <div class="expert-img">
+        <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260527_083258_673f0404-89cb-4dbe-bd85-50bcadd5c77d.png?v=1779870876" alt="Julien Fattisson"/>
+      </div>
+      <div>
+        <p class="label">From the practitioner</p>
+        <h2 style="font-size:clamp(22px,3vw,30px);margin-bottom:20px;line-height:1.3">How a breathing expert ended up recommending a light device</h2>
+        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:14px">Julien came into breathwork the hard way. Before this, he was a scientist on a stable career path — until anxiety, burnout, and chronic pain took him down. He couldn't digest food. Couldn't hug his kids. Couldn't sit still. In his own words: <em>"I was a living dead."</em></p>
+        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:14px">Medicine offered him nothing that worked. Then he found breathwork. He spent the next decade studying it — Oxygen Advantage, Buteyko, osteopathy, resonant breathing, HRV coherence — and teaching it to thousands of clients who came to him with anxiety, burnout, and chronic pain of their own.</p>
+        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:14px">But he kept hitting the same wall. His clients wanted to breathe through their nose. They couldn't. Allergies, dry air, chronic inflammation — it didn't matter. The pathway was blocked, so everything he taught them had nowhere to go.</p>
+        <p style="font-size:15px;line-height:1.85;color:var(--dark);margin-bottom:24px">He tried NovaFlow on himself first. It worked. Then he started recommending it to his clients. Then he reached out to us to make it official. Every device now ships with his Breathing Reset guide — the same routine he walks every new client through in their first session.</p>
+        <div class="expert-name">Julien Fattisson</div>
+        <div class="expert-title">Breathing Physiologist &amp; Buteyko Practitioner · Author, <em>The Breathing Reset</em></div>
+        <div style="margin-top:24px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px">
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446" alt="The Breathing Reset" style="width:52px;height:52px;border-radius:6px;object-fit:cover;flex-shrink:0"/>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--dark)">Free with every order: The Breathing Reset</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">The same routine Julien walks every new client through — now yours with every NovaFlow 2.0 order.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEAL'S JOURNEY -->
+<section class="sec neal-sec">
+  <div class="wrap">
+    <p class="label center" style="color:rgba(255,255,255,.35)">Real customer journey</p>
+    <h2 style="color:#fff;font-size:clamp(24px,3.5vw,32px);text-align:center;margin-bottom:36px">Watch Neal's Journey</h2>
+
+    <div class="neal-videos">
+      <div class="nv">
+        <div class="nv-inner">
+          <video src="https://cdn.shopify.com/videos/c/o/v/9bc1315929ec4cb6b757cde2b9bae53f.mp4" controls playsinline preload="auto"></video>
+          <button class="nv-play-btn" aria-label="Play"></button>
+        </div>
+        <div class="nv-label">
+          <div class="nv-part">Part 1</div>
+          <div class="nv-title">The Unboxing</div>
+          <div class="nv-quote">"Let's see what this thing actually is"</div>
+        </div>
+      </div>
+      <div class="nv">
+        <div class="nv-inner">
+          <video src="https://cdn.shopify.com/videos/c/o/v/cb0ffb8f2cab48b9810733156619bfaa.mp4" controls playsinline preload="auto"></video>
+          <button class="nv-play-btn" aria-label="Play"></button>
+        </div>
+        <div class="nv-label">
+          <div class="nv-part">Part 2</div>
+          <div class="nv-title">The First Session</div>
+          <div class="nv-quote">"Trying it for the first time"</div>
+        </div>
+      </div>
+      <div class="nv">
+        <div class="nv-inner">
+          <video src="https://cdn.shopify.com/videos/c/o/v/e670e949161d439aa8d4733fb13a7b2d.mp4" controls playsinline preload="auto"></video>
+          <button class="nv-play-btn" aria-label="Play"></button>
+        </div>
+        <div class="nv-label">
+          <div class="nv-part">Part 3</div>
+          <div class="nv-title">30 Days Later</div>
+          <div class="nv-quote">"Here's what actually happened"</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="color:#fff;font-size:clamp(22px,3.5vw,30px);text-align:center;margin-top:48px;margin-bottom:24px">30,000+ users now living congestion free</h2>
+    <div class="rev-slider">
+  <div class="rev-overflow">
+  <div class="rev-track" id="rev-track">
+    <div class="rcard">
+      <div class="r-top"><div class="r-av">M</div><div><div class="r-name">Mrs. G · GB</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
+      <p>For just short of 2 years I've been seeing an ENT about my sinuses and headaches. Cameras, drops, sprays, tablets — around 20% relief. Then I found NovaFlow. My sinuses are clear and my headaches have gone. My ENT prescriptions were 20–30 pounds per visit. Now I have no more bills. Real people answered my email within the hour. 100% help.</p>
+    </div>
+    <div class="rcard">
+      <div class="r-top"><div class="r-av">E</div><div><div class="r-name">Ellen Bergstrom · US</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
+      <p>First spring without antibiotics for a sinus infection. The last several years I couldn't break the cycle — congestion leading to secondary infections in my sinuses and ears. NovaFlow definitely seemed to help. I also tried the ear canal device and it stopped that horrid itchy ear feeling nothing else had touched. I'm glad I tried it.</p>
+    </div>
+    <div class="rcard">
+      <div class="r-top"><div class="r-av">S</div><div><div class="r-name">Steve Burrow · GB</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
+      <p>I've suffered from rhinitis for as long as I can remember, along with hayfever from March through late October. Since using NovaFlow I've noticed a significant improvement — my nasal passages feel clear and I can breathe freely through my nose. Something I haven't experienced in years. Extremely happy with both the product and the service.</p>
+    </div>
+    <div class="rcard">
+      <div class="r-top"><div class="r-av">B</div><div><div class="r-name">Bryan Krygier · US</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
+      <p>I have eustachian tube dysfunction — a very unpleasant condition. This device has really calmed my nose down and given me relief. When my cord went missing on a road trip, I emailed the company and the manager offered to send me a free replacement. I was shocked at how quickly they responded. Great product, great customer service.</p>
+    </div>
+    <div class="rcard">
+      <div class="r-top"><div class="r-av">D</div><div><div class="r-name">Declan Quinn · GB</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
+      <p>I recently purchased the Novaflow and dealt with Maddy throughout — nothing short of brilliant. When our product took longer than expected to arrive, Maddy arranged a refund promptly and advised us to use it if it arrived. She turned a stressful situation into a relaxed one. A legitimate company with real concern for their customers. 5 stars.</p>
+    </div>
+    <div class="rcard">
+      <div class="r-top"><div class="r-av">S</div><div><div class="r-name">Shaun St. Louis · CA</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
+      <p>My new unit stopped charging. Maddy from Clariva responded quickly, listened, and reacted so thoroughly I was amazed. She asked for a video showing the issue, I sent one, and I'm receiving a replacement at no cost. WOW is all I can say. Other companies should learn from this. This is how you keep customers and grow a solid business.</p>
+    </div>
+  </div>
+  </div>
+  <div class="rev-controls">
+    <button class="rev-arrow" onclick="revPrev()" aria-label="Previous">&#8592;</button>
+    <div class="rev-nav" id="rev-nav"></div>
+    <button class="rev-arrow" onclick="revNext()" aria-label="Next">&#8594;</button>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="cmp-sec">
+  <div class="wrap-lg">
+    <p class="label center" style="color:rgba(255,255,255,.35)">The best device on the market for sinus congestion</p>
+    <h2 style="color:#fff;font-size:clamp(24px,4vw,34px);text-align:center;margin-bottom:8px">Why NovaFlow 2.0 beats every other red light device.</h2>
+    <div class="cmp-wrap">
+      <table class="cmp" style="table-layout:fixed;width:100%">
+        <colgroup>
+          <col style="width:50%"/><col style="width:25%"/><col style="width:25%"/>
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="hl-th">NovaFlow 2.0</th>
+            <th style="font-size:11px">Other Red Light<br/>Devices</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Red light (660nm) tissue support</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cw">Varies</span></td></tr>
+          <tr><td>Blue light (450nm) antibacterial</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
+          <tr><td>Intranasal delivery (reaches nasal tissue directly)</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
+          <tr><td>Calibrated wavelength — not generic LEDs</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
+          <tr><td>Designed specifically for nasal congestion</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
+          <tr><td>120-day money-back guarantee</td><td class="hl-td" style="color:#4ade80;font-weight:700">120 Days</td><td><span class="cn">✗</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer-sec" id="offer" style="padding:56px 0">
+  <div class="wrap" style="max-width:600px">
+
+    <p style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--dark);margin-bottom:20px;line-height:1.3">This discount is only available at launch. Once we sell out, this price is gone — forever.</p>
+
+    <!-- Bundle cards — 3-col vertical (cleriva.com format) -->
+    <div class="bc-grid" id="o-bc" style="margin-top:20px">
+
+      <div class="bc" id="o-b1" onclick="obc(1)">
+        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="1 Device"/>
+        <div class="bc-name">1 Device</div>
+        <span class="bc-save-lbl save-red">Full Price</span>
+        <div class="bc-per" data-usd="39.99">$39.99</div>
+        <div class="bc-per-ea">ea</div>
+        <div class="bc-was" style="visibility:hidden">$39.99</div>
+        <div class="bc-bottom"></div>
+      </div>
+
+      <div class="bc on" id="o-b2" onclick="obc(2)">
+        <div class="bc-pill pop">Most Popular</div>
+        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="2 Devices"/>
+        <div class="bc-name">2 Devices</div>
+        <span class="bc-save-lbl save-red">B1G1 50% Off</span>
+        <div class="bc-per" data-usd="29.99">$29.99</div>
+        <div class="bc-per-ea">ea</div>
+        <div class="bc-was" data-usd="39.99">$39.99</div>
+        <div class="bc-bottom">2 Free Gifts!</div>
+      </div>
+
+      <div class="bc" id="o-b3" onclick="obc(3)">
+        <img class="bc-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="3 Devices"/>
+        <div class="bc-name">3 Devices</div>
+        <span class="bc-save-lbl save-red">Buy 2, Get 1 Free</span>
+        <div class="bc-per" data-usd="26.99">$26.99</div>
+        <div class="bc-per-ea">ea</div>
+        <div class="bc-was" data-usd="39.99">$39.99</div>
+        <div class="bc-bottom">3 Free Gifts!</div>
+      </div>
+
+    </div>
+
+    <!-- Addon -->
+    <div class="addon" id="uvc-addon" onclick="toggleAddon()" role="checkbox" aria-checked="false" style="margin-top:12px">
+      <div class="addon-ck" id="uvc-ck">+</div>
+      <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589" alt="UV-C Sterilizer" style="width:44px;height:44px;object-fit:contain;border-radius:6px;background:var(--cream2);flex-shrink:0"/>
+      <div class="addon-b"><h5>+Add Sterilizing Kit</h5><p>UV-C sterilizer + 6 extra silicone sleeve sets</p></div>
+      <div class="addon-p" id="uvc-p" data-usd="19.99">$19.99</div>
+      <div class="addon-qty" id="uvc-qty">
+        <button class="aq-btn" onclick="adjQty('uvc',-1,event)">−</button>
+        <span class="aq-count" id="uvc-n">1</span>
+        <button class="aq-btn" onclick="adjQty('uvc',1,event)">+</button>
+      </div>
+    </div>
+
+    <!-- Gift unlock — horizontal cards with images -->
+    <p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:14px;text-align:center">Unlock more by selecting a higher bundle</p>
+    <div class="gift-cards">
+      <div class="gift-card unlocked" id="o-gift-1">
+        <span class="gift-free-pill">FREE</span>
+        <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446" alt="Breathing Guide"/>
+        <div class="gift-card-name">Mucus clearing breathwork</div>
+      </div>
+      <div class="gift-card unlocked" id="o-gift-2">
+        <span class="gift-free-pill">FREE</span>
+        <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_16_95353d2b-974d-4012-979d-b1dc30d7b834.png?v=1784281443" alt="Mystery Gift"/>
+        <div class="gift-card-name">Mystery Gift</div>
+      </div>
+      <div class="gift-card locked" id="o-gift-3">
+        <span class="gift-free-pill">FREE</span>
+        <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_15.png?v=1784281288" alt="Portable Case" style="display:none"/>
+        <span class="gift-lock-ico">🔒</span>
+        <div class="gift-card-name">Purchase 3+ to unlock</div>
+      </div>
+    </div>
+
+    <button class="atc" style="font-size:16px;padding:17px;margin-top:16px" onclick="atcMain()">ADD TO CART</button>
+
+    <!-- Trust section -->
+    <div class="trust-block">
+      <div class="trust-guarantee">
+        <div class="trust-guar-ico">✓</div>
+        <div class="trust-guar-txt">Enjoy <strong>120 days of free returns</strong>, with less than 3% of customers asking for their money back.</div>
+      </div>
+      <div class="trust-ship">
+        <span>🔒 <strong>Pre-order price ONLY</strong></span>
+        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships in 2 weeks</span></div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px">Individual results vary. Not a medical device.</p>
+
+    <!-- Counterfeit warning -->
+    <div style="margin-top:20px;border:1.5px solid #E5C57A;border-radius:12px;padding:16px;background:#FFFBEF">
+      <p style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#92400E;margin-bottom:8px">⚠ WARNING: BEWARE OF COUNTERFEITS</p>
+      <p style="font-size:13px;color:#78350F;line-height:1.6">With over 30,000 customers worldwide, NovaFlow has become a target for counterfeiters. Only purchase from this page or our official website at <strong>cleriva.com</strong> to ensure you receive the genuine product. Counterfeit devices may not deliver the correct wavelengths and could be unsafe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 120-DAY GUARANTEE -->
+<section class="guar-sec">
+  <div class="wrap">
+    <div class="guar-inner">
+      <div class="guar-badge">
+        <span>120</span>
+        <span>Day Guarantee</span>
+      </div>
+      <div class="guar-copy">
+        <h2>Try it for 4 months.<br/>Full refund if it doesn't work.</h2>
+        <p>We stand behind NovaFlow 2.0 because we know what it does. If you use it consistently and don't notice a difference in how you breathe, contact us for a full refund — no questions asked, no return required. 120 days. That's our commitment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="wrap">
+    <p class="label center">Common questions</p>
+    <h2 style="font-size:clamp(24px,4vw,32px);text-align:center;margin-bottom:0">Frequently asked questions</h2>
+    <div class="faq-list" id="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">What's new in NovaFlow 2.0 vs the original?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds a calibrated blue light (450nm) to the existing red light (660nm). The original device used only red light, which supports tissue recovery in the nasal lining. The 2.0 adds blue light, which is studied for antibacterial activity in soft tissue — addressing something red light alone cannot. Both wavelengths are delivered in the same 10-minute session through the same device.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Will this fit smaller nostrils?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 comes with soft silicone sleeves that fit most nostrils comfortably. If your nostrils are on the smaller side, you can use it without the sleeves for a better fit.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Can it be used with a deviated septum?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Many users with deviated septums find that NovaFlow 2.0 supports their symptoms. It won't fix the structural issue — but it can be used to help manage the congestion that arises from it.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Can I breathe with this in my nose?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The silicone tips rest gently inside your nostrils. They don't create a seal or block airflow — you breathe completely normally during the entire 10-minute session.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Is NovaFlow 2.0 safe for kids?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 uses calibrated red and blue light with no UV or harmful emissions. Red and blue light therapy is generally considered safe for children over the age of 3. We always recommend consulting a doctor first, especially for children with pre-existing conditions.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Will the light affect my eyes?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">The light is projected inside your nasal passages. Most users use it right before bed with no issues. If you have sensitive eyes, we recommend our protective glasses, available as an add-on.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Is the device rechargeable?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. NovaFlow 2.0 is USB rechargeable. No batteries needed. The device auto shuts off after 10 minutes, so a full charge lasts multiple sessions.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Does it emit heat?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">No. The device doesn't emit any heat and you won't feel the light during use. It's designed to be completely comfortable, even for sensitive users.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">How is this different from the Clear Breathing Kit?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">The Clear Breathing Kit is a standalone add-on. It includes a UV-C sterilizing unit and extra silicone sleeves to extend the life of your device. It does not change the device itself — NovaFlow 2.0 is the device.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">What does the 120-day guarantee cover?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Every purchase is backed by a 120-day money-back guarantee with free refunds. If you use NovaFlow 2.0 consistently for 4 months and don't notice a difference, contact us and we'll refund you in full — no questions asked.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="fcta-sec">
+  <div class="wrap">
+    <p class="label center" style="color:rgba(255,255,255,.5)">Ready?</p>
+    <h2>Start breathing clearly.<br/>Or get your money back.</h2>
+    <p>120 days. No questions. Nothing to lose except the congestion.</p>
+    <button class="fcta-btn" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Get NovaFlow 2.0 →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Cleriva</h3>
+        <p>NovaFlow 2.0 is a wellness device, not a medical device, and has not been evaluated by the FDA. It is not intended to diagnose, treat, cure, or prevent any disease. Results may vary. Consult a healthcare professional before use if pregnant, breastfeeding, under 18, or have a medical condition.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="https://cleriva.com/pages/contact">Contact Us</a>
+        <a href="https://cleriva.com/pages/shipping-information">Shipping Info</a>
+        <a href="https://cleriva.com/pages/returns-refund-policy">Returns</a>
+        <a href="https://cleriva.com/apps/17TRACK">Track Order</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="https://cleriva.com/pages/about-us">About Us</a>
+        <a href="https://cleriva.com/pages/red-light-science">The Science</a>
+        <a href="https://cleriva.com/pages/affiliates">Affiliates</a>
+        <a href="https://cleriva.com/policies/privacy-policy">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Cleriva. All rights reserved.</span>
+      <span>cleriva.com</span>
+    </div>
+    <p class="disclaimer">Individual results vary. NovaFlow 2.0 is not a medical device. Clinical statistics cited refer to published research on intranasal red and blue light therapy as modalities, not to NovaFlow 2.0 specifically. Always consult a healthcare professional before beginning any new wellness regimen.</p>
+  </div>
+</footer>
+
+<!-- STICKY ATC BAR -->
+<div class="satc" id="satc">
+  <div class="satc-name">
+    <h5>NovaFlow 2.0 — Red + Blue Light</h5>
+    <p>From $39.99 · 120-day guarantee · Free shipping</p>
+  </div>
+  <button class="satc-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Choose Bundle ↑</button>
+</div>
+
+<script>
+/* ── Hero image carousel ── */
+let hcIdx=0;
+const HC_TOTAL=8;
+function hcRender(){
+  const track=document.getElementById('hc-track');
+  if(track)track.style.transform=`translateX(-${hcIdx*100}%)`;
+  document.querySelectorAll('.hc-dot').forEach((d,i)=>d.classList.toggle('on',i===hcIdx));
+  document.querySelectorAll('.hc-thumb').forEach((t,i)=>t.classList.toggle('on',i===hcIdx));
+}
+function hcMove(dir){hcIdx=(hcIdx+dir+HC_TOTAL)%HC_TOTAL;hcRender();}
+function hcGo(n){hcIdx=n;hcRender();}
+// Touch swipe support
+(function(){
+  const el=document.getElementById('hcarousel');
+  if(!el)return;
+  let sx=0;
+  el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  el.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>40)hcMove(dx<0?1:-1);
+  },{passive:true});
+})();
+
+/* ── Hero quantity selector ── */
+function setGiftCards(prefix,n){
+  // prefix = 'h-gift' or 'o-gift'; n = selected bundle qty
+  [1,2,3].forEach(i=>{
+    const c=document.getElementById(prefix+'-'+i);
+    if(!c)return;
+    const img=c.querySelector('img');
+    const lockIco=c.querySelector('.gift-lock-ico');
+    const nm=c.querySelector('.gift-card-name');
+    const unlocked=n>=i;
+    c.classList.toggle('unlocked',unlocked);
+    c.classList.toggle('locked',!unlocked);
+    if(img)img.style.display=unlocked?'block':'none';
+    if(lockIco)lockIco.style.display=unlocked?'none':'block';
+    if(nm){
+      if(unlocked){nm.textContent=i===1?'Mucus clearing breathwork':i===2?'Mystery Gift':'Portable Case';}
+      else{nm.textContent='Purchase '+i+'+ to unlock';}
+    }
+  });
+}
+function hqty(n){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('h-b'+i);
+    if(el)el.classList.toggle('on',i===n);
+  });
+  setGiftCards('h-gift',n);
+}
+
+/* ── Offer bundle selector ── */
+function obc(n){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('o-b'+i);
+    if(el)el.classList.toggle('on',i===n);
+  });
+  setGiftCards('o-gift',n);
+}
+
+/* ── UV-C Sterilizer toggles + qty ── */
+let uvcQty=1,hUvcQty=1;
+
+function adjQty(id,delta,e){
+  e.stopPropagation();
+  if(id==='uvc'){uvcQty=Math.min(99,Math.max(1,uvcQty+delta));document.getElementById('uvc-n').textContent=uvcQty;}
+  else{hUvcQty=Math.min(99,Math.max(1,hUvcQty+delta));document.getElementById('h-uvc-n').textContent=hUvcQty;}
+}
+
+function toggleAddon(){
+  const el=document.getElementById('uvc-addon'),ck=document.getElementById('uvc-ck');
+  if(!el||!ck)return;
+  const on=el.classList.toggle('addon-on');
+  ck.textContent=on?'✓':'+';
+  el.setAttribute('aria-checked',String(on));
+  if(on){uvcQty=1;document.getElementById('uvc-n').textContent=1;}
+}
+
+function toggleHAddon(){
+  const el=document.getElementById('h-uvc-addon'),ck=document.getElementById('h-uvc-ck');
+  if(!el||!ck)return;
+  const on=el.classList.toggle('addon-on');
+  ck.textContent=on?'✓':'+';
+  el.setAttribute('aria-checked',String(on));
+  if(on){hUvcQty=1;document.getElementById('h-uvc-n').textContent=1;}
+}
+
+/* ── FAQ accordion ── */
+function faq(q){
+  const item=q.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+/* ── ATC functions ── */
+/* ── Variant IDs — update with real Shopify IDs ── */
+const VAR_WHITE='51642467189047'; // NovaFlow 2.0 White variant
+const VAR_BLACK='51642467189047'; // NovaFlow 2.0 Black variant — UPDATE
+const VAR_KIT='52686809956663';   // Sterilizing Kit variant
+const KIT_PRICE=19.99;
+const DEVICE_PRICES={1:39.99,2:29.99,3:26.99};
+
+let cdQty=2,cdAddonQty=1,cdAddonOn=false;
+let cdColors=['white','white','white'];
+
+function openCart(qty){
+  cdQty=qty;
+  cdColors=['white','white','white'];
+
+  // Carry sterilizer selection from whichever page addon is checked
+  const heroOn=document.getElementById('h-uvc-addon')&&document.getElementById('h-uvc-addon').classList.contains('addon-on');
+  const offerOn=document.getElementById('uvc-addon')&&document.getElementById('uvc-addon').classList.contains('addon-on');
+  cdAddonOn=heroOn||offerOn;
+  cdAddonQty=cdAddonOn?(heroOn?hUvcQty:uvcQty):1;
+
+  // Sync cart drawer kit UI
+  syncCartKitUI();
+  renderCartColors();
+  updateCartTotals();
+  document.getElementById('cdrawer-overlay').classList.add('show');
+  document.getElementById('cdrawer').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function syncCartKitUI(){
+  const upsellSec=document.getElementById('cd-upsell-sec');
+  const addedSec=document.getElementById('cd-kit-added');
+  const krow=document.getElementById('cd-kit-row');
+  const kck=document.getElementById('cd-kit-ck');
+  if(cdAddonOn){
+    // Already selected — show confirmed line item, hide upsell prompt
+    if(upsellSec)upsellSec.style.display='none';
+    if(addedSec){addedSec.style.display='flex';document.getElementById('cd-kit-added-n').textContent=cdAddonQty;}
+  } else {
+    // Not selected — show upsell, hide confirmed row
+    if(upsellSec)upsellSec.style.display='block';
+    if(addedSec)addedSec.style.display='none';
+    if(krow)krow.classList.remove('addon-on');
+    if(kck)kck.textContent='+';
+    document.getElementById('cd-kit-n').textContent=1;
+  }
+}
+
+function closeCart(){
+  document.getElementById('cdrawer-overlay').classList.remove('show');
+  document.getElementById('cdrawer').classList.remove('show');
+  document.body.style.overflow='';
+}
+
+function renderCartColors(){
+  const wrap=document.getElementById('cd-colors');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  const prices={1:'$39.99',2:'$19.99',3:'$26.99'};
+  // update header product row
+  document.getElementById('cd-prod-sub').textContent=`${cdQty} device${cdQty>1?'s':''} · ${prices[cdQty]}/ea`;
+  document.getElementById('cd-prod-price').textContent=`$${(cdQty*DEVICE_PRICES[cdQty]).toFixed(2)}`;
+  for(let i=0;i<cdQty;i++){
+    const lbl=cdQty===1?'Your device':`Device ${i+1}`;
+    const row=document.createElement('div');
+    row.className='cd-device-row';
+    row.innerHTML=`
+      <span class="cd-device-lbl">${lbl}</span>
+      <div class="cd-swatches">
+        <div class="cd-swatch ${cdColors[i]==='white'?'on-white':''}" id="cd-sw-${i}-w" onclick="setColor(${i},'white')">
+          <img class="cd-swatch-dot" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_22.png?v=1784418515" alt="White"/>White
+        </div>
+        <div class="cd-swatch ${cdColors[i]==='black'?'on-black':''}" id="cd-sw-${i}-b" onclick="setColor(${i},'black')">
+          <img class="cd-swatch-dot" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="Black"/>Black
+        </div>
+      </div>`;
+    wrap.appendChild(row);
+  }
+}
+
+function setColor(idx,color){
+  cdColors[idx]=color;
+  const wEl=document.getElementById(`cd-sw-${idx}-w`);
+  const bEl=document.getElementById(`cd-sw-${idx}-b`);
+  if(wEl){wEl.classList.toggle('on-white',color==='white');wEl.classList.remove('on-black');}
+  if(bEl){bEl.classList.toggle('on-black',color==='black');bEl.classList.remove('on-white');}
+}
+
+function toggleCartKit(){
+  cdAddonOn=!cdAddonOn;
+  const krow=document.getElementById('cd-kit-row');
+  const kck=document.getElementById('cd-kit-ck');
+  if(krow)krow.classList.toggle('addon-on',cdAddonOn);
+  if(kck)kck.textContent=cdAddonOn?'✓':'+';
+  if(cdAddonOn){cdAddonQty=1;document.getElementById('cd-kit-n').textContent=1;}
+  updateCartTotals();
+}
+function adjCartKitAdded(delta,e){
+  e.stopPropagation();
+  cdAddonQty=Math.min(99,Math.max(1,cdAddonQty+delta));
+  const el=document.getElementById('cd-kit-added-n');
+  if(el)el.textContent=cdAddonQty;
+  updateCartTotals();
+}
+
+function adjCartKit(delta,e){
+  e.stopPropagation();
+  cdAddonQty=Math.min(99,Math.max(1,cdAddonQty+delta));
+  document.getElementById('cd-kit-n').textContent=cdAddonQty;
+  updateCartTotals();
+}
+
+function updateCartTotals(){
+  const dp=window._DEVICE_PRICES||DEVICE_PRICES;
+  const kp=window._KIT_PRICE||KIT_PRICE;
+  const deviceTotal=cdQty*dp[cdQty];
+  const kitTotal=cdAddonOn?cdAddonQty*kp:0;
+  const total=deviceTotal+kitTotal;
+  const fmt=window.fmtPrice||function(n){return'$'+n.toFixed(2);};
+  document.getElementById('cd-total-amt').textContent=fmt(total);
+}
+
+function checkoutCart(){
+  const variant=cdColors.some(c=>c==='black')?VAR_BLACK:VAR_WHITE;
+  let url=`https://cleriva.com/cart/${variant}:${cdQty}`;
+  if(cdAddonOn)url+=`,${VAR_KIT}:${cdAddonQty}`;
+  window.location.href=url;
+}
+
+function getSelectedQty(){
+  for(let i=1;i<=3;i++){const el=document.getElementById('h-b'+i);if(el&&el.classList.contains('on'))return i;}
+  return 1;
+}
+function getSelectedBundle(){
+  for(let i=1;i<=3;i++){const el=document.getElementById('o-b'+i);if(el&&el.classList.contains('on'))return i;}
+  return 2;
+}
+function atcHero(){openCart(getSelectedQty());}
+function atcMain(){openCart(getSelectedBundle());}
+
+/* ── Announcement bar countdown to 11:59 PM local time ── */
+function get1159(){
+  const t=new Date();
+  t.setHours(23,59,0,0);
+  if(Date.now()>=t.getTime())t.setDate(t.getDate()+1);
+  return t.getTime();
+}
+function tickAnn(){
+  const diff=get1159()-Date.now();
+  const pad=n=>String(Math.max(0,n)).padStart(2,'0');
+  const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  const el=document.getElementById('ann-cdown');
+  if(el)el.textContent=`${pad(h)}:${pad(m)}:${pad(s)}`;
+}
+tickAnn();setInterval(tickAnn,1000);
+
+/* ── Countdown timer — resets to midnight local time every day ── */
+function getMidnight(){
+  const m=new Date();
+  m.setHours(24,0,0,0);
+  return m.getTime();
+}
+function tick(){
+  const diff=getMidnight()-Date.now();
+  const pad=n=>String(Math.max(0,n)).padStart(2,'0');
+  const hrs=Math.floor(diff/3600000),mins=Math.floor((diff%3600000)/60000),secs=Math.floor((diff%60000)/1000);
+  [['h',hrs],['m',mins],['s',secs]].forEach(([id,v])=>{const el=document.getElementById('cdown-'+id);if(el)el.textContent=pad(v);});
+}
+tick();setInterval(tick,1000);
+// Initialize gift lock states for default selected bundle (2)
+obc(2);
+hqty(2);
+// Dynamic shipping date (today + 2 days)
+/* ship date removed — static "Ships in 2 weeks" */
+
+/* ── UGC video play buttons + first frame ── */
+document.querySelectorAll('.ugc-inner').forEach(function(inner){
+  const video=inner.querySelector('video');
+  const btn=inner.querySelector('.ugc-play');
+  function seekFirst(){video.currentTime=0.1;}
+  if(video.readyState>=2){seekFirst();}
+  else{video.addEventListener('loadeddata',seekFirst,{once:true});}
+  if(video.readyState===0)video.load();
+  btn.addEventListener('click',function(){
+    btn.classList.add('hidden');
+    video.controls=true;
+    video.play().catch(function(){});
+  });
+  video.addEventListener('pause',function(){if(btn)btn.classList.remove('hidden');});
+  video.addEventListener('ended',function(){if(btn){btn.classList.remove('hidden');video.controls=false;video.currentTime=0.1;}});
+  video.addEventListener('play',function(){if(btn)btn.classList.add('hidden');});
+});
+
+/* ── Neal's Journey: play button + first frame ── */
+document.querySelectorAll('.nv-inner').forEach(function(inner){
+  const video=inner.querySelector('video');
+  const btn=inner.querySelector('.nv-play-btn');
+  if(!video||!btn)return;
+  // Show first frame — use loadeddata (actual frame data) with readyState fallback
+  function seekFirstFrame(){video.currentTime=0.1;}
+  if(video.readyState>=2){seekFirstFrame();}
+  else{video.addEventListener('loadeddata',seekFirstFrame,{once:true});}
+  // Also kick off load explicitly in case browser hasn't started yet
+  if(video.readyState===0)video.load();
+  // Play on button click
+  btn.addEventListener('click',function(){
+    btn.classList.add('hidden');
+    video.play().catch(()=>{});
+  });
+  // Show button again if paused/ended
+  video.addEventListener('pause',function(){btn.classList.remove('hidden');});
+  video.addEventListener('ended',function(){btn.classList.remove('hidden');});
+  video.addEventListener('play',function(){btn.classList.add('hidden');});
+});
+
+/* ── legacy stub (unused) ── */
+function nvPlay(){
+}
+
+/* ── Review slider — 3/page desktop, 1/page mobile ── */
+let revIdx=0;
+function revPerView(){return window.innerWidth>=769?3:1;}
+function revPages(){return Math.ceil(6/revPerView());}
+function revBuildDots(){
+  const nav=document.getElementById('rev-nav');
+  if(!nav)return;
+  const pages=revPages();
+  nav.innerHTML='';
+  for(let i=0;i<pages;i++){
+    const d=document.createElement('div');
+    d.className='rev-dot'+(i===0?' on':'');
+    d.onclick=(function(idx){return function(){revGo(idx);};})(i);
+    nav.appendChild(d);
+  }
+}
+function revGo(n){
+  const pages=revPages();
+  revIdx=Math.max(0,Math.min(n,pages-1));
+  const track=document.getElementById('rev-track');
+  if(!track)return;
+  const card=track.querySelector('.rcard');
+  const perView=revPerView();
+  const gap=perView>1?16:0;
+  const w=card?(card.offsetWidth+gap)*perView:0;
+  track.style.transform=`translateX(-${revIdx*w}px)`;
+  document.querySelectorAll('.rev-dot').forEach((d,i)=>d.classList.toggle('on',i===revIdx));
+}
+function revPrev(){revGo(revIdx-1);}
+function revNext(){revGo(revIdx+1);}
+window.addEventListener('resize',function(){revIdx=0;revBuildDots();revGo(0);});
+revBuildDots();
+// Touch swipe for reviews
+(function(){
+  const el=document.getElementById('rev-track');
+  if(!el)return;
+  let sx=0;
+  el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  el.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>40){dx<0?revNext():revPrev();}
+  },{passive:true});
+})();
+
+/* ── Scroll reveal ── */
+(function(){
+  const els=document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:.12});
+  els.forEach(el=>io.observe(el));
+})();
+
+/* ── Sticky ATC bar ── */
+(function(){
+  const hero=document.getElementById('top');
+  const footer=document.querySelector('.footer');
+  const bar=document.getElementById('satc');
+  if(!bar)return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.target===hero){bar.classList.toggle('show',!e.isIntersecting);}
+      if(e.target===footer&&e.isIntersecting){bar.classList.remove('show');}
+    });
+  },{threshold:0.1});
+  if(hero)obs.observe(hero);
+  if(footer)obs.observe(footer);
+})();
+
+/* ── Timeline scroll activation ── */
+(function(){
+  const items=document.querySelectorAll('[data-tl]');
+  if(!items.length)return;
+  const tlObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const active=e.isIntersecting;
+      e.target.classList.toggle('active',active);
+      e.target.querySelector('.tl-circle').classList.toggle('active',active);
+    });
+  },{threshold:0.3,rootMargin:'0px 0px -80px 0px'});
+  items.forEach(item=>tlObs.observe(item));
+})();
+
+/* ── Multi-currency: detect visitor's currency, convert all data-usd prices ── */
+(async function(){
+  const SYM={USD:'$',GBP:'£',EUR:'€',CAD:'CA$',AUD:'A$',NZD:'NZ$',CHF:'CHF ',JPY:'¥',SGD:'S$',HKD:'HK$',MXN:'MX$',INR:'₹',BRL:'R$',ZAR:'R ',DKK:'kr ',SEK:'kr ',NOK:'kr ',AED:'AED ',SAR:'SAR '};
+  let cur='USD',sym='$',rate=1;
+
+  function up99(n){return Math.floor(n)+0.99;}
+  window.fmtPrice=function(usd){
+    if(cur==='USD')return '$'+usd.toFixed(2);
+    if(cur==='JPY')return sym+Math.ceil(usd*rate);
+    return sym+up99(usd*rate).toFixed(2);
+  };
+
+  try{
+    const geo=await fetch('https://ipapi.co/json/').then(r=>r.json());
+    cur=geo.currency||'USD';
+    sym=SYM[cur]||(cur+' ');
+    if(cur!=='USD'){
+      const fx=await fetch('https://open.er-api.com/v6/latest/USD').then(r=>r.json());
+      rate=(fx.rates&&fx.rates[cur])||1;
+    }
+  }catch(e){}
+
+  if(cur==='USD')return; // already correct, nothing to do
+
+  // Update all static price elements
+  document.querySelectorAll('[data-usd]').forEach(function(el){
+    el.textContent=window.fmtPrice(parseFloat(el.dataset.usd));
+  });
+
+  // Update cart drawer sub-label lookup
+  window._cartPriceLabels={
+    1:window.fmtPrice(39.99)+'/ea',
+    2:window.fmtPrice(29.99)+'/ea',
+    3:window.fmtPrice(26.99)+'/ea'
+  };
+  // Override cart math globals so totals reflect converted prices
+  window._DEVICE_PRICES={1:up99(39.99*rate),2:up99(29.99*rate),3:up99(26.99*rate)};
+  window._KIT_PRICE=up99(19.99*rate);
+})();
+</script>
+<!-- ── Cart Drawer ── -->
+<div class="cdrawer-overlay" id="cdrawer-overlay" onclick="closeCart()"></div>
+<div class="cdrawer" id="cdrawer">
+  <div class="cdrawer-head">
+    <h3>Your Order</h3>
+    <button class="cdrawer-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cdrawer-body">
+
+    <!-- Product row -->
+    <div class="cd-prod">
+      <img class="cd-prod-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_-_2026-07-15T141403.510_a7841732-8361-4767-9a8a-6f020e017185.png?v=1784151223" alt="NovaFlow 2.0"/>
+      <div class="cd-prod-info">
+        <div class="cd-prod-name">NovaFlow 2.0</div>
+        <div class="cd-prod-sub" id="cd-prod-sub">2 devices · $29.99/ea</div>
+      </div>
+      <div class="cd-prod-price" id="cd-prod-price">$59.98</div>
+    </div>
+
+    <!-- Color selection -->
+    <div class="cd-sec-lbl">Choose your color</div>
+    <div id="cd-colors"></div>
+
+    <div class="cd-divider"></div>
+
+    <!-- Sterilizer: confirmed line item (shown when pre-selected from page) -->
+    <div id="cd-kit-added" style="display:none;align-items:center;gap:10px;background:var(--cream);border:1.5px solid rgba(190,24,32,.2);border-radius:12px;padding:12px 14px;margin-bottom:2px">
+      <img class="cd-kit-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589" alt="UV-C Sterilizer"/>
+      <div class="cd-kit-info" style="flex:1">
+        <h5 style="font-size:13px;font-weight:800;color:var(--dark)">Sterilizing Kit</h5>
+        <p style="font-size:12px;color:var(--muted)">UV-C sterilizer + 6 extra silicone sleeve sets</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+        <button class="aq-btn" onclick="adjCartKitAdded(-1,event)">−</button>
+        <span class="aq-count" id="cd-kit-added-n">1</span>
+        <button class="aq-btn" onclick="adjCartKitAdded(1,event)">+</button>
+      </div>
+    </div>
+
+    <!-- Upsell (shown when sterilizer not yet selected) -->
+    <div id="cd-upsell-sec">
+      <div class="cd-upsell-lbl">Upgrade your order</div>
+      <div class="cd-kit-row" id="cd-kit-row" onclick="toggleCartKit()">
+        <div class="cd-kit-ck" id="cd-kit-ck">+</div>
+        <img class="cd-kit-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589" alt="UV-C Sterilizer"/>
+        <div class="cd-kit-info">
+          <h5>Add Sterilizing Kit</h5>
+          <p>UV-C sterilizer + 6 extra silicone sleeve sets</p>
+        </div>
+        <div class="cd-kit-price" data-usd="19.99">$19.99</div>
+        <div class="addon-qty">
+          <button class="aq-btn" onclick="adjCartKit(-1,event)">−</button>
+          <span class="aq-count" id="cd-kit-n">1</span>
+          <button class="aq-btn" onclick="adjCartKit(1,event)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total -->
+    <div class="cd-total-row">
+      <span class="cd-total-lbl">Total</span>
+      <span class="cd-total-amt" id="cd-total-amt">$59.98</span>
+    </div>
+
+    <button class="cd-cta" onclick="checkoutCart()">Proceed to Checkout →</button>
+    <p class="cd-guarantee">🔒 120-day money-back guarantee · Free US shipping</p>
+  </div>
+</div>
+
+</body>
+</html>
