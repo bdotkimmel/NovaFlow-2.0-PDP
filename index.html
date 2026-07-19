@@ -391,12 +391,13 @@ a{color:inherit;text-decoration:none}
 /* ── Cart Drawer ── */
 .cdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
 .cdrawer-overlay.show{opacity:1;pointer-events:auto}
-.cdrawer{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;z-index:1101;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow-y:auto;display:flex;flex-direction:column}
+.cdrawer{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;z-index:1101;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
 .cdrawer.show{transform:translateY(0)}
-.cdrawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:1;flex-shrink:0}
+.cdrawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);background:#fff;z-index:1;flex-shrink:0}
 .cdrawer-head h3{font-size:17px;font-weight:900;color:var(--dark)}
 .cdrawer-close{width:32px;height:32px;border:none;background:var(--cream2);border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dark);font-weight:700}
-.cdrawer-body{padding:16px 20px 24px;flex:1;overflow-y:auto}
+.cdrawer-body{padding:16px 20px 0;flex:1;overflow-y:auto;min-height:0;-webkit-overflow-scrolling:touch}
+.cdrawer-foot{padding:16px 20px 24px;flex-shrink:0;background:#fff;border-top:1px solid var(--border)}
 .cd-prod{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .cd-prod-img{width:58px;height:58px;object-fit:contain;border-radius:10px;background:var(--cream2);flex-shrink:0}
 .cd-prod-info{flex:1}
@@ -425,7 +426,7 @@ a{color:inherit;text-decoration:none}
 .cd-kit-row.addon-on .cd-kit-price{display:none}
 .cd-kit-row .addon-qty{display:none;align-items:center;gap:5px;flex-shrink:0}
 .cd-kit-row.addon-on .addon-qty{display:flex}
-.cd-total-row{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0 0;border-top:2px solid var(--border);margin-top:14px}
+.cd-total-row{display:flex;align-items:baseline;justify-content:space-between;padding:0 0 4px;border-top:none;margin-top:0}
 .cd-total-lbl{font-size:14px;font-weight:700;color:var(--muted)}
 .cd-total-amt{font-size:22px;font-weight:900;color:var(--dark)}
 .cd-cta{width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;padding:17px;font-size:17px;font-weight:900;cursor:pointer;margin-top:14px;transition:opacity .2s;letter-spacing:.01em}
@@ -2261,12 +2262,15 @@ revBuildDots();
         <img class="cd-kit-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Say_Goodbye_to_Congestion_Permanently._-_2025-05-29T023055.001.png?v=1748511069" alt="Priority Processing" style="border-radius:8px"/>
         <div class="cd-kit-info">
           <h5>Priority Processing</h5>
-          <p>Move your order to the front of the queue</p>
+          <p>Move your order to the front of the queue and protect it from any damage or loss.</p>
         </div>
         <div class="cd-kit-price" data-usd="2.99">$2.99</div>
       </div>
     </div>
 
+  </div><!-- /cdrawer-body -->
+
+  <div class="cdrawer-foot">
     <!-- Total -->
     <div class="cd-total-row">
       <span class="cd-total-lbl">Total</span>
