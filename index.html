@@ -165,7 +165,7 @@ a{color:inherit;text-decoration:none}
 /* Upgrade Bridge */
 .bridge-sec{background:var(--dark);padding:88px 0}
 .bridge-inner{max-width:740px;margin:0 auto;text-align:center}
-.bridge-inner h2{color:#fff;font-size:clamp(26px,4.5vw,40px);margin-bottom:28px;line-height:1.25}
+.bridge-inner h2{color:#fff;font-size:clamp(34px,5vw,52px);margin-bottom:28px;line-height:1.2}
 .bridge-inner p{color:rgba(255,255,255,.8);font-size:18px;line-height:1.85;margin-bottom:18px}
 .bridge-inner p:last-child{margin-bottom:0}
 .bridge-divider{width:48px;height:3px;background:var(--red);border-radius:2px;margin:0 auto 32px}
@@ -251,7 +251,7 @@ a{color:inherit;text-decoration:none}
 .pb-stat{padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
 .pb-stat:nth-child(3),.pb-stat:nth-child(4){padding-bottom:0;border-bottom:none}
 .pb-cta{background:#fff;border:none;border-radius:20px;padding:40px 36px;text-align:center}
-.pb-headline{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--dark);line-height:1.25;margin-bottom:14px}
+.pb-headline{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,42px);font-weight:700;color:var(--dark);line-height:1.2;margin-bottom:14px}
 .pb-sub{font-size:14px;color:#555;line-height:1.6;margin-bottom:28px}
 .pb-btn{width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;padding:16px 24px;font-size:17px;font-weight:800;cursor:pointer;letter-spacing:.01em;transition:opacity .2s}
 .pb-btn:hover{opacity:.88}
@@ -279,7 +279,7 @@ a{color:inherit;text-decoration:none}
 .expert-toggle:hover{transform:scale(1.08)}
 .expert-story{position:absolute;inset:0;background:#fff;overflow-y:auto;padding:20px;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);border-radius:20px}
 .expert-card.open .expert-story{transform:translateY(0)}
-.expert-story-inner{padding-top:8px}
+.expert-story-inner{padding-top:36px}
 .expert-story p{font-size:14px;line-height:1.8;color:var(--dark);margin-bottom:12px}
 .expert-story p:last-child{margin-bottom:0}
 .expert-story-name{font-weight:700;font-size:14px;color:var(--dark);margin-top:16px}
@@ -287,7 +287,7 @@ a{color:inherit;text-decoration:none}
 
 /* UGC video testimonials */
 .ugc-sec{background:#fff;padding:64px 0}
-.ugc-headline{font-size:clamp(22px,3.5vw,32px);font-weight:800;text-align:center;color:var(--dark);margin-bottom:36px;line-height:1.25}
+.ugc-headline{font-size:clamp(30px,4vw,44px);font-weight:800;text-align:center;color:var(--dark);margin-bottom:36px;line-height:1.2}
 .ugc-grid{display:flex;flex-direction:row;gap:12px;max-width:560px;margin:0 auto;justify-content:center}
 .ugc-col{display:flex;flex-direction:column;flex:1;min-width:0}
 .ugc-card{border-radius:14px;overflow:hidden;background:#111;position:relative}
@@ -307,9 +307,13 @@ a{color:inherit;text-decoration:none}
 /* Neal's journey */
 .neal-sec{background:var(--dark);padding:72px 0}
 .neal-videos{display:flex;gap:16px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.neal-nav{display:flex;justify-content:center;gap:12px;margin-top:20px}
+.neal-nav-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;flex-shrink:0}
+.neal-nav-btn:hover{background:rgba(255,255,255,.22)}
+.neal-nav-btn:active{transform:scale(.92)}
 .nv{flex:0 0 min(280px,80vw);border-radius:14px;overflow:hidden;background:#111;scroll-snap-align:center}
 .nv-inner{aspect-ratio:9/16;position:relative;overflow:hidden;background:#111}
-.nv-inner video{width:100%;height:100%;object-fit:cover;display:block}
+.nv-inner video{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
 .nv-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .15s,opacity .2s;z-index:2;pointer-events:auto}
 .nv-play-btn:hover{transform:translate(-50%,-50%) scale(1.08)}
 .nv-play-btn.hidden{opacity:0;pointer-events:none}
@@ -324,9 +328,9 @@ a{color:inherit;text-decoration:none}
 /* Comparison */
 .cmp-sec{background:var(--dark);padding:72px 0}
 .cmp-wrap{overflow-x:auto;margin-top:36px}
-.cmp{width:100%;border-collapse:collapse;font-size:13px}
-.cmp th{padding:14px 16px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.08)}
-.cmp td{padding:16px 16px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-size:15px;line-height:1.45}
+.cmp{width:100%;border-collapse:collapse;font-size:16px}
+.cmp th{padding:16px 20px;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.08)}
+.cmp td{padding:20px 20px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-size:17px;line-height:1.45}
 .cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
 .cmp tr:last-child td{border-bottom:none}
 .cmp .hl-th{background:rgba(190,24,32,.12);color:var(--red);border-bottom:1px solid rgba(190,24,32,.2)}
@@ -408,8 +412,8 @@ a{color:inherit;text-decoration:none}
 .cd-kit-row.addon-on .cd-kit-ck{background:var(--red);border-color:var(--red);color:#fff}
 .cd-kit-img{width:40px;height:40px;object-fit:contain;border-radius:7px;background:#fff;flex-shrink:0}
 .cd-kit-info{flex:1;min-width:0}
-.cd-kit-info h5{font-size:13px;font-weight:800;color:var(--dark)}
-.cd-kit-info p{font-size:12px;color:var(--muted);margin-top:1px}
+.cd-kit-info h5{font-size:16px;font-weight:800;color:var(--dark)}
+.cd-kit-info p{font-size:15px;color:var(--muted);margin-top:5px}
 .cd-kit-price{font-size:14px;font-weight:800;color:var(--dark);flex-shrink:0}
 .cd-kit-row.addon-on .cd-kit-price{display:none}
 .cd-kit-row .addon-qty{display:none;align-items:center;gap:5px;flex-shrink:0}
@@ -485,7 +489,7 @@ a{color:inherit;text-decoration:none}
 .guar-badge{width:120px;height:120px;border-radius:50%;border:3px solid rgba(255,255,255,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex-shrink:0;gap:2px}
 .guar-badge span:first-child{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:#fff;line-height:1;display:block}
 .guar-badge span:last-child{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);line-height:1.3;display:block;max-width:70px;text-align:center}
-.guar-copy h2{color:#fff;font-size:clamp(22px,3.5vw,30px);margin-bottom:12px}
+.guar-copy h2{color:#fff;font-size:clamp(30px,4vw,44px);margin-bottom:12px}
 .guar-copy p{color:rgba(255,255,255,.65);font-size:14px;line-height:1.75}
 
 /* FAQ */
@@ -510,7 +514,7 @@ a{color:inherit;text-decoration:none}
 
 /* Final CTA */
 .fcta-sec{background:var(--red);padding:72px 0;text-align:center}
-.fcta-sec h2{color:#fff;font-size:clamp(26px,4.5vw,40px);margin-bottom:16px}
+.fcta-sec h2{color:#fff;font-size:clamp(34px,5vw,52px);margin-bottom:16px}
 .fcta-sec p{color:rgba(255,255,255,.8);font-size:15px;margin-bottom:32px}
 .fcta-btn{display:inline-block;background:#fff;color:var(--red);font-size:15px;font-weight:800;padding:16px 40px;border-radius:10px;cursor:pointer;transition:opacity .2s}
 .fcta-btn:hover{opacity:.9}
@@ -661,8 +665,8 @@ a{color:inherit;text-decoration:none}
   /* Comparison table — no horizontal scroll, allow text wrap */
   .cmp-wrap{overflow-x:visible}
   .cmp{min-width:0;width:100%}
-  .cmp th{font-size:11px}
-  .cmp td{font-size:13px;padding:13px 8px;line-height:1.45}
+  .cmp th{font-size:13px}
+  .cmp td{font-size:15px;padding:16px 10px;line-height:1.45}
   .cmp td:first-child{line-height:1.45}
 
   /* Offer — bundle cards */
@@ -712,6 +716,20 @@ a{color:inherit;text-decoration:none}
   .hc-thumb{flex:0 0 44px;height:44px}
   .ann{font-size:13px;padding:9px 12px}
 }
+
+/* ── Minimum readable font sizes ── */
+/* 15px floor: supporting text, labels, secondary copy */
+.trust-row,.ticker-item,.ss,.stars-c,.tp-text,.ugc-lbl,
+.expert-card-title,.expert-story-title,.pb-guar,.nv-quote,
+.isin-row,.h2h-pt,.addon-b p,.cd-prod-sub,.cd-swatch,
+.satc-name p,.proto-body,.r-ver{font-size:15px!important}
+/* 16px floor: primary body copy, FAQ, reviews, expert story */
+.sl,.pb-l,.pb-sub,.faq-q,.faq-a-inner,.faq-inline .faq-a-inner,
+.expert-story p,.expert-story-name,.rcard p,.r-name,
+.r-stars,.guar-copy p,.cd-kit-info h5,.cd-kit-info p,
+.cd-device-lbl,.cd-guarantee,.cd-prod-sub{font-size:16px!important}
+/* label (all-caps tracking text) — 13px is readable at this weight/spacing */
+.label{font-size:13px!important}
 </style>
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent-2026-07-03T183927.871_11600979-2b24-452f-b4f0-1507c0b7556a.png?v=1784151225"/>
@@ -810,9 +828,9 @@ a{color:inherit;text-decoration:none}
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
         <div class="stock-bar-track">
-          <div class="stock-bar-fill"></div>
+          <div class="stock-bar-fill" id="stock-bar-fill"></div>
         </div>
-        <span class="stock-bar-lbl">91% Sold</span>
+        <span class="stock-bar-lbl" id="stock-bar-lbl">91% Sold</span>
       </div>
 
       <!-- Quantity -->
@@ -901,7 +919,7 @@ a{color:inherit;text-decoration:none}
             <div class="faq-a"><div class="faq-a-inner" style="display:flex;flex-direction:column;gap:10px">
               <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red)">Red light (660nm)</strong><br/>Penetrates nasal tissue to reduce inflammation at the cellular level.</div>
               <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#1d6fd8">Blue light (450nm)</strong><br/>Targets bacteria in the nasal passages linked to chronic congestion.</div>
-              <div style="padding-top:4px"><strong>10 min per session</strong> · Up to 3× daily · Auto powers off</div>
+              <div style="padding-top:4px"><strong>10 min per mode · 20 min total</strong> · Up to 3× daily · Auto powers off</div>
             </div></div>
           </div>
 
@@ -921,7 +939,7 @@ a{color:inherit;text-decoration:none}
                 <li>✓ NovaFlow 2.0 device (white or black)</li>
                 <li>✓ Soft silicone nasal sleeves (included)</li>
                 <li>✓ USB charging cable</li>
-                <li>✓ The Breathing Reset guide by Dr. Julian Fattison <em style="color:var(--muted);font-style:normal">(digital)</em></li>
+                <li>✓ The Breathing Reset guide by Dr. Julien Fatisson <em style="color:var(--muted);font-style:normal">(digital)</em></li>
               </ul>
             </div></div>
           </div>
@@ -1021,7 +1039,7 @@ a{color:inherit;text-decoration:none}
 <section class="sec fails-sec">
   <div class="wrap">
     <p class="label center">Why nothing has worked</p>
-    <h2 style="font-size:clamp(24px,4vw,34px);text-align:center;max-width:600px;margin:0 auto 0">Everything you've tried was treating a symptom.<br/><em>Not the cause.</em></h2>
+    <h2 style="font-size:clamp(32px,4.5vw,48px);text-align:center;max-width:700px;margin:0 auto 0;line-height:1.2">Everything you've tried was treating a symptom.<br/><em>Not the cause.</em></h2>
     <div class="fails-grid">
       <div class="fcard fcard-villain reveal" style="transition-delay:.1s">
         <div class="fcard-title">Decongestant Sprays</div>
@@ -1056,7 +1074,7 @@ a{color:inherit;text-decoration:none}
       <div class="bridge-divider"></div>
       <p>Our customers were getting off sprays. Sleeping through the night. Breathing through both nostrils for the first time in years. But a subset of them weren't getting all the way there — and we kept asking why.</p>
       <p>The answer was bacteria. Research shows that many people with chronic nasal congestion have elevated bacterial populations in their nasal passages. Red light — for all its benefits to tissue recovery — cannot address them. That requires a different wavelength entirely.</p>
-      <p>Blue light at 450nm is well-studied for antibacterial activity in soft tissue. So we built it into the device. Same red light, now combined with blue in a single intranasal session. NovaFlow 2.0: the complete approach. Nothing else like it at home.</p>
+      <p>Blue light at 450nm is well-studied for antibacterial activity in soft tissue. So we built it into the device. Same red light, now paired with blue in the same device — two targeted modes, complete coverage. NovaFlow 2.0: nothing else like it at home.</p>
     </div>
   </div>
 </section>
@@ -1065,7 +1083,7 @@ a{color:inherit;text-decoration:none}
 <section class="dual-sec" id="how">
   <div class="wrap">
     <p class="label center" style="color:rgba(255,255,255,.3)">The NovaFlow 2.0 mechanism</p>
-    <h2 style="color:#fff;font-size:clamp(26px,4.5vw,38px);text-align:center;margin-bottom:48px">Two lights. Two jobs.<br/><em style="color:rgba(255,255,255,.3)">One device.</em></h2>
+    <h2 style="color:#fff;font-size:clamp(34px,5vw,52px);text-align:center;margin-bottom:48px;line-height:1.2">Two lights. Two jobs.<br/><em style="color:rgba(255,255,255,.3)">One device.</em></h2>
 
     <div class="dual-panels">
       <!-- Red Light -->
@@ -1102,7 +1120,7 @@ a{color:inherit;text-decoration:none}
 
     <div class="dual-together reveal">
       <p class="sup">Together</p>
-      <h3>The only at-home intranasal device that works on both the tissue <em>and</em> the bacteria — in one 10-minute session</h3>
+      <h3>The only at-home intranasal device that works on both the tissue <em>and</em> the bacteria — two modes, one device</h3>
       <p class="sub">Drug-free. No prescription. Nothing to keep buying. Individual results vary.</p>
     </div>
   </div>
@@ -1235,16 +1253,16 @@ a{color:inherit;text-decoration:none}
 <section class="sec expert-sec">
   <div class="wrap">
     <p class="label center" style="margin-bottom:8px">Expert endorsement</p>
-    <h2 style="text-align:center;font-size:clamp(22px,3vw,32px);margin-bottom:32px;line-height:1.3">Why Breathwork Experts<br/>Choose NovaFlow</h2>
+    <h2 style="text-align:center;font-size:clamp(32px,4vw,48px);margin-bottom:32px;line-height:1.2">Why Breathwork Experts<br/>Choose NovaFlow</h2>
     <div class="expert-card-wrap reveal">
       <div class="expert-card" id="expert-card">
         <!-- Photo layer -->
         <div class="expert-card-photo">
-          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260527_083258_673f0404-89cb-4dbe-bd85-50bcadd5c77d.png?v=1779870876" alt="Dr. Julian Fattison" loading="lazy"/>
+          <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260527_083258_673f0404-89cb-4dbe-bd85-50bcadd5c77d.png?v=1779870876" alt="Dr. Julien Fatisson" loading="lazy"/>
         </div>
         <!-- Name overlay -->
         <div class="expert-card-overlay">
-          <div class="expert-card-name">Dr. Julian Fattison, PhD</div>
+          <div class="expert-card-name">Dr. Julien Fatisson, PhD</div>
           <div class="expert-card-title">Osteopath · Breathwork Coach</div>
         </div>
         <!-- Toggle button -->
@@ -1263,7 +1281,7 @@ a{color:inherit;text-decoration:none}
                 <div style="font-size:11px;color:var(--muted);margin-top:2px">The same routine Julian walks every new client through.</div>
               </div>
             </div>
-            <div class="expert-story-name">Dr. Julian Fattison, PhD</div>
+            <div class="expert-story-name">Dr. Julien Fatisson, PhD</div>
             <div class="expert-story-title">Osteopath · Breathwork Coach</div>
           </div>
         </div>
@@ -1276,9 +1294,9 @@ a{color:inherit;text-decoration:none}
 <section class="sec neal-sec">
   <div class="wrap">
     <p class="label center" style="color:rgba(255,255,255,.35)">Real customer journey</p>
-    <h2 style="color:#fff;font-size:clamp(24px,3.5vw,32px);text-align:center;margin-bottom:36px">Watch Neal's Journey</h2>
+    <h2 style="color:#fff;font-size:clamp(32px,4.5vw,48px);text-align:center;margin-bottom:36px;line-height:1.2">Watch Neal's Journey</h2>
 
-    <div class="neal-videos">
+    <div class="neal-videos" id="neal-videos">
       <div class="nv">
         <div class="nv-inner">
           <video src="https://cdn.shopify.com/videos/c/o/v/9bc1315929ec4cb6b757cde2b9bae53f.mp4" playsinline preload="none" data-lazy></video>
@@ -1314,7 +1332,16 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
 
-    <h2 style="color:#fff;font-size:clamp(22px,3.5vw,30px);text-align:center;margin-top:48px;margin-bottom:24px">30,000+ users now living congestion free</h2>
+    <div class="neal-nav">
+      <button class="neal-nav-btn" onclick="nealScroll(-1)" aria-label="Previous video">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="neal-nav-btn" onclick="nealScroll(1)" aria-label="Next video">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <h2 style="color:#fff;font-size:clamp(30px,4vw,46px);text-align:center;margin-top:48px;margin-bottom:24px;line-height:1.2">30,000+ users now living congestion free</h2>
     <div class="rev-slider">
   <div class="rev-overflow">
   <div class="rev-track" id="rev-track">
@@ -1357,7 +1384,7 @@ a{color:inherit;text-decoration:none}
 <section class="cmp-sec">
   <div class="wrap-lg">
     <p class="label center" style="color:rgba(255,255,255,.35)">The best device on the market for sinus congestion</p>
-    <h2 style="color:#fff;font-size:clamp(24px,4vw,34px);text-align:center;margin-bottom:8px">Why NovaFlow 2.0 beats every other red light device.</h2>
+    <h2 style="color:#fff;font-size:clamp(32px,4.5vw,52px);text-align:center;margin-bottom:8px;line-height:1.2">Why NovaFlow 2.0 beats every other red light device.</h2>
     <div class="cmp-wrap">
       <table class="cmp" style="table-layout:fixed;width:100%">
         <colgroup>
@@ -1502,12 +1529,12 @@ a{color:inherit;text-decoration:none}
 <section class="faq-sec">
   <div class="wrap">
     <p class="label center">Common questions</p>
-    <h2 style="font-size:clamp(24px,4vw,32px);text-align:center;margin-bottom:0">Frequently asked questions</h2>
+    <h2 style="font-size:clamp(32px,4vw,48px);text-align:center;margin-bottom:0;line-height:1.2">Frequently asked questions</h2>
     <div class="faq-list" id="faq-list">
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">What's new in NovaFlow 2.0 vs the original?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds a calibrated blue light (450nm) to the existing red light (660nm). The original device used only red light, which supports tissue recovery in the nasal lining. The 2.0 adds blue light, which is studied for antibacterial activity in soft tissue — addressing something red light alone cannot. Both wavelengths are delivered in the same 10-minute session through the same device.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds a calibrated blue light (450nm) to the existing red light (660nm). The original device used only red light, which supports tissue recovery in the nasal lining. The 2.0 adds blue light, which is studied for antibacterial activity in soft tissue — addressing something red light alone cannot. The device has two separate modes — blue light first (10 minutes), then red light (10 minutes) — for a total of 20 minutes per session. Both modes are built into the same device.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1573,12 +1600,12 @@ a{color:inherit;text-decoration:none}
 <section class="sec" style="background:var(--cream);padding:72px 0">
   <div class="wrap">
     <p class="label center" style="margin-bottom:8px">Common questions</p>
-    <h2 style="text-align:center;font-size:clamp(24px,3vw,36px);margin-bottom:40px;line-height:1.25">Frequently Asked Questions</h2>
+    <h2 style="text-align:center;font-size:clamp(32px,4vw,48px);margin-bottom:40px;line-height:1.2">Frequently Asked Questions</h2>
     <div class="faq-list">
 
       <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
         <div class="faq-q">How do I use NovaFlow 2.0?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Use NovaFlow 2.0 for 10 minutes per session, up to 3 times daily. Insert the soft silicone tips gently into your nostrils, press the button, and let the dual-light therapy work. The device automatically powers off after each session.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 has two modes — run blue light first for 10 minutes, then red light for 10 minutes, for a total of 20 minutes per session. Insert the soft silicone tips gently into your nostrils, press the button to start each mode, and the device automatically powers off after each 10-minute cycle. Up to 3 sessions daily.</div></div>
       </div>
 
       <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
@@ -1624,6 +1651,16 @@ a{color:inherit;text-decoration:none}
       <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
         <div class="faq-q">Shipping &amp; delivery<span class="faq-icon">+</span></div>
         <div class="faq-a"><div class="faq-a-inner">Free shipping on all orders. NovaFlow 2.0 ships within 2 weeks of your order date. You'll receive a tracking number as soon as your order leaves our warehouse.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">I'm addicted to nasal spray and can't stop using it. Can NovaFlow help?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">This is one of the most common reasons people find us. Nasal sprays like Afrin work by constricting blood vessels — but use them for more than a few days and your nasal tissue becomes dependent on them just to stay open. This is called rhinitis medicamentosa, and it's a trap millions of people are stuck in. NovaFlow works differently: it supports your nasal tissue directly through light therapy, with nothing chemical and nothing to become dependent on. Many users have used it to help step off spray dependency. We recommend working with your doctor during the transition.</div></div>
+      </div>
+
+      <div class="faq-item" onclick="faq(this.querySelector('.faq-q'))">
+        <div class="faq-q">I wake up stuffed up every single morning. Is this something NovaFlow can actually fix?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Morning congestion is one of the most frustrating symptoms — and one of the most common ones our users report improving. It typically happens because nasal tissue swells overnight when you're lying flat and not moving. NovaFlow's red light mode supports the tissue's ability to manage that swelling, while blue light targets the bacterial environment that can make it worse. Most users who use NovaFlow consistently report noticeable improvement in morning breathing within the first 2–4 weeks. Results vary by individual.</div></div>
       </div>
 
     </div>
@@ -1685,6 +1722,25 @@ function hcRender(){
   if(next)next.classList.toggle('hidden',hcIdx===HC_TOTAL-1);
 }
 function hcMove(dir){hcIdx=(hcIdx+dir+HC_TOTAL)%HC_TOTAL;hcRender();}
+function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)return;var card=c.querySelector('.nv');var w=card?card.offsetWidth+16:296;c.scrollBy({left:dir*w,behavior:'smooth'});}
+
+// Stock counter — bumps 91%→92% once after 10s, then persists via localStorage
+(function(){
+  function applyStockBump(){
+    var fill=document.getElementById('stock-bar-fill');
+    var lbl=document.getElementById('stock-bar-lbl');
+    if(fill)fill.style.width='92%';
+    if(lbl)lbl.textContent='92% Sold';
+  }
+  if(localStorage.getItem('nf_stock_seen')){
+    applyStockBump();
+  } else {
+    setTimeout(function(){
+      applyStockBump();
+      localStorage.setItem('nf_stock_seen','1');
+    },10000);
+  }
+})();
 function hcGo(n){hcIdx=n;hcRender();}
 // Touch swipe support
 (function(){
@@ -2001,10 +2057,11 @@ document.querySelectorAll('.ugc-inner').forEach(function(inner){
     btn.addEventListener('click',function(){
       btn.classList.add('hidden');
       if(video.readyState===0){video.preload='auto';video.load();}
+      video.controls=true;
       video.play().catch(function(){});
     });
-    video.addEventListener('pause',function(){btn.classList.remove('hidden');});
-    video.addEventListener('ended',function(){btn.classList.remove('hidden');});
+    video.addEventListener('pause',function(){video.controls=false;btn.classList.remove('hidden');});
+    video.addEventListener('ended',function(){video.controls=false;btn.classList.remove('hidden');});
     video.addEventListener('play',function(){btn.classList.add('hidden');});
   });
 })();
@@ -2165,8 +2222,8 @@ revBuildDots();
     <div id="cd-kit-added" style="display:none;align-items:center;gap:10px;background:var(--cream);border:1.5px solid rgba(190,24,32,.2);border-radius:12px;padding:12px 14px;margin-bottom:2px">
       <img class="cd-kit-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589" alt="UV-C Sterilizer"/>
       <div class="cd-kit-info" style="flex:1">
-        <h5 style="font-size:13px;font-weight:800;color:var(--dark)">Sterilizing Kit</h5>
-        <p style="font-size:12px;color:var(--muted)">UV-C sterilizer + 6 extra silicone sleeve sets</p>
+        <h5 style="font-size:16px;font-weight:800;color:var(--dark)">Sterilizing Kit</h5>
+        <p style="font-size:15px;color:var(--muted);margin-top:5px">UV-C sterilizer + 6 extra silicone sleeve sets</p>
       </div>
       <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
         <button class="aq-btn" onclick="adjCartKitAdded(-1,event)">−</button>
