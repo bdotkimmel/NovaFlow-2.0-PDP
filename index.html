@@ -311,13 +311,13 @@ a{color:inherit;text-decoration:none}
 .neal-nav-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;flex-shrink:0}
 .neal-nav-btn:hover{background:rgba(255,255,255,.22)}
 .neal-nav-btn:active{transform:scale(.92)}
-.nv{flex:0 0 min(280px,80vw);border-radius:14px;overflow:hidden;background:#111;scroll-snap-align:center}
+.nv{flex:0 0 240px;border-radius:14px;overflow:hidden;background:#111;scroll-snap-align:center}
 .nv-inner{aspect-ratio:9/16;position:relative;overflow:hidden;background:#111}
 .nv-inner video{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
-.nv-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .15s,opacity .2s;z-index:2;pointer-events:auto}
+.nv-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .15s,opacity .2s;z-index:2;pointer-events:auto}
 .nv-play-btn:hover{transform:translate(-50%,-50%) scale(1.08)}
 .nv-play-btn.hidden{opacity:0;pointer-events:none}
-.nv-play-btn::after{content:'';border-style:solid;border-width:11px 0 11px 19px;border-color:transparent transparent transparent #191919;margin-left:5px}
+.nv-play-btn::after{content:'';border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #191919;margin-left:4px}
 .nv-label{padding:10px 14px 14px;background:#111}
 .nv-part{color:rgba(255,255,255,.45);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
 .nv-title{color:#fff;font-size:15px;font-weight:700}
@@ -704,7 +704,7 @@ a{color:inherit;text-decoration:none}
   /* Neal's Journey — mobile: left-aligned, swipe, peek next card */
   .neal-videos{justify-content:flex-start;padding-left:20px;padding-right:4px;scrollbar-width:none}
   .neal-videos::-webkit-scrollbar{display:none}
-  .nv{flex:0 0 75vw;scroll-snap-align:start}
+  .nv{flex:0 0 62vw;scroll-snap-align:start}
 
   /* Proto / H2H (unused but kept safe) */
   .proto-cards{grid-template-columns:1fr}
@@ -745,7 +745,6 @@ a{color:inherit;text-decoration:none}
   <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517"/>
 </head>
 <body>
-
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann">
   Sale ends on July 31st.
@@ -926,9 +925,9 @@ a{color:inherit;text-decoration:none}
           <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
             <div class="faq-q">How NovaFlow 2.0 works<span class="faq-icon">+</span></div>
             <div class="faq-a"><div class="faq-a-inner" style="display:flex;flex-direction:column;gap:10px">
-              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red)">Red light (660nm)</strong><br/>Penetrates nasal tissue to reduce inflammation at the cellular level.</div>
-              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#1d6fd8">Blue light (450nm)</strong><br/>Targets bacteria in the nasal passages linked to chronic congestion.</div>
-              <div style="padding-top:4px"><strong>10 min per mode · 20 min total</strong> · Up to 3× daily · Auto powers off</div>
+              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red)">Mode 1 — Red light (616nm)</strong><br/>10 minutes of targeted red light for surface-level symptoms: allergies, inflammation, everyday congestion relief.</div>
+              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#1d6fd8">Mode 2 — Blue → Red (Auto-Sequence)</strong><br/>2 minutes of blue light clears bacteria first, then automatically transitions into 8 minutes of red light. 10 minutes total.</div>
+              <div style="padding-top:4px"><strong>10 min per session</strong> · Up to 3× daily · Auto powers off</div>
             </div></div>
           </div>
 
@@ -1023,7 +1022,7 @@ a{color:inherit;text-decoration:none}
     <span class="ticker-item"><span class="ticker-dot"></span>Red + Blue light — only NovaFlow 2.0</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Drug-free · No rebound</span>
     <span class="ticker-item"><span class="ticker-dot"></span>120-day money-back guarantee</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>660nm + 450nm calibrated wavelengths</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>616nm red + blue light auto-sequence</span>
     <span class="ticker-item"><span class="ticker-dot"></span>10-minute sessions</span>
     <span class="ticker-item"><span class="ticker-dot"></span>USB rechargeable</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Secured shipping worldwide</span>
@@ -1032,7 +1031,7 @@ a{color:inherit;text-decoration:none}
     <span class="ticker-item"><span class="ticker-dot"></span>Red + Blue light — only NovaFlow 2.0</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Drug-free · No rebound</span>
     <span class="ticker-item"><span class="ticker-dot"></span>120-day money-back guarantee</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>660nm + 450nm calibrated wavelengths</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>616nm red + blue light auto-sequence</span>
     <span class="ticker-item"><span class="ticker-dot"></span>10-minute sessions</span>
     <span class="ticker-item"><span class="ticker-dot"></span>USB rechargeable</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Secured shipping worldwide</span>
@@ -1083,7 +1082,7 @@ a{color:inherit;text-decoration:none}
       <div class="bridge-divider"></div>
       <p>Our customers were getting off sprays. Sleeping through the night. Breathing through both nostrils for the first time in years. But a subset of them weren't getting all the way there — and we kept asking why.</p>
       <p>The answer was bacteria. Research shows that many people with chronic nasal congestion have elevated bacterial populations in their nasal passages. Red light — for all its benefits to tissue recovery — cannot address them. That requires a different wavelength entirely.</p>
-      <p>Blue light at 450nm is well-studied for antibacterial activity in soft tissue. So we built it into the device. Same red light, now paired with blue in the same device — two targeted modes, complete coverage. NovaFlow 2.0: nothing else like it at home.</p>
+      <p>So we added blue light. And then we went further: NovaFlow 2.0's Mode 2 doesn't just give you both wavelengths — it sequences them intelligently. Blue light fires first for 2 minutes to clear the nasal lining, then the device automatically transitions to 8 minutes of 616nm red light. Ten minutes. Fully automated. Nothing else like it.</p>
     </div>
   </div>
 </section>
@@ -1095,41 +1094,41 @@ a{color:inherit;text-decoration:none}
     <h2 style="color:#fff;font-size:clamp(34px,5vw,52px);text-align:center;margin-bottom:48px;line-height:1.2">Two lights. Two jobs.<br/><em style="color:rgba(255,255,255,.3)">One device.</em></h2>
 
     <div class="dual-panels">
-      <!-- Red Light -->
+      <!-- Mode 1 — Red Only -->
       <div class="dp dp-red reveal-left">
         <div class="dp-chip dp-chip-red">
           <div class="dp-dot dp-dot-red"></div>
-          Red Light
+          Mode 1 · Red Light Only
         </div>
-        <div class="dp-nm dp-nm-red">660nm</div>
-        <div class="dp-title">Tissue Recovery</div>
-        <p class="dp-body">Stimulates your nasal cells to produce more energy — supporting the natural recovery of inflamed tissue. This is the wavelength researched for over 30 years in intranasal phototherapy. Present in the original NovaFlow. Now enhanced.</p>
+        <div class="dp-nm dp-nm-red">616nm</div>
+        <div class="dp-title">Surface Relief</div>
+        <p class="dp-body">10 minutes of targeted 616nm red light — calibrated for surface-level symptoms. Supports the natural recovery of inflamed nasal tissue. Best for allergy sufferers, mild congestion, and everyday maintenance. The wavelength behind 30+ years of intranasal phototherapy research.</p>
         <div class="dp-points">
-          <div class="dp-pt"><span class="dp-arr-red">→</span>Penetrates deeper into nasal passages</div>
-          <div class="dp-pt"><span class="dp-arr-red">→</span>Supports cellular energy production in nasal lining</div>
+          <div class="dp-pt"><span class="dp-arr-red">→</span>Reduces nasal tissue inflammation</div>
+          <div class="dp-pt"><span class="dp-arr-red">→</span>Targeted relief for allergies and surface congestion</div>
           <div class="dp-pt"><span class="dp-arr-red">→</span>70% of users in clinical research reported reduced congestion</div>
         </div>
       </div>
-      <!-- Blue Light -->
+      <!-- Mode 2 — Blue → Red Auto-Sequence -->
       <div class="dp dp-blue reveal-right">
         <div class="dp-chip dp-chip-blue">
           <div class="dp-dot dp-dot-blue"></div>
-          Blue Light · New in 2.0
+          Mode 2 · Auto-Sequence — New in 2.0
         </div>
-        <div class="dp-nm dp-nm-blue">450nm</div>
-        <div class="dp-title">Bacterial Clearance</div>
-        <p class="dp-body">Targets bacteria living in your nasal passages — something red light alone can never do. Research shows elevated bacterial presence is a common factor in chronic congestion sufferers. Blue light at 450nm is studied for antibacterial activity in soft tissue.</p>
+        <div class="dp-nm dp-nm-blue" style="font-size:32px;letter-spacing:-.01em">Blue → Red</div>
+        <div class="dp-title">Deep Bacterial Clearance</div>
+        <p class="dp-body">The premium mode. Starts with 2 minutes of blue light to clear bacteria from the nasal lining first — then automatically transitions into 8 minutes of red light for deep tissue recovery. 10 minutes total, fully automated. No other home device does this.</p>
         <div class="dp-points">
-          <div class="dp-pt"><span class="dp-arr-blue">→</span>Targets surface bacteria in nasal passages</div>
-          <div class="dp-pt"><span class="dp-arr-blue">→</span>Addresses what red light alone cannot reach</div>
-          <div class="dp-pt"><span class="dp-arr-blue">→</span>Exclusive to NovaFlow 2.0. No other home device has this.</div>
+          <div class="dp-pt"><span class="dp-arr-blue">→</span>2 min blue light clears nasal bacteria first</div>
+          <div class="dp-pt"><span class="dp-arr-blue">→</span>Auto-transitions to 8 min red light — zero input required</div>
+          <div class="dp-pt"><span class="dp-arr-blue">→</span>The only at-home device with an intelligent light sequence</div>
         </div>
       </div>
     </div>
 
     <div class="dual-together reveal">
-      <p class="sup">Together</p>
-      <h3>The only at-home intranasal device that works on both the tissue <em>and</em> the bacteria — two modes, one device</h3>
+      <p class="sup">Two Modes. One Device.</p>
+      <h3>Use Mode 1 for daily maintenance. Switch to Mode 2 when you need to go deeper — bacteria cleared, tissue recovered, all in 10 minutes.</h3>
       <p class="sub">Drug-free. No prescription. Nothing to keep buying. Individual results vary.</p>
     </div>
   </div>
@@ -1279,15 +1278,15 @@ a{color:inherit;text-decoration:none}
         <!-- Story panel -->
         <div class="expert-story" id="expert-story">
           <div class="expert-story-inner">
-            <p>Julian came into breathwork the hard way. Before this, he was a scientist on a stable career path — until anxiety, burnout, and chronic pain took him down. He couldn't digest food. Couldn't hug his kids. Couldn't sit still. In his own words: <em>"I was a living dead."</em></p>
+            <p>Julien came into breathwork the hard way. Before this, he was a scientist on a stable career path — until anxiety, burnout, and chronic pain took him down. He couldn't digest food. Couldn't hug his kids. Couldn't sit still. In his own words: <em>"I was a living dead."</em></p>
             <p>Medicine offered him nothing that worked. Then he found breathwork. He spent the next decade studying it — Oxygen Advantage, Buteyko, osteopathy, resonant breathing, HRV coherence — and teaching it to thousands of clients who came to him with anxiety, burnout, and chronic pain of their own.</p>
             <p>But he kept hitting the same wall. His clients wanted to breathe through their nose. They couldn't. Allergies, dry air, chronic inflammation — it didn't matter. The pathway was blocked, so everything he taught them had nowhere to go.</p>
-            <p>He tried NovaFlow on himself first. It worked. Then he started recommending it to his clients. Then he reached out to us to make it official. Every device now ships with his Breathing Reset guide — the same routine he walks every new client through in their first session.</p>
+            <p>He tried NovaFlow on himself first. It worked. Then he started recommending it to his clients. Then he reached out to us to make it official. Every device now ships with his Breathing Reset guide — the same routine Julien walks every new client through in their first session.</p>
             <div style="margin-top:16px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px">
               <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446" alt="The Breathing Reset" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0"/>
               <div>
                 <div style="font-size:12px;font-weight:700;color:var(--dark)">Free with every order: The Breathing Reset</div>
-                <div style="font-size:11px;color:var(--muted);margin-top:2px">The same routine Julian walks every new client through.</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px">The same routine Julien walks every new client through.</div>
               </div>
             </div>
             <div class="expert-story-name">Dr. Julien Fatisson, PhD</div>
@@ -1409,8 +1408,8 @@ a{color:inherit;text-decoration:none}
           </tr>
         </thead>
         <tbody>
-          <tr><td>Red light (660nm) tissue support</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cw">Varies</span></td></tr>
-          <tr><td>Blue light (450nm) antibacterial</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
+          <tr><td>Red light (616nm) tissue support</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cw">Varies</span></td></tr>
+          <tr><td>Blue → Red auto-sequence (Mode 2)</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
           <tr><td>Intranasal delivery (reaches nasal tissue directly)</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
           <tr><td>Calibrated wavelength — not generic LEDs</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
           <tr><td>Designed specifically for nasal congestion</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✗</span></td></tr>
@@ -1420,7 +1419,6 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 </section>
-
 <!-- OFFER -->
 <section class="offer-sec" id="offer" style="padding:56px 0">
   <div class="wrap" style="max-width:600px">
@@ -1559,7 +1557,7 @@ a{color:inherit;text-decoration:none}
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">What's new in NovaFlow 2.0 vs the original?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds a second wavelength: blue light (450nm) studied for antibacterial activity in nasal tissue — something red light alone can't address. The device runs two separate 10-minute modes (blue first, then red) for 20 minutes total. Same device, complete approach.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 introduces two modes. Mode 1 is 10 minutes of 616nm red light — for surface-level symptoms like allergies and everyday congestion. Mode 2 is the premium mode: 2 minutes of blue light automatically transitions into 8 minutes of red light, 10 minutes total, to clear bacteria from the nasal lining first and then support tissue recovery. No other home device sequences the lights for you.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1569,12 +1567,12 @@ a{color:inherit;text-decoration:none}
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">I wake up congested every morning. Will this fix it?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Morning congestion is one of the most common things our users report improving. Nasal tissue swells overnight when you're lying flat — red light supports the tissue's ability to manage that swelling, and blue light targets bacterial buildup that compounds it. Most users see improvement within 2–4 weeks of consistent use. Results vary.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Morning congestion is one of the most common things our users report improving. Nasal tissue swells overnight when you're lying flat. A session before bed using Mode 2 — the blue-to-red auto-sequence — clears bacterial buildup first, then supports tissue recovery so you wake up with less congestion. Most users see improvement within 2–4 weeks of consistent use. Results vary.</div></div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">My congestion is from allergies. Will this still work?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Many of our users have allergy-driven congestion. Red light supports the nasal tissue's ability to reduce inflammation regardless of what triggered it. Blue light addresses the bacterial environment that often worsens during allergy season. It won't stop your immune response to allergens, but many allergy sufferers report significantly less congestion day-to-day.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Many of our users have allergy-driven congestion. Mode 1 — 10 minutes of 616nm red light — is designed specifically for surface-level symptoms like this. It supports your nasal tissue's ability to manage inflammation regardless of what triggered it. It won't stop your immune response to allergens, but many allergy sufferers report significantly less congestion day-to-day.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1584,7 +1582,7 @@ a{color:inherit;text-decoration:none}
 
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">I can't sleep because I can't breathe through my nose. Will this help?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">Sleep-disrupting congestion is one of the primary use cases for NovaFlow. Nasal congestion worsens when you lie flat and gravity redistributes blood flow to nasal tissue. A session before bed — or a consistent daily routine — helps many users wake up breathing clearly for the first time in years. Results vary by individual.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Sleep-disrupting congestion is one of the primary use cases for NovaFlow. Nasal congestion worsens when you lie flat and gravity redistributes blood flow to nasal tissue. A Mode 2 session before bed — the 10-minute blue-to-red auto-sequence — helps many users wake up breathing clearly for the first time in years. Results vary by individual.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1642,14 +1640,15 @@ a{color:inherit;text-decoration:none}
       <span>© 2026 Cleriva. All rights reserved.</span>
       <span>cleriva.com</span>
     </div>
-    <p class="disclaimer">Individual results vary. NovaFlow 2.0 is not a medical device. Clinical statistics cited refer to published research on intranasal red and blue light therapy as modalities, not to NovaFlow 2.0 specifically. Always consult a healthcare professional before beginning any new wellness regimen.</p>
+    <p class="disclaimer">Individual results vary. NovaFlow 2.0 is not a medical device. Clinical statistics cited refer to published research on intranasal 616nm red light and blue light therapy as modalities, not to NovaFlow 2.0 specifically. Always consult a healthcare professional before beginning any new wellness regimen.</p>
   </div>
 </footer>
 
 <!-- STICKY ATC BAR -->
 <div class="satc" id="satc">
   <div class="satc-name">
-    <h5>NovaFlow 2.0 — Sale Ends July 31st</h5>
+    <h5>NovaFlow 2.0</h5>
+    <p>Sale ends on July 31st</p>
   </div>
   <button class="satc-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Get Yours ↑</button>
 </div>
@@ -2002,40 +2001,9 @@ function getSelectedBundle(){
 function atcHero(){openCart(getSelectedQty());}
 function atcMain(){openCart(getSelectedBundle());}
 
-/* ── Announcement bar countdown to 11:59 PM local time ── */
-function get1159(){
-  const t=new Date();
-  t.setHours(23,59,0,0);
-  if(Date.now()>=t.getTime())t.setDate(t.getDate()+1);
-  return t.getTime();
-}
-function tickAnn(){
-  const diff=get1159()-Date.now();
-  const pad=n=>String(Math.max(0,n)).padStart(2,'0');
-  const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
-  const el=document.getElementById('ann-cdown');
-  if(el)el.textContent=`${pad(h)}:${pad(m)}:${pad(s)}`;
-}
-tickAnn();setInterval(tickAnn,1000);
-
-/* ── Countdown timer — resets to midnight local time every day ── */
-function getMidnight(){
-  const m=new Date();
-  m.setHours(24,0,0,0);
-  return m.getTime();
-}
-function tick(){
-  const diff=getMidnight()-Date.now();
-  const pad=n=>String(Math.max(0,n)).padStart(2,'0');
-  const hrs=Math.floor(diff/3600000),mins=Math.floor((diff%3600000)/60000),secs=Math.floor((diff%60000)/1000);
-  [['h',hrs],['m',mins],['s',secs]].forEach(([id,v])=>{const el=document.getElementById('cdown-'+id);if(el)el.textContent=pad(v);});
-}
-tick();setInterval(tick,1000);
 // Initialize gift lock states for default selected bundle (2)
 obc(2);
 hqty(2);
-// Dynamic shipping date (today + 2 days)
-/* ship date removed — static "Ships in 2 weeks" */
 
 /* ── UGC video play buttons + first frame ── */
 document.querySelectorAll('.ugc-inner').forEach(function(inner){
@@ -2233,9 +2201,9 @@ revBuildDots();
       <img class="cd-prod-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517" alt="NovaFlow 2.0"/>
       <div class="cd-prod-info">
         <div class="cd-prod-name">NovaFlow 2.0</div>
-        <div class="cd-prod-sub" id="cd-prod-sub">2 devices · $29.99/ea</div>
+        <div class="cd-prod-sub" id="cd-prod-sub">2 devices · $44.99/ea</div>
       </div>
-      <div class="cd-prod-price" id="cd-prod-price">$59.98</div>
+      <div class="cd-prod-price" id="cd-prod-price">$89.98</div>
     </div>
 
     <!-- Color selection -->
@@ -2296,7 +2264,7 @@ revBuildDots();
     <!-- Total -->
     <div class="cd-total-row">
       <span class="cd-total-lbl">Total</span>
-      <span class="cd-total-amt" id="cd-total-amt">$59.98</span>
+      <span class="cd-total-amt" id="cd-total-amt">$89.98</span>
     </div>
 
     <button class="cd-cta" onclick="checkoutCart()">Proceed to Checkout →</button>
