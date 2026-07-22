@@ -312,13 +312,13 @@ a{color:inherit;text-decoration:none}
 @media(max-width:600px){
   .ugc-grid{max-width:100%;padding:0 16px 4px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;justify-content:flex-start}
   .ugc-grid::-webkit-scrollbar{display:none}
-  .ugc-col{flex:0 0 44vw;scroll-snap-align:start}
+  .ugc-col{flex:0 0 78vw;scroll-snap-align:start}
 }
 
 /* Neal's journey */
 .neal-sec{background:var(--dark);padding:72px 0}
 .neal-videos{display:flex;gap:16px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.neal-nav{display:flex;justify-content:center;gap:12px;margin-top:20px}
+.neal-nav{display:none;justify-content:center;gap:12px;margin-top:20px}
 .neal-nav-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;flex-shrink:0}
 .neal-nav-btn:hover{background:rgba(255,255,255,.22)}
 .neal-nav-btn:active{transform:scale(.92)}
@@ -403,11 +403,11 @@ a{color:inherit;text-decoration:none}
 /* ── Cart Drawer ── */
 .cdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
 .cdrawer-overlay.show{opacity:1;pointer-events:auto}
-.cdrawer{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;z-index:1101;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
+.cdrawer{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;background:#fff;border-radius:22px 22px 0 0;z-index:1101;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);max-height:85vh;overflow:hidden;display:flex;flex-direction:column}
 .cdrawer.show{transform:translateY(0)}
 .cdrawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);background:#fff;z-index:1;flex-shrink:0}
 .cdrawer-head h3{font-size:17px;font-weight:900;color:var(--dark)}
-.cdrawer-close{width:32px;height:32px;border:none;background:var(--cream2);border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dark);font-weight:700}
+.cdrawer-close{width:40px;height:40px;border:none;background:var(--cream2);border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dark);font-weight:700;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .cdrawer-body{padding:16px 20px 0;flex:1;overflow-y:auto;min-height:0;-webkit-overflow-scrolling:touch}
 .cdrawer-foot{padding:16px 20px 24px;flex-shrink:0;background:#fff;border-top:1px solid var(--border)}
 .cd-prod{display:flex;align-items:center;gap:12px;margin-bottom:18px}
@@ -441,7 +441,7 @@ a{color:inherit;text-decoration:none}
 .cd-total-row{display:flex;align-items:baseline;justify-content:space-between;padding:0 0 4px;border-top:none;margin-top:0}
 .cd-total-lbl{font-size:14px;font-weight:700;color:var(--muted)}
 .cd-total-amt{font-size:22px;font-weight:900;color:var(--dark)}
-.cd-cta{width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;padding:17px;font-size:17px;font-weight:900;cursor:pointer;margin-top:14px;transition:opacity .2s;letter-spacing:.01em}
+.cd-cta{width:100%;background:var(--red);color:#fff;border:none;border-radius:12px;padding:17px;font-size:17px;font-weight:900;cursor:pointer;margin-top:14px;transition:opacity .2s;letter-spacing:.01em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .cd-cta:hover{opacity:.88}
 .cd-guarantee{text-align:center;font-size:12px;color:var(--muted);margin-top:10px}
 
@@ -716,6 +716,7 @@ a{color:inherit;text-decoration:none}
   .neal-videos{justify-content:flex-start;padding-left:20px;padding-right:4px;scrollbar-width:none}
   .neal-videos::-webkit-scrollbar{display:none}
   .nv{flex:0 0 62vw;scroll-snap-align:start}
+  .neal-nav{display:flex}
 
   /* Proto / H2H (unused but kept safe) */
   .proto-cards{grid-template-columns:1fr}
@@ -936,8 +937,8 @@ a{color:inherit;text-decoration:none}
           <div class="faq-item" onclick="(function(el){var isOpen=el.classList.contains('open');document.querySelectorAll('.faq-inline .faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)el.classList.add('open');})(this)">
             <div class="faq-q">How NovaFlow 2.0 works<span class="faq-icon">+</span></div>
             <div class="faq-a"><div class="faq-a-inner" style="display:flex;flex-direction:column;gap:10px">
-              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red)">Mode 1 — Red light (660nm)</strong><br/>10 minutes of targeted red light for surface-level symptoms: allergies, inflammation, everyday congestion relief.</div>
-              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#1d6fd8">Mode 2 — Blue → Red (Auto-Sequence)</strong><br/>2 minutes of blue light clears bacteria first, then automatically transitions into 8 minutes of red light. 10 minutes total.</div>
+              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--red)">Mode 1 — Red light (660nm)</strong><br/>10 minutes of targeted red light that reduces inflammation and supports nasal tissue. <strong>Use this for:</strong> everyday congestion, seasonal allergies, or general maintenance sessions.</div>
+              <div><strong style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#1d6fd8">Mode 2 — Blue → Red (Auto-Sequence)</strong><br/>2 minutes of blue light clears bacteria first, then automatically transitions into 8 minutes of red light. 10 minutes total. <strong>Use this when:</strong> you're dealing with sinus infections, chronic congestion, post-nasal drip, or any time you feel like something is building up.</div>
               <div style="padding-top:4px"><strong>10 min per session</strong> · Up to 3× daily · Auto powers off</div>
             </div></div>
           </div>
@@ -1869,6 +1870,8 @@ function openCart(qty){
   document.getElementById('cdrawer-overlay').classList.add('show');
   document.getElementById('cdrawer').classList.add('show');
   document.body.style.overflow='hidden';
+  document.body.style.position='fixed';
+  document.body.style.width='100%';
   // Pixel: AddToCart
   if(window.fbq){
     var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
@@ -1900,6 +1903,8 @@ function closeCart(){
   document.getElementById('cdrawer-overlay').classList.remove('show');
   document.getElementById('cdrawer').classList.remove('show');
   document.body.style.overflow='';
+  document.body.style.position='';
+  document.body.style.width='';
 }
 
 function renderCartColors(){
