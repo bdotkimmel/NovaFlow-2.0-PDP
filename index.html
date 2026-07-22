@@ -401,9 +401,10 @@ a{color:inherit;text-decoration:none}
 .aq-count{font-size:15px;font-weight:800;min-width:22px;text-align:center;color:var(--dark)}
 
 /* ── Cart Drawer ── */
-.cdrawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
+#page-wrap{position:relative;overflow-x:hidden;min-height:100vh}
+.cdrawer-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
 .cdrawer-overlay.show{opacity:1;pointer-events:auto}
-.cdrawer{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100%;background:#fff;border-radius:0;z-index:1101;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;display:flex;flex-direction:column}
+.cdrawer{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:82vw;background:#fff;border-radius:0;z-index:1101;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow:hidden;display:flex;flex-direction:column}
 .cdrawer.show{transform:translateX(0)}
 .cdrawer-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);background:#fff;z-index:1;flex-shrink:0}
 .cdrawer-head h3{font-size:17px;font-weight:900;color:var(--dark)}
@@ -754,6 +755,7 @@ a{color:inherit;text-decoration:none}
   <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517"/>
 </head>
 <body>
+<div id="page-wrap">
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann">
   Pre Launch Price Only: Sale ends in <span class="ann-timer" id="ann-cd">--d : --h : --m : --s</span>
@@ -1864,7 +1866,6 @@ function openCart(qty){
   updateCartTotals();
   document.getElementById('cdrawer-overlay').classList.add('show');
   document.getElementById('cdrawer').classList.add('show');
-  document.body.style.overflow='hidden';
   // Pixel: AddToCart
   if(window.fbq){
     var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
@@ -1895,7 +1896,6 @@ function syncCartKitUI(){
 function closeCart(){
   document.getElementById('cdrawer-overlay').classList.remove('show');
   document.getElementById('cdrawer').classList.remove('show');
-  document.body.style.overflow='';
 }
 
 function renderCartColors(){
@@ -2292,5 +2292,6 @@ revBuildDots();
   </div>
 </div>
 
+</div><!-- /page-wrap -->
 </body>
 </html>
