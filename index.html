@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>NovaFlow 2.0 — Your Nose Knows What Your Body Has Been Missing.</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23191919'/%3E%3Ctext x='50' y='72' font-family='Arial Black,Helvetica Neue,sans-serif' font-weight='900' font-size='68' fill='white' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E"/>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','565939286078743');
+fbq('track','PageView');
+fbq('track','ViewContent',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52671196201271','52683193975095'],currency:'USD',value:59.99});
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=565939286078743&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap"/>
@@ -1859,6 +1868,11 @@ function openCart(qty){
   document.getElementById('cdrawer-overlay').classList.add('show');
   document.getElementById('cdrawer').classList.add('show');
   document.body.style.overflow='hidden';
+  // Pixel: AddToCart
+  if(window.fbq){
+    var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
+    fbq('track','AddToCart',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52671196201271','52683193975095'],currency:'USD',value:cdQty*dp[cdQty],num_items:cdQty});
+  }
 }
 
 function syncCartKitUI(){
@@ -1967,6 +1981,14 @@ function togglePriority(){
 }
 
 function checkoutCart(){
+  // Pixel: InitiateCheckout
+  if(window.fbq){
+    var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
+    var kp=window._KIT_PRICE||19.99;
+    var pp=window._PRIORITY_PRICE||2.99;
+    var val=(cdQty*dp[cdQty])+(cdAddonOn?cdAddonQty*kp:0)+(cdPriorityOn?pp:0);
+    fbq('track','InitiateCheckout',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52671196201271','52683193975095'],currency:'USD',value:val,num_items:cdQty});
+  }
   // Count per-color quantities from individual device selections
   const slice=cdColors.slice(0,cdQty);
   const blacks=slice.filter(c=>c==='black').length;
