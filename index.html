@@ -10,7 +10,7 @@
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','565939286078743');
 fbq('track','PageView');
-fbq('track','ViewContent',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52671196201271','52683193975095'],currency:'USD',value:59.99});
+fbq('track','ViewContent',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52709201609015','52709201641783'],currency:'USD',value:59.99});
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=565939286078743&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel -->
@@ -1833,8 +1833,8 @@ function expertToggle(){
 
 /* ── ATC functions ── */
 /* ── Variant IDs — update with real Shopify IDs ── */
-const VAR_WHITE='52683193975095'; // NovaFlow 2.0 White variant
-const VAR_BLACK='52671196201271'; // NovaFlow 2.0 Black variant
+const VAR_WHITE='52709201641783'; // NovaFlow 2.0 White variant
+const VAR_BLACK='52709201609015'; // NovaFlow 2.0 Black variant
 const VAR_KIT='52686809956663';   // Sterilizing Kit variant
 const VAR_PRIORITY='50661579325751'; // Priority Processing
 const KIT_PRICE=19.99;
@@ -1870,7 +1870,7 @@ function openCart(qty){
   // Pixel: AddToCart
   if(window.fbq){
     var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
-    fbq('track','AddToCart',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52671196201271','52683193975095'],currency:'USD',value:cdQty*dp[cdQty],num_items:cdQty});
+    fbq('track','AddToCart',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52709201609015','52709201641783'],currency:'USD',value:cdQty*dp[cdQty],num_items:cdQty});
   }
 }
 
@@ -1986,7 +1986,7 @@ function checkoutCart(){
     var kp=window._KIT_PRICE||19.99;
     var pp=window._PRIORITY_PRICE||2.99;
     var val=(cdQty*dp[cdQty])+(cdAddonOn?cdAddonQty*kp:0)+(cdPriorityOn?pp:0);
-    fbq('track','InitiateCheckout',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52671196201271','52683193975095'],currency:'USD',value:val,num_items:cdQty});
+    fbq('track','InitiateCheckout',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52709201609015','52709201641783'],currency:'USD',value:val,num_items:cdQty});
   }
   // Count per-color quantities from individual device selections
   const slice=cdColors.slice(0,cdQty);
