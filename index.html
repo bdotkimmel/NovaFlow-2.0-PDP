@@ -53,7 +53,7 @@ fbq('track','ViewContent',{content_name:'NovaFlow 2.0',content_type:'product',co
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
 img{max-width:100%;display:block}
 h1,h2,h3,h4,h5{font-family:'Sora','Inter',sans-serif;font-weight:800;letter-spacing:-.025em}
 a{color:inherit;text-decoration:none}
@@ -95,7 +95,7 @@ button{font-family:inherit}
 .hero{background:var(--paper);padding:36px 0 0}
 .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:0 24px;align-items:start}
 .hero-grid > *{min-width:0}
-.hero-grid > div:first-child{position:sticky;top:84px;align-self:start}
+.hero-grid > div:first-child{position:sticky;top:92px;align-self:start}
 
 /* Gallery */
 .hero-carousel{position:relative;overflow:hidden;background:var(--grad-gallery);border-radius:var(--r-xl);aspect-ratio:1;box-shadow:var(--sh-card)}
@@ -174,8 +174,8 @@ button{font-family:inherit}
 .bc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .bc{border:2px solid var(--line);border-radius:var(--r-lg);padding:20px 10px 16px;background:#fff;cursor:pointer;position:relative;transition:all .2s;display:flex;flex-direction:column;align-items:center;text-align:center}
 .bc:hover{border-color:#CFCCC7;transform:translateY(-2px)}
-.bc.on{border-color:var(--ink);background:linear-gradient(180deg,#FFF 0%,#F8F3EE 100%);box-shadow:0 12px 32px -8px rgba(20,20,20,.18);transform:translateY(-2px)}
-.bc.on::after{content:'✓';position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.bc.on{border-color:var(--red);background:linear-gradient(180deg,#FFF 0%,#FDF5F5 100%);box-shadow:0 12px 32px -8px rgba(190,24,32,.22);transform:translateY(-2px)}
+.bc.on::after{content:'✓';position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
 .bc-img{width:74px;height:74px;object-fit:contain;border-radius:12px;background:var(--grad-gallery);margin-bottom:10px;padding:6px}
 .bc-name{font-size:15px;font-weight:800;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px;line-height:1.3;min-height:39px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;white-space:nowrap}
 .bc-per{font-family:'Sora',sans-serif;font-size:19px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.02em}
@@ -497,7 +497,7 @@ button{font-family:inherit}
 }
 
 /* ═══ Cart Drawer ═══ */
-#page-wrap{position:relative;overflow-x:hidden;min-height:100vh}
+#page-wrap{position:relative;overflow-x:clip;min-height:100vh}
 .cdrawer-overlay{position:fixed;inset:0;background:rgba(10,10,10,.5);backdrop-filter:blur(3px);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s}
 .cdrawer-overlay.show{opacity:1;pointer-events:auto}
 .cdrawer{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:88vw;background:#fff;z-index:1101;transform:translateX(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column;border-radius:24px 0 0 24px}
@@ -611,7 +611,12 @@ button{font-family:inherit}
   .hdr-cta{display:none}
 }
 @media(max-width:480px){
-  .fails-grid{grid-template-columns:1fr}
+  .fails-grid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:28px}
+  .fcard{padding:16px 14px}
+  .fcard-x{width:26px;height:26px;font-size:12px;margin-bottom:10px;border-radius:8px}
+  .fcard-title{font-size:13.5px;margin-bottom:5px}
+  .fcard-body{font-size:12px;line-height:1.5}
+  .fails-sec{padding:48px 0}
   .stats-grid{gap:22px}
   .sn{font-size:38px}
   .hc-thumb{flex:0 0 52px;height:52px}
@@ -692,13 +697,13 @@ button{font-family:inherit}
           <span class="tp-box"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
           <span class="tp-box half"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
         </div>
-        <span class="tp-text">Rated <b>4.6</b> by 30,000+ customers on <span class="tp-logo">★ Trustpilot</span></span>
+        <span class="tp-text">Rated <b>4.6</b> on <span class="tp-logo">★ Trustpilot</span></span>
       </div>
 
       <!-- Title -->
       <p class="hero-eyebrow">Dual-Light Sinus Therapy</p>
       <h1 class="hero-h1">NovaFlow <span style="color:var(--red)">2.0</span></h1>
-      <p class="hero-sub">The only at-home device that pairs <b>660nm red light</b> with <b>antibacterial blue light</b> — so you can breathe through your nose again. Drug-free, in 10 minutes a day.</p>
+      <p class="hero-sub">The only at-home device that pairs <b>660nm red light</b> with <b>antibacterial blue light</b> — so you can address the bacteria that keeps bringing back the inflammation. Drug-free, in 10 minutes a day.</p>
 
       <!-- Price -->
       <div class="price-row">
@@ -711,7 +716,7 @@ button{font-family:inherit}
       <div class="code-bar">
         <div class="code-bar-l">
           <span class="code-bar-amt" id="code-amt">$15 OFF</span>
-          <span class="code-bar-sub">Pre-Launch Sale · <b>Applied automatically at checkout</b></span>
+          <span class="code-bar-sub">Pre-Launch Sale</span>
         </div>
         <div class="offer-cd">
           <div class="offer-cd-u"><span class="offer-cd-n" id="oc-d">--</span><span class="offer-cd-l">Days</span></div>
