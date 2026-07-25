@@ -71,20 +71,20 @@ button{font-family:inherit}
 .sec-h2{font-size:clamp(32px,4.5vw,52px);line-height:1.08;letter-spacing:-.03em}
 
 /* ── Announcement bar ── */
-.ann{background:var(--ink);color:#fff;text-align:center;font-size:14px;font-weight:600;padding:11px 16px;letter-spacing:.01em}
+.ann{background:var(--red);color:#fff;text-align:center;font-size:14px;font-weight:600;padding:11px 16px;letter-spacing:.01em}
 .ann b{font-weight:800}
-.ann-timer{display:inline-block;font-weight:800;color:var(--ink);background:#fff;padding:2px 10px;border-radius:100px;margin-left:6px;font-variant-numeric:tabular-nums;font-size:13px}
+.ann-timer{display:inline-block;font-weight:800;color:var(--red);background:#fff;padding:2px 10px;border-radius:100px;margin-left:6px;font-variant-numeric:tabular-nums;font-size:13px}
 
 /* ── Header ── */
-.hdr{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:0}
+.hdr{position:sticky;top:0;z-index:900;background:rgba(17,17,17,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.1);padding:0}
 .hdr-inner{max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:center;position:relative}
-.hdr-logo{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink)}
+.hdr-logo{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff}
 .hdr-right{position:absolute;right:24px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:12px}
-.hdr-cta{background:var(--ink);color:#fff;font-size:13px;font-weight:700;padding:11px 22px;border-radius:100px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(0,0,0,.16)}
+.hdr-cta{background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:11px 22px;border-radius:100px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 .hdr-cta:hover{transform:translateY(-1px)}
-.hdr-cart{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,transform .15s}
-.hdr-cart:hover{border-color:var(--ink);transform:translateY(-1px)}
-.hdr-cart-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:100px;background:var(--red);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #fff}
+.hdr-cart{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,transform .15s}
+.hdr-cart:hover{border-color:#fff;transform:translateY(-1px)}
+.hdr-cart-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:100px;background:var(--red);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #111}
 .cd-empty{display:none;text-align:center;padding:56px 20px}
 .cd-empty-ico{width:64px;height:64px;border-radius:50%;background:var(--mist);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--muted)}
 .cd-empty h4{font-size:17px;font-weight:800;margin-bottom:6px}
@@ -1687,7 +1687,8 @@ function updateBuyUI(n){
   if(window._hardSingle&&n===1){
     nowL=window._hardSingle.now;wasL=window._hardSingle.was;
   } else if(window._fxRate&&window._fxRate!==1){
-    nowL=ch99(totalUsd*window._fxRate);wasL=ch99(cmpUsd*window._fxRate);
+    nowL=ch99(DEVICE_PRICES[n]*window._fxRate)*n;
+    wasL=(n===1?ch99(SINGLE_COMPARE*window._fxRate):ch99(COMPARE_EACH*window._fxRate)*n);
   } else {
     nowL=totalUsd;wasL=cmpUsd;
   }
