@@ -63,9 +63,9 @@ button{font-family:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 .wrap-lg{max-width:1240px;margin:0 auto;padding:0 24px}
 .sec{padding:96px 0}
-.label{display:inline-flex;align-items:center;gap:7px;background:var(--red-tint);color:var(--red);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:18px}
+.label{display:inline-flex;align-items:center;gap:7px;background:var(--red-tint);color:var(--red);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border-radius:16px;margin-bottom:18px;max-width:100%;box-sizing:border-box;text-align:center;line-height:1.6}
 .label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red)}
-.label.center{display:flex;width:max-content;margin:0 auto 18px}
+.label.center{display:flex;width:max-content;max-width:calc(100% - 8px);margin:0 auto 18px;justify-content:center}
 .label-dk{background:rgba(248,113,113,.12)!important;color:#F87171!important}
 .label-dk::before{background:#F87171}
 .sec-h2{font-size:clamp(32px,4.5vw,52px);line-height:1.08;letter-spacing:-.03em}
@@ -1235,9 +1235,9 @@ button{font-family:inherit}
 
     <!-- Promo banner -->
     <div class="promo-banner">
-      <p class="promo-kicker">Pre-Launch Exclusive</p>
+      <p class="promo-kicker">We're finalizing our factory order this week</p>
       <h2 class="promo-hd">SAVE UP TO <span>33%</span><br/>BEFORE LAUNCH</h2>
-      <p class="promo-sub">Once we officially release on July 31st, this pricing is gone for good.</p>
+      <p class="promo-sub" style="max-width:520px">Every pre-launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <div class="cd-timer">
         <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-unit-lbl">Days</span></div>
         <span class="cd-sep">:</span>
@@ -1359,7 +1359,7 @@ button{font-family:inherit}
     <div class="faq-list" id="faq-list">
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">What's new in NovaFlow 2.0 vs the original?<span class="faq-icon">+</span></div>
-        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 introduces two modes. Mode 1 is 10 minutes of 660nm red light — for surface-level symptoms like allergies and everyday congestion. Mode 2 is the premium mode: 2 minutes of blue light automatically transitions into 8 minutes of red light, 10 minutes total, to clear bacteria from the nasal lining first and then support tissue recovery. No other home device sequences the lights for you.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">NovaFlow 2.0 adds one entirely new mode. Mode 1 is the same clinically studied 660nm red light the original is known for — for surface-level symptoms like allergies and everyday congestion. Mode 2 is what’s new: 2 minutes of antibacterial blue light automatically transitions into 8 minutes of red light, 10 minutes total, to clear bacteria from the nasal lining first and then support tissue recovery. No other home device sequences the lights for you.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="faq(this)">I can't stop using nasal spray. Can NovaFlow help?<span class="faq-icon">+</span></div>
@@ -1515,7 +1515,7 @@ button{font-family:inherit}
       <span class="cd-total-amt" id="cd-total-amt">$89.98</span>
     </div>
     <p style="text-align:right;font-size:11px;color:var(--muted);margin:4px 0 0">Shipping &amp; taxes calculated at checkout</p>
-    <button class="cd-cta" onclick="checkoutCart()">Proceed to Checkout →</button>
+    <button class="cd-cta" onclick="checkoutCart()">Try It Risk-Free →</button>
     <p class="cd-guarantee">🔒 120-day money-back guarantee · Secured shipping</p>
   </div>
 </div>
@@ -1606,10 +1606,16 @@ function updateBuyUI(n){
   if(pn)pn.textContent=now;
   if(pw){pw.textContent=was;pw.style.visibility=n===1?'hidden':'visible';}
   if(ps){ps.textContent='SAVE '+savePct+'%';ps.style.visibility=n===1?'hidden':'visible';}
-  // CTAs
-  [['hero-atc-btn'],['offer-atc-btn']].forEach(function(a){
+  // CTAs — include sterilizing kit upsell if selected in that section
+  [['hero-atc-btn','h-uvc-addon',function(){return hUvcQty;}],['offer-atc-btn','uvc-addon',function(){return uvcQty;}]].forEach(function(a){
     const btn=document.getElementById(a[0]);
-    if(btn)btn.innerHTML='Add To Cart — '+now+(n>1?'&nbsp;<span class="atc-was">'+was+'</span>':'');
+    if(!btn)return;
+    const addonEl=document.getElementById(a[1]);
+    const kitOn=addonEl&&addonEl.classList.contains('addon-on');
+    const kitUsd=kitOn?a[2]()*19.99:0;
+    const nowT=fmtP(total+kitUsd);
+    const wasT=fmtP(compare+kitUsd);
+    btn.innerHTML='Add To Cart — '+nowT+(n>1?'&nbsp;<span class="atc-was">'+wasT+'</span>':'');
   });
   // Discount code bar amount
   const ca=document.getElementById('code-amt');
@@ -1663,6 +1669,7 @@ function adjQty(id,delta,e){
   e.stopPropagation();
   if(id==='uvc'){uvcQty=Math.min(99,Math.max(1,uvcQty+delta));document.getElementById('uvc-n').textContent=uvcQty;}
   else{hUvcQty=Math.min(99,Math.max(1,hUvcQty+delta));document.getElementById('h-uvc-n').textContent=hUvcQty;}
+  updateBuyUI(currentQty());
 }
 function toggleAddon(){
   const el=document.getElementById('uvc-addon'),ck=document.getElementById('uvc-ck');
@@ -1671,6 +1678,7 @@ function toggleAddon(){
   ck.textContent=on?'✓':'+';
   el.setAttribute('aria-checked',String(on));
   if(on){uvcQty=1;document.getElementById('uvc-n').textContent=1;}
+  updateBuyUI(currentQty());
 }
 function toggleHAddon(){
   const el=document.getElementById('h-uvc-addon'),ck=document.getElementById('h-uvc-ck');
@@ -1679,6 +1687,7 @@ function toggleHAddon(){
   ck.textContent=on?'✓':'+';
   el.setAttribute('aria-checked',String(on));
   if(on){hUvcQty=1;document.getElementById('h-uvc-n').textContent=1;}
+  updateBuyUI(currentQty());
 }
 
 /* ── FAQ ── */
