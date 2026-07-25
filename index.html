@@ -710,7 +710,7 @@ button{font-family:inherit}
       <!-- Discount bar -->
       <div class="code-bar">
         <div class="code-bar-l">
-          <span class="code-bar-amt" id="code-amt">$15.01 OFF</span>
+          <span class="code-bar-amt" id="code-amt">$15 OFF</span>
           <span class="code-bar-sub">Pre-Launch Sale · <b>Applied automatically at checkout</b></span>
         </div>
         <div class="offer-cd">
@@ -1661,8 +1661,9 @@ function updateBuyUI(n){
   // Discount code bar amount
   const ca=document.getElementById('code-amt');
   if(ca){
-    const saved=Math.round((wasL-nowL)*100)/100;
-    ca.textContent=fmtL(saved)+' OFF';
+    const saved=Math.round(wasL-nowL);
+    const fmtRound=window._DEVICE_PRICES?function(x){return window.fmtLocal(x).replace(/\.00$/,'');}:function(x){return '$'+x;};
+    ca.textContent=fmtRound(saved)+' OFF';
   }
 }
 window.updateBuyUI=updateBuyUI;
