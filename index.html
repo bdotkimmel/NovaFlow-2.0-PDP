@@ -513,6 +513,19 @@ button{font-family:inherit}
 .cd-prod-name{font-size:15px;font-weight:800}
 .cd-prod-sub{font-size:13px;color:var(--muted);margin-top:2px}
 .cd-prod-price{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;flex-shrink:0}
+.cd-prod-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.cd-qty{display:flex;align-items:center;gap:6px;margin-top:8px}
+.cd-remove{background:none;border:none;font-size:11px;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:2px;cursor:pointer;padding:0}
+.cd-remove:hover{color:var(--red)}
+.cd-gifts{margin-bottom:4px}
+.cd-gift-row{display:flex;align-items:center;gap:11px;padding:9px 12px;background:linear-gradient(120deg,#FDF4F4 0%,#F6F2FB 100%);border:1.5px dashed rgba(190,24,32,.35);border-radius:12px;margin-bottom:8px}
+.cd-gift-img{width:38px;height:38px;object-fit:cover;border-radius:9px;flex-shrink:0;background:#fff}
+.cd-gift-info{flex:1;min-width:0}
+.cd-gift-name{font-size:13px;font-weight:800;color:var(--ink)}
+.cd-gift-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.cd-gift-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.cd-gift-free{background:var(--red);color:#fff;font-size:9px;font-weight:800;letter-spacing:.06em;padding:3px 9px;border-radius:100px}
+.cd-gift-val{font-size:11px;color:var(--muted);text-decoration:line-through}
 .cd-sec-lbl{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .cd-device-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .cd-device-lbl{font-size:14px;font-weight:700}
@@ -690,14 +703,14 @@ button{font-family:inherit}
       <!-- Price -->
       <div class="price-row">
         <span class="price-now" id="hero-price-now">$59.99</span>
-        <span class="price-was" id="hero-price-was" style="visibility:hidden">$59.99</span>
-        <span class="price-save" id="hero-price-save" style="visibility:hidden">SAVE 25%</span>
+        <span class="price-was" id="hero-price-was">$75.00</span>
+        <span class="price-save" id="hero-price-save">SAVE 20%</span>
       </div>
 
       <!-- Discount bar -->
       <div class="code-bar">
         <div class="code-bar-l">
-          <span class="code-bar-amt" id="code-amt">PRE-LAUNCH PRICE</span>
+          <span class="code-bar-amt" id="code-amt">$15.01 OFF</span>
           <span class="code-bar-sub">Pre-Launch Sale · <b>Applied automatically at checkout</b></span>
         </div>
         <div class="offer-cd">
@@ -709,26 +722,26 @@ button{font-family:inherit}
       </div>
 
       <!-- Benefits checklist -->
-      <div class="blist-hd">After 2–4 Weeks, Users Report:</div>
+      <div class="blist-hd">What 30,000+ NovaFlow Users Noticed:</div>
       <div class="blist">
         <div class="bli">
           <span class="bli-ico ico-rose"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 7 5.5 7 8v7c0 1.1-.4 2-1 2.5"/><path d="M12 3c3 0 5 2.5 5 5v7c0 1.1.4 2 1 2.5"/><path d="M9 17.5C9 19 10.3 20 12 20s3-1 3-2.5"/></svg></span>
-          <span><b>Clearer</b> nasal breathing — through both nostrils</span>
+          <span><b>Breathing</b> through both nostrils again</span>
         </div>
         <div class="bli">
           <span class="bli-ico ico-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a8 8 0 008-8c0-4-4-9-8-11-4 2-8 7-8 11a8 8 0 008 8z"/></svg></span>
-          <span><b>Fewer</b> middle-of-the-night congestion wake-ups</span>
+          <span><b>Sleeping</b> through the night without waking up blocked</span>
         </div>
         <div class="bli">
           <span class="bli-ico ico-mint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
-          <span><b>Less reliance</b> on sprays, pills &amp; rinses</span>
+          <span><b>Dropping</b> the sprays, pills &amp; rinses for good</span>
         </div>
         <div class="bli">
           <span class="bli-ico ico-gold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
-          <span><b>Reduced</b> tissue inflammation at the cellular level</span>
+          <span><b>Calmer,</b> less swollen nasal tissue</span>
         </div>
       </div>
-      <p class="blist-note">*Based on published clinical research on intranasal light therapy. Individual results vary.</p>
+      <p class="blist-note">*Reported by users of the original NovaFlow red light device. Individual results vary.</p>
 
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
@@ -744,7 +757,7 @@ button{font-family:inherit}
           <div class="bc-name">Buy 1</div>
           <div class="bc-per" data-usd="59.99">$59.99</div>
           <div class="bc-per-ea">ea</div>
-          <div class="bc-was" style="visibility:hidden">$59.99</div>
+          <div class="bc-was" data-usd="75.00">$75.00</div>
           <div class="bc-bottom">1 Free Gift!</div>
         </div>
         <div class="bc" id="h-b2" onclick="hqty(2)">
@@ -803,7 +816,7 @@ button{font-family:inherit}
       </div>
 
       <!-- CTA -->
-      <button class="atc" id="hero-atc-btn" onclick="atcHero()">Add To Cart — $59.99</button>
+      <button class="atc" id="hero-atc-btn" onclick="atcHero()">Add To Cart — $59.99&nbsp;<span class="atc-was">$75.00</span></button>
       <div class="atc-micro">
         <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>120-Day Money-Back Guarantee</span>
         <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Free Gifts Included</span>
@@ -1256,7 +1269,7 @@ button{font-family:inherit}
         <div class="bc-name">Buy 1</div>
         <div class="bc-per" data-usd="59.99">$59.99</div>
         <div class="bc-per-ea">ea</div>
-        <div class="bc-was" style="visibility:hidden">$59.99</div>
+        <div class="bc-was" data-usd="75.00">$75.00</div>
         <div class="bc-bottom">1 Free Gift!</div>
       </div>
       <div class="bc" id="o-b2" onclick="obc(2)">
@@ -1314,7 +1327,7 @@ button{font-family:inherit}
       </div>
     </div>
 
-    <button class="atc" id="offer-atc-btn" style="margin-top:16px" onclick="atcMain()">Add To Cart — $59.99</button>
+    <button class="atc" id="offer-atc-btn" style="margin-top:16px" onclick="atcMain()">Add To Cart — $59.99&nbsp;<span class="atc-was">$75.00</span></button>
     <div class="atc-micro">
       <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>120-Day Money-Back Guarantee</span>
       <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Free Gifts Included</span>
@@ -1463,9 +1476,21 @@ button{font-family:inherit}
       <div class="cd-prod-info">
         <div class="cd-prod-name">NovaFlow 2.0</div>
         <div class="cd-prod-sub" id="cd-prod-sub">2 devices · $44.99/ea</div>
+        <div class="cd-qty">
+          <button class="aq-btn" onclick="cdDevQty(-1)">−</button>
+          <span class="aq-count" id="cd-dev-n">2</span>
+          <button class="aq-btn" onclick="cdDevQty(1)">+</button>
+        </div>
       </div>
-      <div class="cd-prod-price" id="cd-prod-price">$89.98</div>
+      <div class="cd-prod-right">
+        <div class="cd-prod-price" id="cd-prod-price">$89.98</div>
+        <button class="cd-remove" onclick="removeDevices()">Remove</button>
+      </div>
     </div>
+
+    <!-- Free gifts included -->
+    <div class="cd-sec-lbl" id="cd-gifts-lbl">🎁 Free gifts included</div>
+    <div class="cd-gifts" id="cd-gifts"></div>
     <div class="cd-sec-lbl">Choose your color</div>
     <div id="cd-colors"></div>
     <div class="cd-divider"></div>
@@ -1475,10 +1500,14 @@ button{font-family:inherit}
         <h5 style="font-size:14px;font-weight:800">Sterilizing Kit</h5>
         <p style="font-size:12px;color:var(--muted);margin-top:3px">UV-C sterilizer + 6 extra silicone sleeve sets</p>
       </div>
-      <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
-        <button class="aq-btn" onclick="adjCartKitAdded(-1,event)">−</button>
-        <span class="aq-count" id="cd-kit-added-n">1</span>
-        <button class="aq-btn" onclick="adjCartKitAdded(1,event)">+</button>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0">
+        <div class="cd-kit-price" id="cd-kit-added-price">$19.99</div>
+        <div style="display:flex;align-items:center;gap:5px">
+          <button class="aq-btn" onclick="adjCartKitAdded(-1,event)">−</button>
+          <span class="aq-count" id="cd-kit-added-n">1</span>
+          <button class="aq-btn" onclick="adjCartKitAdded(1,event)">+</button>
+        </div>
+        <button class="cd-remove" onclick="removeCartKit()">Remove</button>
       </div>
     </div>
     <div id="cd-upsell-sec">
@@ -1594,34 +1623,46 @@ function currentQty(){
   for(let i=1;i<=3;i++){const el=document.getElementById('h-b'+i);if(el&&el.classList.contains('on'))return i;}
   return 1;
 }
+const SINGLE_COMPARE=75.00; // launch price for 1 device (USD)
+function ch99(x){return Math.floor(x)+0.99;}
 function updateBuyUI(n){
-  const total=n*DEVICE_PRICES[n];
-  const compare=n*COMPARE_EACH;
-  const savePct=Math.round((1-total/compare)*100);
-  const now=fmtP(total),was=fmtP(compare);
+  const totalUsd=n*DEVICE_PRICES[n];
+  const cmpUsd=n===1?SINGLE_COMPARE:n*COMPARE_EACH;
+  let nowL,wasL;
+  if(window._hardSingle&&n===1){
+    nowL=window._hardSingle.now;wasL=window._hardSingle.was;
+  } else if(window._fxRate&&window._fxRate!==1){
+    nowL=ch99(totalUsd*window._fxRate);wasL=ch99(cmpUsd*window._fxRate);
+  } else {
+    nowL=totalUsd;wasL=cmpUsd;
+  }
+  const fmtL=window._DEVICE_PRICES?window.fmtLocal:function(x){return '$'+x.toFixed(2);};
+  const savePct=Math.round((1-nowL/wasL)*100);
+  const now=fmtL(nowL),was=fmtL(wasL);
   // Hero price row
   const pn=document.getElementById('hero-price-now');
   const pw=document.getElementById('hero-price-was');
   const ps=document.getElementById('hero-price-save');
   if(pn)pn.textContent=now;
-  if(pw){pw.textContent=was;pw.style.visibility=n===1?'hidden':'visible';}
-  if(ps){ps.textContent='SAVE '+savePct+'%';ps.style.visibility=n===1?'hidden':'visible';}
+  if(pw){pw.textContent=was;pw.style.visibility='visible';}
+  if(ps){ps.textContent='SAVE '+savePct+'%';ps.style.visibility='visible';}
   // CTAs — include sterilizing kit upsell if selected in that section
   [['hero-atc-btn','h-uvc-addon',function(){return hUvcQty;}],['offer-atc-btn','uvc-addon',function(){return uvcQty;}]].forEach(function(a){
     const btn=document.getElementById(a[0]);
     if(!btn)return;
     const addonEl=document.getElementById(a[1]);
     const kitOn=addonEl&&addonEl.classList.contains('addon-on');
-    const kitUsd=kitOn?a[2]()*19.99:0;
-    const nowT=fmtP(total+kitUsd);
-    const wasT=fmtP(compare+kitUsd);
-    btn.innerHTML='Add To Cart — '+nowT+(n>1?'&nbsp;<span class="atc-was">'+wasT+'</span>':'');
+    const kitL=window._KIT_PRICE||19.99;
+    const kitAmt=kitOn?a[2]()*kitL:0;
+    const nowT=fmtL(Math.round((nowL+kitAmt)*100)/100);
+    const wasT=fmtL(Math.round((wasL+kitAmt)*100)/100);
+    btn.innerHTML='Add To Cart — '+nowT+'&nbsp;<span class="atc-was">'+wasT+'</span>';
   });
   // Discount code bar amount
   const ca=document.getElementById('code-amt');
   if(ca){
-    const saved=compare-total;
-    ca.textContent=(n===1?'PRE-LAUNCH PRICE':fmtP(saved)+' OFF');
+    const saved=Math.round((wasL-nowL)*100)/100;
+    ca.textContent=fmtL(saved)+' OFF';
   }
 }
 window.updateBuyUI=updateBuyUI;
@@ -1741,6 +1782,57 @@ function setDrawerEmpty(empty){
   if(m)m.style.display=empty?'none':'block';
   if(f)f.style.display=empty?'none':'block';
 }
+var CART_GIFTS=[
+  {q:1,img:'https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446',name:'Breathing Reset Guide',sub:'Mucus clearing breathwork',val:24.99},
+  {q:2,img:'https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_16_95353d2b-974d-4012-979d-b1dc30d7b834.png?v=1784281443',name:'Mystery Gift',sub:'Surprise bonus gift',val:null},
+  {q:3,img:'https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_15.png?v=1784281288',name:'Portable Case',sub:'Travel-ready storage',val:14.99}
+];
+function renderCartGifts(){
+  const wrap=document.getElementById('cd-gifts');
+  if(!wrap)return;
+  const fp=window.fmtPrice||function(n){return'$'+n.toFixed(2);};
+  wrap.innerHTML='';
+  CART_GIFTS.filter(function(g){return cdQty>=g.q;}).forEach(function(g){
+    const row=document.createElement('div');
+    row.className='cd-gift-row';
+    row.innerHTML='<img class="cd-gift-img" src="'+g.img+'" alt="'+g.name+'"/>'+
+      '<div class="cd-gift-info"><div class="cd-gift-name">'+g.name+'</div><div class="cd-gift-sub">'+g.sub+'</div></div>'+
+      '<div class="cd-gift-right"><span class="cd-gift-free">FREE</span>'+(g.val?'<span class="cd-gift-val">'+fp(g.val)+'</span>':'')+'</div>';
+    wrap.appendChild(row);
+  });
+}
+function cdDevQty(d){
+  const q=Math.min(3,Math.max(1,cdQty+d));
+  if(q===cdQty)return;
+  cdQty=q;
+  renderCartColors();
+  updateCartTotals();
+}
+function removeDevices(){
+  cartHas=false;
+  try{localStorage.removeItem('nf2_cart');}catch(e){}
+  updateCartBadge();
+  setDrawerEmpty(true);
+}
+function unsyncPageKit(){
+  [['h-uvc-addon','h-uvc-ck','h-uvc-n'],['uvc-addon','uvc-ck','uvc-n']].forEach(function(a){
+    const el=document.getElementById(a[0]);
+    if(el&&el.classList.contains('addon-on')){
+      el.classList.remove('addon-on');
+      el.setAttribute('aria-checked','false');
+      const ck=document.getElementById(a[1]);if(ck)ck.textContent='+';
+      const n=document.getElementById(a[2]);if(n)n.textContent=1;
+    }
+  });
+  hUvcQty=1;uvcQty=1;
+  updateBuyUI(currentQty());
+}
+function removeCartKit(){
+  cdAddonOn=false;cdAddonQty=1;
+  unsyncPageKit();
+  syncCartKitUI();
+  updateCartTotals();
+}
 function viewCart(){
   if(cartHas){
     setDrawerEmpty(false);
@@ -1819,6 +1911,8 @@ function renderCartColors(){
   const dp=window._DEVICE_PRICES||DEVICE_PRICES;
   document.getElementById('cd-prod-sub').textContent=`${cdQty} device${cdQty>1?'s':''} · ${fmt(dp[cdQty])}/ea`;
   document.getElementById('cd-prod-price').textContent=fmt(cdQty*dp[cdQty]);
+  const dn=document.getElementById('cd-dev-n');if(dn)dn.textContent=cdQty;
+  renderCartGifts();
   for(let i=0;i<cdQty;i++){
     const lbl=cdQty===1?'Your device':`Device ${i+1}`;
     const row=document.createElement('div');
@@ -1851,6 +1945,7 @@ function toggleCartKit(){
   if(krow)krow.classList.toggle('addon-on',cdAddonOn);
   if(kck)kck.textContent=cdAddonOn?'✓':'+';
   if(cdAddonOn){cdAddonQty=1;document.getElementById('cd-kit-n').textContent=1;}
+  else{unsyncPageKit();}
   updateCartTotals();
 }
 function adjCartKitAdded(delta,e){
@@ -1876,6 +1971,8 @@ function updateCartTotals(){
   const total=deviceTotal+kitTotal+priorityTotal;
   const fmt=window._DEVICE_PRICES?window.fmtLocal:(window.fmtPrice||function(n){return'$'+n.toFixed(2);});
   document.getElementById('cd-total-amt').textContent=fmt(total);
+  const kap=document.getElementById('cd-kit-added-price');
+  if(kap)kap.textContent=fmt(cdAddonQty*kp);
   saveCartState();
 }
 function togglePriority(){
@@ -2062,19 +2159,30 @@ revBuildDots();
     if(cur==='JPY')return sym+Math.ceil(n);
     return sym+n.toFixed(2);
   };
+  var HARD={CAD:{single:79.99,compare:99.99},GBP:{single:47.99,compare:59.99}};
   try{
     const geo=await fetch('https://ipapi.co/json/').then(r=>r.json());
     cur=geo.currency||'USD';
     sym=SYM[cur]||(cur+' ');
-    if(cur!=='USD'){
+    if(cur!=='USD'&&!HARD[cur]){
       const fx=await fetch('https://open.er-api.com/v6/latest/USD').then(r=>r.json());
       rate=(fx.rates&&fx.rates[cur])||1;
     }
   }catch(e){}
   if(cur==='USD')return;
+  if(HARD[cur]){
+    rate=HARD[cur].single/59.99;
+    window._hardSingle={now:HARD[cur].single,was:HARD[cur].compare};
+  }
+  window._fxRate=rate;
   document.querySelectorAll('[data-usd]').forEach(function(el){
     el.textContent=window.fmtPrice(parseFloat(el.dataset.usd));
   });
+  if(window._hardSingle){
+    document.querySelectorAll('[data-usd="75.00"]').forEach(function(el){
+      el.textContent=window.fmtLocal(window._hardSingle.was);
+    });
+  }
   window._cartPriceLabels={
     1:window.fmtPrice(59.99)+'/ea',
     2:window.fmtPrice(44.99)+'/ea',
