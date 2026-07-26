@@ -1936,7 +1936,7 @@ function openCart(qty){
   document.getElementById('cdrawer-overlay').classList.add('show');
   document.getElementById('cdrawer').classList.add('show');
   if(window.fbq){
-    var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
+    var dp={1:59.99,2:44.99,3:39.99};
     fbq('track','AddToCart',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52709201609015','52709201641783'],currency:'USD',value:cdQty*dp[cdQty],num_items:cdQty});
   }
 }
@@ -2043,9 +2043,9 @@ function togglePriority(){
 }
 function checkoutCart(){
   if(window.fbq){
-    var dp=window._DEVICE_PRICES||{1:59.99,2:44.99,3:39.99};
-    var kp=window._KIT_PRICE||19.99;
-    var pp=window._PRIORITY_PRICE||2.99;
+    var dp={1:59.99,2:44.99,3:39.99};
+    var kp=19.99;
+    var pp=2.99;
     var val=(cdQty*dp[cdQty])+(cdAddonOn?cdAddonQty*kp:0)+(cdPriorityOn?pp:0);
     fbq('track','InitiateCheckout',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52709201609015','52709201641783'],currency:'USD',value:val,num_items:cdQty});
   }
