@@ -91,6 +91,29 @@ button{font-family:inherit}
 .cd-empty p{font-size:13px;color:var(--muted);margin-bottom:20px}
 .cd-empty-btn{background:var(--ink);color:#fff;border:none;border-radius:100px;padding:14px 28px;font-size:14px;font-weight:800;cursor:pointer}
 
+/* ═══ Slide-out menu ═══ */
+.mnav-burger{position:absolute;left:24px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.mnav-burger:hover{border-color:#fff}
+.mnav-overlay{position:fixed;inset:0;background:rgba(10,10,10,.5);backdrop-filter:blur(3px);z-index:1200;opacity:0;pointer-events:none;transition:opacity .3s}
+.mnav-overlay.show{opacity:1;pointer-events:auto}
+.mnav{position:fixed;top:0;left:0;bottom:0;width:382px;max-width:86vw;background:#F3F1EC;z-index:1201;transform:translateX(-100%);transition:transform .45s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column;padding:18px 24px 28px;overflow-y:auto}
+.mnav.show{transform:translateX(0)}
+.mnav-close{align-self:flex-end;width:38px;height:38px;border-radius:50%;background:#fff;border:none;cursor:pointer;font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.08);flex-shrink:0}
+.mnav-lbl{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8A877F;margin:6px 0 14px}
+.mnav-card{position:relative;display:block;border-radius:16px;overflow:hidden;cursor:pointer;aspect-ratio:4/5;background:#ddd}
+.mnav-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.mnav-card:hover img{transform:scale(1.03)}
+.mnav-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 40%)}
+.mnav-card-cta{position:absolute;left:20px;right:20px;bottom:18px;display:flex;align-items:center;justify-content:space-between;color:#fff;z-index:1}
+.mnav-card-cta span{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:21px;letter-spacing:.01em}
+.mnav-rows{margin-top:28px}
+.mnav-row{display:flex;align-items:center;justify-content:space-between;padding:19px 2px;border-top:1px solid #DED9CF;font-size:16px;font-weight:700;color:var(--ink)}
+.mnav-row:last-child{border-bottom:1px solid #DED9CF}
+.mnav-row svg{color:#57544D}
+.mnav-foot{margin-top:auto;padding-top:36px}
+.mnav-foot-logo{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;letter-spacing:.06em;color:#57544D}
+.mnav-foot-tag{font-family:Georgia,serif;font-style:italic;font-size:13px;color:#8A877F;margin-top:6px}
+
 /* ═══ HERO / BUY BOX ═══ */
 .hero{background:var(--paper);padding:36px 0 0}
 .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:0 24px;align-items:start}
@@ -122,7 +145,7 @@ button{font-family:inherit}
 .tp-row{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .tp-boxes{display:flex;gap:2px}
 .tp-box{width:22px;height:22px;background:var(--tp);border-radius:4px;display:flex;align-items:center;justify-content:center}
-.tp-box.half{background:linear-gradient(90deg,var(--tp) 50%,#D6D8DC 50%)}
+.tp-box.half{background:linear-gradient(90deg,var(--tp) 72%,#D6D8DC 72%)}
 .tp-box svg{width:14px;height:14px;fill:#fff}
 .tp-text{font-size:14px;color:var(--ink);font-weight:600}
 .tp-text b{font-weight:800}
@@ -642,12 +665,15 @@ button{font-family:inherit}
 <div id="page-wrap">
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann">
-  <b>PRE-LAUNCH SALE</b> — Lock in the lowest price NovaFlow 2.0 will ever be. Ends in<span class="ann-timer" id="ann-cd">--d : --h : --m : --s</span>
+  <b>EXTENDED PRE-LAUNCH SALE</b> — Lock in the lowest price NovaFlow 2.0 will ever be. Ends in<span class="ann-timer" id="ann-cd">--d : --h : --m : --s</span>
 </div>
 
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
+    <button class="mnav-burger" onclick="mnavOpen()" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
     <a href="https://cleriva.com" class="hdr-logo">CLERIVA</a>
     <div class="hdr-right">
       <a class="hdr-cta" onclick="document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})">Get NovaFlow 2.0</a>
@@ -706,7 +732,7 @@ button{font-family:inherit}
           <span class="tp-box"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
           <span class="tp-box half"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
         </div>
-        <span class="tp-text">Rated <b>4.6</b> on <span class="tp-logo">★ Trustpilot</span></span>
+        <span class="tp-text">Rated <b>4.7</b> on <span class="tp-logo">★ Trustpilot</span></span>
       </div>
 
       <!-- Title -->
@@ -725,7 +751,7 @@ button{font-family:inherit}
       <div class="code-bar">
         <div class="code-bar-l">
           <span class="code-bar-amt" id="code-amt">$15 OFF</span>
-          <span class="code-bar-sub">Pre-Launch Sale</span>
+          <span class="code-bar-sub">Extended Pre-Launch Sale</span>
         </div>
         <div class="offer-cd">
           <div class="offer-cd-u"><span class="offer-cd-n" id="oc-d">--</span><span class="offer-cd-l">Days</span></div>
@@ -1303,7 +1329,7 @@ button{font-family:inherit}
 
     <!-- Promo banner -->
     <div class="promo-banner">
-      <p class="promo-kicker">We're finalizing our factory order this week</p>
+      <p class="promo-kicker">Extended — We're finalizing our factory order</p>
       <h2 class="promo-hd">SAVE UP TO <span>33%</span><br/>BEFORE LAUNCH</h2>
       <p class="promo-sub" style="max-width:520px">Every pre-launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <p style="font-size:13px;font-weight:800;color:var(--red);margin-top:14px;letter-spacing:.02em">Limit: 3 per customer</p>
@@ -1472,6 +1498,7 @@ button{font-family:inherit}
     <h2>Start breathing clearly.<br/>Or get your <span style="text-decoration:underline;text-underline-offset:6px">money back.</span></h2>
     <p>120 days. No questions. Nothing to lose except the congestion.</p>
     <a class="fcta-btn" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Get NovaFlow 2.0 →</a>
+    <p style="margin-top:18px;font-size:13px;color:rgba(255,255,255,.8)">Have questions? <a href="https://cleriva.com/pages/contact" style="color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:600">Click here to contact us</a></p>
   </div>
 </section>
 
@@ -1510,6 +1537,35 @@ button{font-family:inherit}
 <div class="satc" id="satc">
   <button class="satc-btn" onclick="document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})">Secure Your Pre-Launch Price</button>
 </div>
+<!-- ── Slide-out menu ── -->
+<div class="mnav-overlay" id="mnav-overlay" onclick="mnavClose()"></div>
+<nav class="mnav" id="mnav" aria-hidden="true">
+  <button class="mnav-close" onclick="mnavClose()" aria-label="Close menu">✕</button>
+  <p class="mnav-lbl">Shop</p>
+  <a class="mnav-card" href="https://novaflow.cleriva.com/">
+    <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260801_032408_498112a9-5220-4842-a3e0-e8ecdee9a56a.png?v=1785554698" alt="NovaFlow 2.0"/>
+    <div class="mnav-card-cta">
+      <span>Shop Now</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </a>
+  <div class="mnav-rows">
+    <p class="mnav-lbl" style="margin-bottom:6px">Support</p>
+    <a class="mnav-row" href="https://cleriva.com/apps/17TRACK">
+      Order Tracking
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <a class="mnav-row" href="https://cleriva.com/pages/contact">
+      Contact Us
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="mnav-foot">
+    <div class="mnav-foot-logo">CLERIVA</div>
+    <div class="mnav-foot-tag">Breathe better, every day.</div>
+  </div>
+</nav>
+
 <!-- ── Cart Drawer ── -->
 <div class="cdrawer-overlay" id="cdrawer-overlay" onclick="closeCart()"></div>
 <div class="cdrawer" id="cdrawer">
@@ -1606,6 +1662,19 @@ button{font-family:inherit}
 </div>
 
 <script>
+/* ── Slide-out menu ── */
+function mnavOpen(){
+  document.getElementById('mnav-overlay').classList.add('show');
+  const m=document.getElementById('mnav');
+  m.classList.add('show');m.setAttribute('aria-hidden','false');
+}
+function mnavClose(){
+  document.getElementById('mnav-overlay').classList.remove('show');
+  const m=document.getElementById('mnav');
+  m.classList.remove('show');m.setAttribute('aria-hidden','true');
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')mnavClose();});
+
 /* ── Hero carousel ── */
 let hcIdx=0;
 const HC_TOTAL=8;
@@ -1633,9 +1702,9 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   },{passive:true});
 })();
 
-/* ── Countdown to July 31 2026 midnight ET ── */
+/* ── Countdown to end of Aug 2 2026 (Aug 3 12:00am ET) (extended pre-launch sale) ── */
 (function(){
-  var deadline=new Date('2026-08-01T04:00:00Z');
+  var deadline=new Date('2026-08-03T04:00:00Z');
   function pad(n){return n<10?'0'+n:n;}
   function setTxt(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
   function tick(){
