@@ -188,7 +188,7 @@ button{font-family:inherit}
 /* Stock bar */
 .stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .stock-bar-track{flex:1;height:9px;background:var(--mist);border-radius:99px;overflow:hidden}
-.stock-bar-fill{height:100%;width:91%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px}
+.stock-bar-fill{height:100%;width:95%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px}
 .stock-bar-lbl{font-size:13px;font-weight:800;color:var(--red);white-space:nowrap}
 
 /* ═══ Bundle selector ═══ */
@@ -602,6 +602,11 @@ button{font-family:inherit}
 }
 @media(max-width:768px){
   .sec{padding:64px 0}
+  .bridge-sec{padding:56px 0 36px}
+  .dual-sec{padding:36px 0 56px}
+  .tl-sec .wrap > img{margin-bottom:26px;border-radius:14px}
+  .tl-sec{padding:56px 0}
+  .rsr-tickwrap{margin:28px 0 34px}
   .hero{padding-top:0}
   .hero-grid{padding:0;gap:20px}
   .hero-carousel{border-radius:0}
@@ -786,8 +791,10 @@ button{font-family:inherit}
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
         <div class="stock-bar-track"><div class="stock-bar-fill" id="stock-bar-fill"></div></div>
-        <span class="stock-bar-lbl" id="stock-bar-lbl">91% of pre-launch stock claimed</span>
+        <span class="stock-bar-lbl" id="stock-bar-lbl">95% of pre-launch stock claimed</span>
       </div>
+
+      <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260801_045838_7e19e4c6-b5ab-48aa-b78f-1f5244b3ba13.png?v=1785564934" alt="NovaFlow 2.0" loading="lazy" style="width:100%;border-radius:14px;margin-bottom:22px;display:block"/>
 
       <!-- Bundle selector -->
       <div class="vs-label" id="qty-selector">Bundle &amp; Save</div>
@@ -1104,6 +1111,7 @@ button{font-family:inherit}
 <!-- TIMELINE -->
 <section class="tl-sec">
   <div class="wrap">
+    <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260801_061935_457611ef-4d71-42a9-8495-b02f1eb2a056.png?v=1785565264" alt="NovaFlow 2.0 mechanism" loading="lazy" style="width:100%;max-width:900px;display:block;margin:0 auto 44px;border-radius:24px"/>
     <p class="label center label-dk">Your recovery protocol</p>
     <h2 class="tl-headline">What to expect, week by week.</h2>
     <div class="tl-track">
@@ -1725,8 +1733,8 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   function applyStockBump(){
     var fill=document.getElementById('stock-bar-fill');
     var lbl=document.getElementById('stock-bar-lbl');
-    if(fill)fill.style.width='92%';
-    if(lbl)lbl.textContent='92% of pre-launch stock claimed';
+    if(fill)fill.style.width='96%';
+    if(lbl)lbl.textContent='96% of pre-launch stock claimed';
   }
   if(localStorage.getItem('nf_stock_seen')){applyStockBump();}
   else{
