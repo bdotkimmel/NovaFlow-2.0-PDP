@@ -18,6 +18,8 @@ fbq('track','ViewContent',{content_name:'NovaFlow 2.0',content_type:'product',co
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=565939286078743&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel -->
+<link rel="preconnect" href="https://cleriva.com"/>
+<link rel="dns-prefetch" href="https://cleriva.com"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"/>
@@ -585,6 +587,7 @@ button{font-family:inherit}
 .cd-total-amt{font-family:'Sora',sans-serif;font-size:23px;font-weight:800;letter-spacing:-.02em}
 .cd-cta{width:100%;background:var(--ink);color:#fff;border:none;border-radius:100px;padding:18px;font-size:16px;font-weight:800;cursor:pointer;margin-top:14px;transition:transform .15s;box-shadow:var(--sh-btn)}
 .cd-cta:hover{transform:translateY(-1px)}
+.cd-cta:disabled{opacity:.65;cursor:wait;transform:none}
 .cd-guarantee{text-align:center;font-size:12px;color:var(--muted);margin-top:11px;font-weight:600}
 
 /* ═══ Reveal animations ═══ */
@@ -2118,7 +2121,12 @@ function togglePriority(){
   if(ck)ck.textContent=cdPriorityOn?'✓':'+';
   updateCartTotals();
 }
+let _coBusy=false;
 function checkoutCart(){
+  if(_coBusy)return;
+  _coBusy=true;
+  const _cbtn=document.querySelector('.cd-cta');
+  if(_cbtn){_cbtn.disabled=true;_cbtn.textContent='Loading Secure Checkout…';}
   if(window.fbq){
     var dp={1:59.99,2:44.99,3:39.99};
     var kp=19.99;
@@ -2141,6 +2149,13 @@ function checkoutCart(){
   if(cdQty>=3)parts.push(`${VAR_CASE}:1`);
   window.location.href=`https://cleriva.com/cart/${parts.join(',')}`;
 }
+window.addEventListener('pageshow',function(e){
+  if(e.persisted){
+    _coBusy=false;
+    const btn=document.querySelector('.cd-cta');
+    if(btn){btn.disabled=false;btn.textContent='Try It Risk-Free →';}
+  }
+});
 function atcHero(){openCart(currentQty());}
 function atcMain(){openCart(currentQty());}
 
