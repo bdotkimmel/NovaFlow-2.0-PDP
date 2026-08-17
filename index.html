@@ -151,7 +151,7 @@ button{font-family:inherit}
 .tp-row{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .tp-boxes{display:flex;gap:2px}
 .tp-box{width:22px;height:22px;background:var(--tp);border-radius:4px;display:flex;align-items:center;justify-content:center}
-.tp-box.half{background:linear-gradient(90deg,var(--tp) 72%,#D6D8DC 72%)}
+.tp-box.half{background:linear-gradient(90deg,var(--tp) 60%,#D6D8DC 60%)}
 .tp-box svg{width:14px;height:14px;fill:#fff}
 .tp-text{font-size:14px;color:var(--ink);font-weight:600}
 .tp-text b{font-weight:800}
@@ -747,7 +747,7 @@ button{font-family:inherit}
           <span class="tp-box"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
           <span class="tp-box half"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
         </div>
-        <span class="tp-text">Rated <b>4.7</b> on <span class="tp-logo">★ Trustpilot</span></span>
+        <span class="tp-text">Rated <b>4.6</b> on <span class="tp-logo">★ Trustpilot</span></span>
       </a>
 
       <!-- Title -->
@@ -768,7 +768,7 @@ button{font-family:inherit}
           <span class="code-bar-amt" id="code-amt">$15 OFF</span>
           <span class="code-bar-sub">Official Launch Sale</span>
         </div>
-        <span style="flex-shrink:0;background:var(--ink);color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border-radius:100px">Selling Fast</span>
+        <span onclick="document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})" style="flex-shrink:0;background:var(--ink);color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border-radius:100px;cursor:pointer">Selling Fast</span>
       </div>
 
       <!-- Benefits checklist -->
@@ -1440,6 +1440,7 @@ button{font-family:inherit}
   </div>
 </section>
 
+
 <!-- GUARANTEE -->
 <section class="guar-sec">
   <div class="wrap">
@@ -1448,6 +1449,7 @@ button{font-family:inherit}
       <div class="guar-copy">
         <h2>Try it for 4 months.<br/>Full refund if it doesn't work.</h2>
         <p>We stand behind NovaFlow 2.0 because we know what it does. If you use it consistently and don't notice a difference in how you breathe, contact us for a full refund — no questions asked, no return required. 120 days. That's our commitment.</p>
+        <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,.6)">Have questions? <a href="https://cleriva.com/pages/contact" style="color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:600">Click here to contact us</a></p>
       </div>
     </div>
   </div>
@@ -1504,15 +1506,6 @@ button{font-family:inherit}
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="fcta-sec">
-  <div class="wrap">
-    <h2>Start breathing clearly.<br/>Or get your <span style="text-decoration:underline;text-underline-offset:6px">money back.</span></h2>
-    <p>120 days. No questions. Nothing to lose except the congestion.</p>
-    <a class="fcta-btn" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Get NovaFlow 2.0 →</a>
-    <p style="margin-top:18px;font-size:13px;color:rgba(255,255,255,.8)">Have questions? <a href="https://cleriva.com/pages/contact" style="color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:600">Click here to contact us</a></p>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer class="footer">
