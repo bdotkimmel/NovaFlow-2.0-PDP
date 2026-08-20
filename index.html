@@ -288,7 +288,7 @@ button{font-family:inherit}
 /* UGC in hero */
 .ugc-in-hero{margin-top:44px;padding-top:36px;border-top:1px solid var(--line)}
 .ugc-in-hero .ugc-headline{font-size:19px;margin-bottom:18px;text-align:left}
-.ugc-grid{display:flex;gap:10px;max-width:400px;justify-content:flex-start}
+.ugc-grid{display:flex;gap:16px;max-width:560px;justify-content:center;margin:0 auto}
 .ugc-col{display:flex;flex-direction:column;flex:1;min-width:0}
 .ugc-card{border-radius:var(--r-md);overflow:hidden;background:#111;position:relative;box-shadow:var(--sh-card)}
 .ugc-inner{position:relative;aspect-ratio:9/16}
@@ -610,6 +610,9 @@ button{font-family:inherit}
   .hero-grid{grid-template-columns:1fr;gap:28px}
   .hero-grid > div:first-child{position:static}
 }
+@media(max-width:1024px){
+  .fails-grid{grid-template-columns:repeat(2,1fr);max-width:700px;margin-left:auto;margin-right:auto}
+}
 @media(max-width:768px){
   .sec{padding:64px 0}
   .bridge-sec{padding:56px 0 36px}
@@ -883,7 +886,7 @@ button{font-family:inherit}
 
       <div class="trust-ship">
         <span>🔒 Launch price locked</span>
-        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Shipping out August 19th</span></div>
+        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships by August 21</span></div>
       </div>
 
       <!-- Tell me about: tabs -->
@@ -1429,7 +1432,7 @@ button{font-family:inherit}
 
     <div class="trust-ship">
       <span>🔒 Launch price ONLY</span>
-      <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Shipping out August 19th</span></div>
+      <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships by August 21</span></div>
     </div>
     <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">Individual results vary. Not a medical device.</p>
 
@@ -2389,6 +2392,17 @@ revBuildDots();
   window._PRIORITY_PRICE=up99(2.99*rate);
   // Refresh dynamic price displays in new currency
   if(window.updateBuyUI)window.updateBuyUI(currentQty());
+})();
+</script>
+<script>
+(function(){
+  var d=new Date();
+  d.setDate(d.getDate()+2);
+  var txt='Ships by '+d.toLocaleDateString('en-US',{month:'long',day:'numeric'});
+  ['h-ship-date','ship-date'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.textContent=txt;
+  });
 })();
 </script>
 </div>
