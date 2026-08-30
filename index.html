@@ -194,7 +194,7 @@ button{font-family:inherit}
 /* Stock bar */
 .stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .stock-bar-track{flex:1;height:9px;background:var(--mist);border-radius:99px;overflow:hidden}
-.stock-bar-fill{height:100%;width:79%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.stock-bar-fill{height:100%;width:72%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
 .stock-bar-lbl{font-size:13px;font-weight:800;color:var(--red);white-space:nowrap}
 .live-feed{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted);margin:-12px 0 22px;min-height:18px;opacity:0;transition:opacity .5s}
 .live-feed.show{opacity:1}
@@ -683,7 +683,7 @@ button{font-family:inherit}
 <div id="page-wrap">
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann">
-  <b>OFFICIAL LAUNCH SALE</b> — Grab your NovaFlow today while supplies last.
+  <b>BATCH 3 SELLING FAST</b> — Order today, ships September 9th.
 </div>
 
 <!-- HEADER -->
@@ -799,7 +799,7 @@ button{font-family:inherit}
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
         <div class="stock-bar-track"><div class="stock-bar-fill" id="stock-bar-fill"></div></div>
-        <span class="stock-bar-lbl" id="stock-bar-lbl">79% of launch stock claimed</span>
+        <span class="stock-bar-lbl" id="stock-bar-lbl">72% of Batch 3 claimed</span>
       </div>
       <div class="live-feed" id="live-feed"><span class="live-dot"></span><span id="live-feed-txt"></span></div>
 
@@ -886,7 +886,7 @@ button{font-family:inherit}
 
       <div class="trust-ship">
         <span>🔒 Launch price locked</span>
-        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships by August 21</span></div>
+        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships September 9th</span></div>
       </div>
 
       <!-- Tell me about: tabs -->
@@ -927,7 +927,7 @@ button{font-family:inherit}
         </div>
         <div class="tab-panel" id="tab-ship">
           <ul>
-            <li>Shipping out August 19th (secures launch price)</li>
+            <li>Batch 3 orders ship September 9th</li>
             <li>Tracking number sent when your order ships</li>
             <li>120-day free return window</li>
           </ul>
@@ -1351,7 +1351,7 @@ button{font-family:inherit}
       <h2 class="promo-hd">OFFICIAL LAUNCH SALE<br/>SAVE UP TO <span>33%</span></h2>
       <p class="promo-sub" style="max-width:520px">Every launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <p style="font-size:13px;font-weight:800;color:var(--red);margin-top:14px;letter-spacing:.02em">Limit: 3 per customer</p>
-      <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">Last chance to stock up for the fall and winter</p>
+      <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">Batch 3 is moving fast — order now, ships September 9th</p>
     </div>
 
     <!-- Bundle cards -->
@@ -1432,7 +1432,7 @@ button{font-family:inherit}
 
     <div class="trust-ship">
       <span>🔒 Launch price ONLY</span>
-      <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships by August 21</span></div>
+      <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships September 9th</span></div>
     </div>
     <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">Individual results vary. Not a medical device.</p>
 
@@ -1722,8 +1722,8 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   var BASE=['Sarah M.','Jake T.','Priya K.','Daniel R.','Emily W.','Marcus J.','Hannah B.','Chris P.','Aisha L.','Tom H.','Jess F.','Ryan C.','Megan S.','Liam O.','Nina V.','Alex G.','Rachel D.','Ben K.','Sofia A.','Kyle M.','Laura N.','Derek W.','Chloe R.','Sam B.','Grace T.','Nate F.','Ivy C.','Owen S.'];
   var NAMES,i=0,nextAt=null,done=false;
 
-  function pctFor(n){return n>=13?81:n>=3?80:79;}
-  function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of launch stock claimed';}
+  function pctFor(n){return n>=13?76:n>=3?74:72;}
+  function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 3 claimed';}
   function qty(){var r=Math.random();return r<.44?2:r<.84?3:1;}
   function delayFor(n){
     var base;
@@ -2396,9 +2396,7 @@ revBuildDots();
 </script>
 <script>
 (function(){
-  var d=new Date();
-  d.setDate(d.getDate()+2);
-  var txt='Ships by '+d.toLocaleDateString('en-US',{month:'long',day:'numeric'});
+  var txt='Ships September 9th';
   ['h-ship-date','ship-date'].forEach(function(id){
     var el=document.getElementById(id);
     if(el)el.textContent=txt;
