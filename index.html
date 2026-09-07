@@ -194,7 +194,7 @@ button{font-family:inherit}
 /* Stock bar */
 .stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .stock-bar-track{flex:1;height:9px;background:var(--mist);border-radius:99px;overflow:hidden}
-.stock-bar-fill{height:100%;width:72%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.stock-bar-fill{height:100%;width:87%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
 .stock-bar-lbl{font-size:13px;font-weight:800;color:var(--red);white-space:nowrap}
 .live-feed{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted);margin:-12px 0 22px;min-height:18px;opacity:0;transition:opacity .5s}
 .live-feed.show{opacity:1}
@@ -769,7 +769,7 @@ button{font-family:inherit}
       <div class="code-bar">
         <div class="code-bar-l">
           <span class="code-bar-amt" id="code-amt">$15 OFF</span>
-          <span class="code-bar-sub">Official Launch Sale</span>
+          <span class="code-bar-sub">Labor Day Sale</span>
         </div>
         <span onclick="document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})" style="flex-shrink:0;background:var(--ink);color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border-radius:100px;cursor:pointer">Selling Fast</span>
       </div>
@@ -799,7 +799,7 @@ button{font-family:inherit}
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
         <div class="stock-bar-track"><div class="stock-bar-fill" id="stock-bar-fill"></div></div>
-        <span class="stock-bar-lbl" id="stock-bar-lbl">72% of Batch 3 claimed</span>
+        <span class="stock-bar-lbl" id="stock-bar-lbl">87% of Batch 3 claimed</span>
       </div>
       <div class="live-feed" id="live-feed"><span class="live-dot"></span><span id="live-feed-txt"></span></div>
 
@@ -1348,7 +1348,7 @@ button{font-family:inherit}
     <!-- Promo banner -->
     <div class="promo-banner">
       <p class="promo-kicker">We've officially launched</p>
-      <h2 class="promo-hd">OFFICIAL LAUNCH SALE<br/>SAVE UP TO <span>33%</span></h2>
+      <h2 class="promo-hd">LABOR DAY SALE<br/>SAVE UP TO <span>33%</span></h2>
       <p class="promo-sub" style="max-width:520px">Every launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <p style="font-size:13px;font-weight:800;color:var(--red);margin-top:14px;letter-spacing:.02em">Limit: 3 per customer</p>
       <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">Batch 3 is moving fast — order now, ships September 9th</p>
@@ -1722,7 +1722,7 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   var BASE=['Sarah M.','Jake T.','Priya K.','Daniel R.','Emily W.','Marcus J.','Hannah B.','Chris P.','Aisha L.','Tom H.','Jess F.','Ryan C.','Megan S.','Liam O.','Nina V.','Alex G.','Rachel D.','Ben K.','Sofia A.','Kyle M.','Laura N.','Derek W.','Chloe R.','Sam B.','Grace T.','Nate F.','Ivy C.','Owen S.'];
   var NAMES,i=0,nextAt=null,done=false;
 
-  function pctFor(n){return n>=13?76:n>=3?74:72;}
+  function pctFor(n){return n>=13?91:n>=3?89:87;}
   function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 3 claimed';}
   function qty(){var r=Math.random();return r<.44?2:r<.84?3:1;}
   function delayFor(n){
