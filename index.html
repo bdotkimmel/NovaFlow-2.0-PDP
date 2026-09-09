@@ -1722,14 +1722,19 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   var BASE=['Sarah M.','Jake T.','Priya K.','Daniel R.','Emily W.','Marcus J.','Hannah B.','Chris P.','Aisha L.','Tom H.','Jess F.','Ryan C.','Megan S.','Liam O.','Nina V.','Alex G.','Rachel D.','Ben K.','Sofia A.','Kyle M.','Laura N.','Derek W.','Chloe R.','Sam B.','Grace T.','Nate F.','Ivy C.','Owen S.'];
   var NAMES,i=0,nextAt=null,done=false;
 
-  function pctFor(n){return n>=13?45:n>=3?43:41;}
+  function pctFor(n){return n>=24?43:n>=4?42:41;}
   function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 4 claimed';}
   function qty(){var r=Math.random();return r<.44?2:r<.84?3:1;}
   function delayFor(n){
     var base;
-    if(n<=3)base=3000;
-    else if(n<=13)base=3000+Math.floor((n-2)/2)*1000;
-    else base=8000+Math.floor((n-13)/2)*2000;
+    if(n<=4){
+      base=3000;
+    } else if(n<=24){
+      var k=n-4; // 1..20 — the stretch from 42% to 43%, slowing down each name
+      base=2000+(k-1)*(6000/19); // ramps 2000ms -> 8000ms, sums to ~100s across all 20
+    } else {
+      base=8000+Math.floor((n-24)/2)*2000;
+    }
     return Math.min(32000,base)+Math.random()*900;
   }
   function save(){
