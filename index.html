@@ -194,7 +194,7 @@ button{font-family:inherit}
 /* Stock bar */
 .stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .stock-bar-track{flex:1;height:9px;background:var(--mist);border-radius:99px;overflow:hidden}
-.stock-bar-fill{height:100%;width:41%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.stock-bar-fill{height:100%;width:88%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
 .stock-bar-lbl{font-size:13px;font-weight:800;color:var(--red);white-space:nowrap}
 .live-feed{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted);margin:-12px 0 22px;min-height:18px;opacity:0;transition:opacity .5s}
 .live-feed.show{opacity:1}
@@ -755,7 +755,7 @@ button{font-family:inherit}
 
       <!-- Title -->
       <p class="hero-eyebrow">Dual-Light Sinus Therapy</p>
-      <h1 class="hero-h1">NovaFlow <span style="color:var(--red)">2.0</span></h1>
+      <h1 class="hero-h1">NovaFlow <span style="color:var(--red)">2.0</span> by Cleriva<sup style="font-size:.4em;font-weight:400;vertical-align:super">™</sup></h1>
       <p class="hero-sub">The only at-home device that pairs <b>660nm red light</b> with <b>antibacterial blue light</b> — so you can address the bacteria that keeps bringing back the inflammation. Drug-free, in 10 minutes a day.</p>
 
       <!-- Price -->
@@ -799,7 +799,7 @@ button{font-family:inherit}
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
         <div class="stock-bar-track"><div class="stock-bar-fill" id="stock-bar-fill"></div></div>
-        <span class="stock-bar-lbl" id="stock-bar-lbl">41% of Batch 4 claimed</span>
+        <span class="stock-bar-lbl" id="stock-bar-lbl">88% of Batch 4 claimed</span>
       </div>
       <div class="live-feed" id="live-feed"><span class="live-dot"></span><span id="live-feed-txt"></span></div>
 
@@ -989,7 +989,7 @@ button{font-family:inherit}
 <!-- PULL QUOTE -->
 <div class="pullq">
   <p>"NovaFlow 2.0 redefines <em>congestion-relief</em> completely"</p>
-  <p style="font-family:'Inter',sans-serif;font-size:clamp(16px,2vw,20px);font-weight:700;color:rgba(255,255,255,.85);margin-top:22px;letter-spacing:.01em">Ranked <span style="font-family:'Sora',sans-serif;font-size:1.35em;font-weight:800;color:#fff">#26</span> best companies in Health &amp; Beauty</p>
+  <p style="font-family:'Inter',sans-serif;font-size:clamp(16px,2vw,20px);font-weight:700;color:rgba(255,255,255,.85);margin-top:22px;letter-spacing:.01em">Ranked <span style="font-family:'Sora',sans-serif;font-size:1.35em;font-weight:800;color:#fff">#23</span> best companies in Health &amp; Beauty</p>
 </div>
 
 <!-- WHY NOTHING WORKS -->
@@ -1515,7 +1515,7 @@ button{font-family:inherit}
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="f-logo">CLERIVA</div>
+        <div class="f-logo">CLERIVA<sup style="font-size:.5em;font-weight:400;letter-spacing:0;margin-left:1px">™</sup></div>
         <p>NovaFlow 2.0 is a wellness device, not a medical device, and has not been evaluated by the FDA. It is not intended to diagnose, treat, cure, or prevent any disease. Results may vary. Consult a healthcare professional before use if pregnant, breastfeeding, under 18, or have a medical condition.</p>
       </div>
       <div class="footer-col">
@@ -1569,7 +1569,7 @@ button{font-family:inherit}
     </a>
   </div>
   <div class="mnav-foot">
-    <div class="mnav-foot-logo">CLERIVA</div>
+    <div class="mnav-foot-logo">CLERIVA<sup style="font-size:.5em;font-weight:400;letter-spacing:0;margin-left:1px">™</sup></div>
     <div class="mnav-foot-tag">Breathe better, every day.</div>
   </div>
 </nav>
@@ -1722,7 +1722,7 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   var BASE=['Sarah M.','Jake T.','Priya K.','Daniel R.','Emily W.','Marcus J.','Hannah B.','Chris P.','Aisha L.','Tom H.','Jess F.','Ryan C.','Megan S.','Liam O.','Nina V.','Alex G.','Rachel D.','Ben K.','Sofia A.','Kyle M.','Laura N.','Derek W.','Chloe R.','Sam B.','Grace T.','Nate F.','Ivy C.','Owen S.'];
   var NAMES,i=0,nextAt=null,done=false;
 
-  function pctFor(n){return n>=24?43:n>=4?42:41;}
+  function pctFor(n){return n>=24?90:n>=4?89:88;}
   function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 4 claimed';}
   function qty(){var r=Math.random();return r<.44?2:r<.84?3:1;}
   function delayFor(n){
