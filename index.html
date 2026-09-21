@@ -151,7 +151,7 @@ button{font-family:inherit}
 .tp-row{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .tp-boxes{display:flex;gap:2px}
 .tp-box{width:22px;height:22px;background:var(--tp);border-radius:4px;display:flex;align-items:center;justify-content:center}
-.tp-box.half{background:linear-gradient(90deg,var(--tp) 60%,#D6D8DC 60%)}
+.tp-box.half{background:linear-gradient(90deg,var(--tp) 70%,#D6D8DC 70%)}
 .tp-box svg{width:14px;height:14px;fill:#fff}
 .tp-text{font-size:14px;color:var(--ink);font-weight:600}
 .tp-text b{font-weight:800}
@@ -194,7 +194,7 @@ button{font-family:inherit}
 /* Stock bar */
 .stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px}
 .stock-bar-track{flex:1;height:9px;background:var(--mist);border-radius:99px;overflow:hidden}
-.stock-bar-fill{height:100%;width:88%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.stock-bar-fill{height:100%;width:62%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
 .stock-bar-lbl{font-size:13px;font-weight:800;color:var(--red);white-space:nowrap}
 .live-feed{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted);margin:-12px 0 22px;min-height:18px;opacity:0;transition:opacity .5s}
 .live-feed.show{opacity:1}
@@ -683,7 +683,7 @@ button{font-family:inherit}
 <div id="page-wrap">
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann">
-  <b>BATCH 4 SELLING FAST</b> — Order today, ships September 18th.
+  <b>BATCH 5 SELLING FAST</b> — Order today, ships by <span id="ann-ship-date">—</span>.
 </div>
 
 <!-- HEADER -->
@@ -750,7 +750,7 @@ button{font-family:inherit}
           <span class="tp-box"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
           <span class="tp-box half"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.5 6.8L12 16.9 5.9 20.3l1.5-6.8L2.2 8.9l6.9-.6z"/></svg></span>
         </div>
-        <span class="tp-text">Rated <b>4.6</b> on <span class="tp-logo">★ Trustpilot</span></span>
+        <span class="tp-text">Rated <b>4.7</b> on <span class="tp-logo">★ Trustpilot</span></span>
       </a>
 
       <!-- Title -->
@@ -799,7 +799,7 @@ button{font-family:inherit}
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
         <div class="stock-bar-track"><div class="stock-bar-fill" id="stock-bar-fill"></div></div>
-        <span class="stock-bar-lbl" id="stock-bar-lbl">88% of Batch 4 claimed</span>
+        <span class="stock-bar-lbl" id="stock-bar-lbl">62% of Batch 5 claimed</span>
       </div>
       <div class="live-feed" id="live-feed"><span class="live-dot"></span><span id="live-feed-txt"></span></div>
 
@@ -881,12 +881,12 @@ button{font-family:inherit}
       <!-- Guarantee panel -->
       <div class="guar-panel">
         <p class="guar-panel-hd">The Support Has Been Overwhelming</p>
-        <p class="guar-panel-tx">Thanks to your incredible response, our first three runs completely sold out. Batch 4 is currently in production so place your order today to ensure you're <b>fully set up and supported for the upcoming holiday season</b>.</p>
+        <p class="guar-panel-tx">Thanks to your incredible response, our first four runs completely sold out. Batch 5 is currently in production so place your order today to ensure you're <b>fully set up and supported for the upcoming holiday season</b>.</p>
       </div>
 
       <div class="trust-ship">
         <span>🔒 Launch price locked</span>
-        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships September 18th</span></div>
+        <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships by —</span></div>
       </div>
 
       <!-- Tell me about: tabs -->
@@ -927,7 +927,7 @@ button{font-family:inherit}
         </div>
         <div class="tab-panel" id="tab-ship">
           <ul>
-            <li>Batch 4 orders ship September 18th</li>
+            <li>Batch 5 orders ship by <span id="tab-ship-date">—</span></li>
             <li>Tracking number sent when your order ships</li>
             <li>120-day free return window</li>
           </ul>
@@ -1351,7 +1351,7 @@ button{font-family:inherit}
       <h2 class="promo-hd">LAST CHANCE FOR THE HOLIDAYS<br/>SAVE UP TO <span>33%</span></h2>
       <p class="promo-sub" style="max-width:520px">Every launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <p style="font-size:13px;font-weight:800;color:var(--red);margin-top:14px;letter-spacing:.02em">Limit: 3 per customer</p>
-      <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">Batch 4 is moving fast — order now, ships September 18th</p>
+      <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">Batch 5 is moving fast — order now, ships by <span id="promo-ship-date">—</span></p>
     </div>
 
     <!-- Bundle cards -->
@@ -1427,12 +1427,12 @@ button{font-family:inherit}
 
     <div class="guar-panel">
       <p class="guar-panel-hd">The Support Has Been Overwhelming</p>
-      <p class="guar-panel-tx">Thanks to your incredible response, our first three runs completely sold out. Batch 4 is currently in production so place your order today to ensure you're <b>fully set up and supported for the upcoming holiday season</b>.</p>
+      <p class="guar-panel-tx">Thanks to your incredible response, our first four runs completely sold out. Batch 5 is currently in production so place your order today to ensure you're <b>fully set up and supported for the upcoming holiday season</b>.</p>
     </div>
 
     <div class="trust-ship">
       <span>🔒 Launch price ONLY</span>
-      <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships September 18th</span></div>
+      <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships by —</span></div>
     </div>
     <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">Individual results vary. Not a medical device.</p>
 
@@ -1722,8 +1722,8 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
   var BASE=['Sarah M.','Jake T.','Priya K.','Daniel R.','Emily W.','Marcus J.','Hannah B.','Chris P.','Aisha L.','Tom H.','Jess F.','Ryan C.','Megan S.','Liam O.','Nina V.','Alex G.','Rachel D.','Ben K.','Sofia A.','Kyle M.','Laura N.','Derek W.','Chloe R.','Sam B.','Grace T.','Nate F.','Ivy C.','Owen S.'];
   var NAMES,i=0,nextAt=null,done=false;
 
-  function pctFor(n){return n>=24?90:n>=4?89:88;}
-  function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 4 claimed';}
+  function pctFor(n){return n>=24?64:n>=4?63:62;}
+  function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 5 claimed';}
   function qty(){var r=Math.random();return r<.44?2:r<.84?3:1;}
   function delayFor(n){
     var base;
@@ -2401,10 +2401,18 @@ revBuildDots();
 </script>
 <script>
 (function(){
-  var txt='Ships September 18th';
+  var d=new Date();
+  d.setDate(d.getDate()+2);
+  var day=d.getDate();
+  var suffix=(day%10==1&&day!=11)?'st':(day%10==2&&day!=12)?'nd':(day%10==3&&day!=13)?'rd':'th';
+  var dateStr=d.toLocaleDateString('en-US',{month:'long'})+' '+day+suffix;
   ['h-ship-date','ship-date'].forEach(function(id){
     var el=document.getElementById(id);
-    if(el)el.textContent=txt;
+    if(el)el.textContent='Ships by '+dateStr;
+  });
+  ['ann-ship-date','tab-ship-date','promo-ship-date'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.textContent=dateStr;
   });
 })();
 </script>
