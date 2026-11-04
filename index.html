@@ -311,10 +311,10 @@ button{font-family:inherit}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* UGC in hero */
-.ugc-in-hero{margin-top:44px;padding-top:36px;border-top:1px solid var(--line)}
+.ugc-in-hero{margin-top:44px;padding-top:36px;padding-bottom:24px;border-top:1px solid var(--line)}
 .ugc-in-hero .ugc-headline{font-size:19px;margin-bottom:18px;text-align:left}
-.ugc-grid{display:flex;gap:16px;max-width:560px;justify-content:center;margin:0 auto}
-.ugc-col{display:flex;flex-direction:column;flex:1;min-width:0}
+.ugc-grid{display:flex;gap:16px;max-width:560px;justify-content:flex-start;margin:0 auto;overflow-x:auto;scroll-snap-type:x mandatory}
+.ugc-col{display:flex;flex-direction:column;flex:0 0 calc((100% - 32px)/3);min-width:0;scroll-snap-align:start}
 .ugc-card{border-radius:var(--r-md);overflow:hidden;background:#111;position:relative;box-shadow:var(--sh-card)}
 .ugc-inner{position:relative;aspect-ratio:9/16}
 .ugc-inner video{width:100%;height:100%;object-fit:cover;display:block}
@@ -462,7 +462,7 @@ button{font-family:inherit}
 /* ═══ Reviews ═══ */
 .rev-slider{position:relative;margin-top:36px}
 .rev-overflow{overflow:hidden}
-.rev-track{display:flex;gap:16px;transition:transform .45s cubic-bezier(.32,.72,0,1)}
+.rev-track{display:flex;align-items:flex-start;gap:16px;transition:transform .45s cubic-bezier(.32,.72,0,1)}
 .rcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);padding:28px;flex:0 0 calc(33.333% - 11px)}
 .r-top{display:flex;align-items:center;gap:11px;margin-bottom:14px}
 .r-av{width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -701,8 +701,94 @@ button{font-family:inherit}
 }
 </style>
 <!-- Preload critical assets -->
-<link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094&width=1200"/>
+<link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/cleriva-novaflow-2-black-friday-hero.png?v=1793718058&width=1200"/>
 <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517&width=160"/>
+
+<style>
+body .hero-h1,
+body .sec-h2,
+body #cdrawer h3,
+body #cdrawer h5 {
+  color: #141414;
+}
+</style>
+<style>
+body #stock-bar-fill {
+  display: block;
+}
+</style>
+<style>
+body {
+  letter-spacing: normal;
+  line-height: normal;
+}
+
+body .aq-btn {
+  color: #000;
+}
+
+body #cdrawer h4 {
+  color: #141414;
+}
+
+body .satc-btn {
+  color: #000;
+  background-color: #efefef;
+}
+</style>
+<style>
+@media (min-width: 900px) {
+  body #top.hero {
+    overflow: visible;
+  }
+}
+</style>
+<style>
+/* Restore elements hidden by Shopify's empty-div rule */
+body .hc-dot,
+body .rev-dot,
+body .bridge-divider,
+body .dp-dot,
+body .tl-line,
+body .cd-divider,
+body #mnav-overlay,
+body #cdrawer-overlay {
+  display: block;
+}
+
+/* Restore the original heading spacing */
+body .tl-headline,
+body .tl-title,
+body .addon h5,
+body #cdrawer h3,
+body #cdrawer h4,
+body #cdrawer h5,
+body #page-wrap footer h5 {
+  line-height: normal;
+}
+
+/* Restore video control colors */
+body .ugc-play,
+body .nv-play-btn {
+  color: #000;
+}
+
+/* Restore the original mobile purchase button */
+@media (max-width: 900px) {
+  body .satc-btn {
+    background-color: #141414;
+    color: #fff;
+  }
+}
+
+/* Allow the desktop product image to follow scrolling */
+@media (min-width: 900px) {
+  body #top.hero {
+    overflow: visible;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -712,7 +798,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="page-wrap">
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann">
-  <b>BATCH 5 SELLING FAST</b> — Order today, ships by <span id="ann-ship-date">—</span>.
+  <b>BLACK FRIDAY SALE</b> — Order today, ships by <span id="ann-ship-date">—</span>.
 </div>
 
 <!-- HEADER -->
@@ -738,7 +824,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div>
       <div class="hero-carousel" id="hcarousel">
         <div class="hc-track" id="hc-track">
-          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094&width=1200" alt="NovaFlow 2.0" loading="eager" fetchpriority="high" decoding="async"/></div>
+          <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/cleriva-novaflow-2-black-friday-hero.png?v=1793718058&width=1200" alt="NovaFlow 2.0" loading="eager" fetchpriority="high" decoding="async"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930&width=1200" alt="NovaFlow 2.0" loading="eager"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015&width=1200" alt="NovaFlow 2.0" loading="lazy"/></div>
           <div class="hc-slide"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895&width=1200" alt="NovaFlow 2.0" loading="lazy"/></div>
@@ -758,7 +844,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="hc-thumbs" id="hc-thumbs">
-        <div class="hc-thumb on" onclick="hcGo(0)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_26_27e9dd39-8033-4e4f-bd73-f66d42255ec9.png?v=1784421094&width=128" alt=""/></div>
+        <div class="hc-thumb on" onclick="hcGo(0)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/cleriva-novaflow-2-black-friday-hero.png?v=1793718058&width=128" alt=""/></div>
         <div class="hc-thumb" onclick="hcGo(1)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_394a4112-c60f-4bf2-8759-2be5ac7724c9.png?v=1784269930&width=128" alt="" loading="lazy"/></div>
         <div class="hc-thumb" onclick="hcGo(2)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_14.png?v=1784281015&width=128" alt="" loading="lazy"/></div>
         <div class="hc-thumb" onclick="hcGo(3)"><img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_30_4eb21ad4-0a22-4c6f-8770-64bf0474b49d.png?v=1784424895&width=128" alt="" loading="lazy"/></div>
@@ -785,7 +871,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Title -->
       <p class="hero-eyebrow">Dual-Light Sinus Therapy</p>
       <h1 class="hero-h1">NovaFlow <span style="color:var(--red)">2.0</span> by Cleriva<sup style="font-size:.4em;font-weight:400;vertical-align:super">™</sup></h1>
-      <p class="hero-sub">The only at-home device that pairs <b>660nm red light</b> with <b>antibacterial blue light</b> — so you can address the bacteria that keeps bringing back the inflammation. Drug-free, in 10 minutes a day.</p>
+      <p class="hero-sub">The only at-home device that pairs <b>660nm red light</b> with <b>450nm blue light</b> — so you can address the bacteria that keeps bringing back the inflammation. Drug-free, in 10 minutes a day.</p>
 
       <!-- Price -->
       <div class="price-row">
@@ -798,13 +884,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="code-bar">
         <div class="code-bar-l">
           <span class="code-bar-amt" id="code-amt">$15 OFF</span>
-          <span class="code-bar-sub">Last Chance For The Holidays</span>
         </div>
-        <span onclick="document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})" style="flex-shrink:0;background:var(--ink);color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border-radius:100px;cursor:pointer">Selling Fast</span>
+        <span onclick="document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})" style="flex-shrink:0;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:11px 16px;border-radius:100px;cursor:pointer">Black Friday Sale</span>
       </div>
 
       <!-- Benefits checklist -->
-      <div class="blist-hd">What 30,000+ NovaFlow Users Noticed:</div>
+      <div class="blist-hd">What 40,000+ NovaFlow Users Noticed:</div>
       <div class="blist">
         <div class="bli">
           <span class="bli-ico ico-rose"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 7 5.5 7 8v7c0 1.1-.4 2-1 2.5"/><path d="M12 3c3 0 5 2.5 5 5v7c0 1.1.4 2 1 2.5"/><path d="M9 17.5C9 19 10.3 20 12 20s3-1 3-2.5"/></svg></span>
@@ -866,7 +951,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- Gift unlock -->
-      <p class="gift-note">Gifts unlocked with your bundle</p>
+      <p class="gift-note">Special Black Friday Gifts with your device</p>
       <div class="gift-cards">
         <div class="gift-card unlocked" id="h-gift-1">
           <span class="gift-free-pill">FREE</span>
@@ -909,12 +994,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- Guarantee panel -->
       <div class="guar-panel">
-        <p class="guar-panel-hd">The Support Has Been Overwhelming</p>
-        <p class="guar-panel-tx">Thanks to your incredible response, our first four runs completely sold out. Batch 5 is currently in production so place your order today to ensure you're <b>fully set up and supported for the upcoming holiday season</b>.</p>
+        <p class="guar-panel-hd">Black Friday Savings Start Here</p>
+        <p class="guar-panel-tx">Been thinking about trying NovaFlow 2.0? Now’s a good time. Get <b>Black Friday pricing, special gifts with your device, and 120 days to try it at home.</b> Picking one up for someone else too? Save more when you buy together.</p>
       </div>
 
       <div class="trust-ship">
-        <span>🔒 Launch price locked</span>
+        <span>🎁 Black Friday gifts included</span>
         <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="h-ship-date">Ships by —</span></div>
       </div>
 
@@ -930,7 +1015,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="tab-panel on" id="tab-how">
           <div class="tp-mode"><b style="color:var(--red)">Mode 1 — Red Light (660nm)</b>10 minutes of targeted red light that reduces inflammation and supports nasal tissue. Use for everyday congestion, seasonal allergies, or maintenance.</div>
-          <div class="tp-mode"><b style="color:var(--blue)">Mode 2 — Blue → Red Auto-Sequence</b>2 minutes of blue light clears bacteria first, then automatically transitions into 8 minutes of red light. Use for sinus infections, chronic congestion, and post-nasal drip.</div>
+          <div class="tp-mode"><b style="color:var(--blue)">Mode 2 — 450nm → 660nm Auto-Sequence</b>2 minutes of blue light clears bacteria first, then automatically transitions into 8 minutes of red light. Use for sinus infections, chronic congestion, and post-nasal drip.</div>
           <div style="font-weight:700;color:var(--ink)">10 min per session · Up to 3× daily · Auto powers off</div>
         </div>
         <div class="tab-panel" id="tab-diff">
@@ -969,6 +1054,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="ugc-grid">
           <div class="ugc-col">
             <div class="ugc-card"><div class="ugc-inner">
+              <video src="https://cdn.shopify.com/videos/c/o/v/f416344fbf53423eb93380d951f4cb63.mp4" playsinline preload="metadata"></video>
+              <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
+            </div></div>
+            <div class="ugc-lbl">Authentic Reactions</div>
+          </div>
+          <div class="ugc-col">
+            <div class="ugc-card"><div class="ugc-inner">
               <video src="https://cdn.shopify.com/videos/c/o/v/a38475dc6e004d94875ddbf22e388b04.mp4" playsinline preload="metadata"></video>
               <button class="ugc-play" aria-label="Play"><span class="ugc-play-icon"></span></button>
             </div></div>
@@ -996,7 +1088,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- TRUST TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track">
-    <span class="ticker-item"><span class="ticker-dot"></span>30,000+ customers</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>40,000+ customers</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Red + Blue light — only NovaFlow 2.0</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Drug-free · No rebound</span>
     <span class="ticker-item"><span class="ticker-dot"></span>120-day money-back guarantee</span>
@@ -1004,7 +1096,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="ticker-item"><span class="ticker-dot"></span>10-minute sessions</span>
     <span class="ticker-item"><span class="ticker-dot"></span>USB rechargeable</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Secured shipping worldwide</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>30,000+ customers</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>40,000+ customers</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Red + Blue light — only NovaFlow 2.0</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Drug-free · No rebound</span>
     <span class="ticker-item"><span class="ticker-dot"></span>120-day money-back guarantee</span>
@@ -1056,7 +1148,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="bridge-inner reveal">
       <p class="label center label-dk">Why we built 2.0</p>
-      <h2>Red light got 30,000 people breathing again.</h2>
+      <h2>Red light got 40,000 people breathing again.</h2>
     </div>
 
   </div>
@@ -1129,7 +1221,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="dp dp-blue reveal-right">
         <div class="dp-chip dp-chip-blue"><div class="dp-dot dp-dot-blue"></div>Mode 2 · Auto-Sequence — New in 2.0</div>
-        <div class="dp-nm dp-nm-blue" style="font-size:34px">Blue → Red</div>
+        <div class="dp-nm dp-nm-blue" style="font-size:34px">450nm → 660nm</div>
         <div class="dp-title">Deep Bacterial Clearance</div>
         <p class="dp-body">The premium mode. Starts with 2 minutes of blue light to clear bacteria from the nasal lining first — then automatically transitions into 8 minutes of red light for deep tissue recovery. 10 minutes total, fully automated. No other home device does this.</p>
         <div class="dp-points">
@@ -1307,10 +1399,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <p style="text-align:center;margin-top:20px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.65;max-width:540px;margin-left:auto;margin-right:auto"><span style="color:#fff;font-weight:800">@neiltriesit</span> on TikTok · "Fed up of all the BS 'this is the best thing since sliced bread' snake oil salesman this app brings. 40+ y/o dad and husband decided to buy n try. Real reviews"</p>
 
-    <h2 style="color:#fff;font-size:clamp(28px,4vw,44px);text-align:center;margin-top:72px;margin-bottom:8px;letter-spacing:-.03em">30,000+ users now living congestion free</h2>
+    <h2 style="color:#fff;font-size:clamp(28px,4vw,44px);text-align:center;margin-top:72px;margin-bottom:8px;letter-spacing:-.03em">40,000+ users now living congestion free</h2>
     <div class="rev-slider">
       <div class="rev-overflow">
         <div class="rev-track" id="rev-track">
+<div class="rcard"><div class="r-top"><div class="r-av">GW</div><div><div class="r-name">Gary Wagner · US</div><div class="r-stars">★★★★★</div><div class="r-ver">Trustpilot review</div></div></div><p>It was delayed. It should have arrived 15 years ago.</p><p>Let me explain. For the last 15 years, was unable to sleep through the night and not wake up with a brick in place of my sinuses and unable to breathe or sleep. The only solution that didn't require getting up to take a shower 3 times a night was the steroid spray. Flonase didn't work for me, but Nasacort did. I had to use a lot more of it than the directions called for, but it worked. I have been buying this spray for all these years, and putting 6-8 sprays, every night, into each side. It was the only way to sleep through the night.</p><p>Until this week.</p><p>I haven't used the nasal spray since Sunday night. I have not had any trouble waking up and not being able to breathe.</p><p>I tried the headband sound device... it didn't help at all. However, the light therapy worked. The NovaFlow 2.0, after only one week of use, has changed my life. No more steroid sprays every night. I'm done.</p><p>Thank you doesn't seem adequate...</p></div>
+<div class="rcard"><div class="r-top"><div class="r-av">SC</div><div><div class="r-name">Sharon Chud · US</div><div class="r-stars">★★★★★</div><div class="r-ver">Trustpilot review</div></div></div><p>I was sick with sinus infections for years every 6 weeks. I went to an ENT. I had 3 surgeries that did not heal this. I was on prednisone and antibiotics for years. It just made me gain weight. I went to 3 ENTs. The last 4 years it got worse. I was sick every day with extreme pain in my head and sinus. I tried everything. I’m a functional medicine practitioner so I tried many natural remedies. Nothing worked until I bought your 2.0 system and use it three times per day. Within days I was well. I can walk my dog around the block. I remember becoming hysterical crying in the new ENT office when he looked at my cat scan and said there’s nothing he could do. Thank you so much for the research you did. It saved my life. I’m 72 and still may have a few years to live a normal life.</p></div>
           <div class="rcard">
             <div class="r-top"><div class="r-av">M</div><div><div class="r-name">Mrs. G · GB</div><div class="r-stars">★★★★★</div><div class="r-ver">✔ Verified Customer</div></div></div>
             <p>For just short of 2 years I've been seeing an ENT about my sinuses and headaches. Cameras, drops, sprays, tablets — around 20% relief. Then I found NovaFlow. My sinuses are clear and my headaches have gone. My ENT prescriptions were 20–30 pounds per visit. Now I have no more bills. Real people answered my email within the hour. 100% help.</p>
@@ -1359,7 +1453,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </thead>
         <tbody>
           <tr><td>Red light (660nm) tissue support</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cw">Varies</span></td></tr>
-          <tr><td>Blue → Red auto-sequence (Mode 2)</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✕</span></td></tr>
+          <tr><td>450nm → 660nm auto-sequence (Mode 2)</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✕</span></td></tr>
           <tr><td>Intranasal delivery (reaches nasal tissue directly)</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✕</span></td></tr>
           <tr><td>Calibrated wavelength — not generic LEDs</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✕</span></td></tr>
           <tr><td>Designed specifically for nasal congestion</td><td class="hl-td"><span class="cy">✓</span></td><td><span class="cn">✕</span></td></tr>
@@ -1377,7 +1471,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Promo banner -->
     <div class="promo-banner">
       <p class="promo-kicker">We've officially launched</p>
-      <h2 class="promo-hd">LAST CHANCE FOR THE HOLIDAYS<br/>SAVE UP TO <span>33%</span></h2>
+      <h2 class="promo-hd">BLACK FRIDAY SALE<br/>SAVE UP TO <span>33%</span></h2>
       <p class="promo-sub" style="max-width:520px">Every launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <p style="font-size:13px;font-weight:800;color:var(--red);margin-top:14px;letter-spacing:.02em">Limit: 3 per customer</p>
       <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">Batch 5 is moving fast — order now, ships by <span id="promo-ship-date">—</span></p>
@@ -1455,19 +1549,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="guar-panel">
-      <p class="guar-panel-hd">The Support Has Been Overwhelming</p>
-      <p class="guar-panel-tx">Thanks to your incredible response, our first four runs completely sold out. Batch 5 is currently in production so place your order today to ensure you're <b>fully set up and supported for the upcoming holiday season</b>.</p>
+      <p class="guar-panel-hd">Black Friday Savings Start Here</p>
+      <p class="guar-panel-tx">Been thinking about trying NovaFlow 2.0? Now’s a good time. Get <b>Black Friday pricing, special gifts with your device, and 120 days to try it at home.</b> Picking one up for someone else too? Save more when you buy together.</p>
     </div>
 
     <div class="trust-ship">
-      <span>🔒 Launch price ONLY</span>
+      <span>🎁 Black Friday gifts included</span>
       <div class="trust-ship-r"><span class="trust-ship-dot"></span><span id="ship-date">Ships by —</span></div>
     </div>
     <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">Individual results vary. Not a medical device.</p>
 
     <div class="warn-box">
       <p>⚠ Warning: Beware of counterfeits</p>
-      <p>With over 30,000 customers worldwide, NovaFlow has become a target for counterfeiters. Only purchase from this page or our official website at <strong>cleriva.com</strong> to ensure you receive the genuine product. Counterfeit devices may not deliver the correct wavelengths and could be unsafe.</p>
+      <p>With over 40,000 customers worldwide, NovaFlow has become a target for counterfeiters. Only purchase from this page or our official website at <strong>cleriva.com</strong> to ensure you receive the genuine product. Counterfeit devices may not deliver the correct wavelengths and could be unsafe.</p>
     </div>
   </div>
 </section>
@@ -1579,7 +1673,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav class="mnav" id="mnav" aria-hidden="true">
   <button class="mnav-close" onclick="mnavClose()" aria-label="Close menu">✕</button>
   <p class="mnav-lbl">Shop</p>
-  <a class="mnav-card" href="https://novaflow.cleriva.com/">
+  <a class="mnav-card" href="https://cleriva.com/collections/all">
     <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/hf_20260801_032408_498112a9-5220-4842-a3e0-e8ecdee9a56a.png?v=1785554698&width=1200" alt="NovaFlow 2.0"/>
     <div class="mnav-card-cta">
       <span>Shop Now</span>
@@ -2290,7 +2384,7 @@ document.querySelectorAll('.ugc-inner').forEach(function(inner){
 /* ── Review slider ── */
 let revIdx=0;
 function revPerView(){return window.innerWidth>=769?3:1;}
-function revPages(){return Math.ceil(6/revPerView());}
+function revPages(){return Math.ceil(document.querySelectorAll('#rev-track .rcard').length/revPerView());}
 function revBuildDots(){
   const nav=document.getElementById('rev-nav');
   if(!nav)return;
@@ -2303,6 +2397,14 @@ function revBuildDots(){
     nav.appendChild(d);
   }
 }
+function revFitHeight(){
+  const track=document.getElementById('rev-track');
+  if(!track)return;
+  const cards=Array.from(track.querySelectorAll('.rcard'));
+  const start=revIdx*revPerView();
+  const visible=cards.slice(start,start+revPerView());
+  track.parentElement.style.height=Math.ceil(Math.max(0,...visible.map(card=>card.getBoundingClientRect().height)))+'px';
+}
 function revGo(n){
   const pages=revPages();
   revIdx=Math.max(0,Math.min(n,pages-1));
@@ -2313,12 +2415,19 @@ function revGo(n){
   const gap=perView>1?16:0;
   const w=card?(card.offsetWidth+gap)*perView:0;
   track.style.transform=`translateX(-${revIdx*w}px)`;
+  revFitHeight();
   document.querySelectorAll('.rev-dot').forEach((d,i)=>d.classList.toggle('on',i===revIdx));
 }
 function revPrev(){revGo(revIdx-1);}
 function revNext(){revGo(revIdx+1);}
 window.addEventListener('resize',function(){revIdx=0;revBuildDots();revGo(0);});
 revBuildDots();
+revFitHeight();
+if(document.fonts)document.fonts.ready.then(revFitHeight);
+if(window.ResizeObserver){
+  const reviewSizeObserver=new ResizeObserver(revFitHeight);
+  document.querySelectorAll('#rev-track .rcard').forEach(card=>reviewSizeObserver.observe(card));
+}
 (function(){
   const el=document.querySelector('.rev-overflow');
   if(!el)return;
@@ -2394,8 +2503,13 @@ revBuildDots();
   };
   var HARD={CAD:{single:79.99,compare:99.99},GBP:{single:47.99,compare:59.99}};
   try{
-    const geo=await fetch('https://ipapi.co/json/').then(r=>r.json());
-    cur=geo.currency||'USD';
+    const params=new URLSearchParams(window.location.search);
+    const requestedCurrency=(params.get('currency')||'').toUpperCase();
+    const forceUSD=requestedCurrency==='USD'||(!requestedCurrency&&(params.get('country')||'').toUpperCase()==='US');
+    if(!forceUSD){
+      const geo=await fetch('https://ipapi.co/json/').then(r=>r.json());
+      cur=geo.currency||'USD';
+    }
     sym=SYM[cur]||(cur+' ');
     if(cur!=='USD'&&!HARD[cur]){
       const fx=await fetch('https://open.er-api.com/v6/latest/USD').then(r=>r.json());
