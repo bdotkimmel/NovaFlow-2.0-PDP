@@ -1,6 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Growth Dept MTA (brand cleriva): landing-page script, then the helper that carries the visit into checkout. -->
+<script async src="https://mta.growthdept.ai/p.js" data-key="pk_b92fbabc24b921aa58102412"></script>
+<script>
+/* gdMtaCheckoutUrl(url): runs a store URL through gdmta.decorate (adds gd_vid and the page's ad
+   parameters), adds attributes[_gd_vid] for MTA's Shopify pixel, then adds any of this page's
+   utm_*, nbt, nb_placement, tw_* and click ids the URL still lacks. It only appends, so whatever is
+   already on the URL (discount codes, attributes[_cro], other parameters) stays as it is. Without
+   the MTA script it still carries the ad parameters. Links to other cleriva.com hosts get the ad
+   parameters on click as well. */
+(function (w, d) {
+  var CARRY = /^(utm_(source|medium|campaign|content|term|id)|nbt|nb_placement|nb_ad_id|ad_id|tw_adid|tw_source|fbclid|gclid|gbraid|wbraid|dclid|gad_source|ttclid|sccid|msclkid|li_fat_id|epik|twclid|rdt_cid)$/;
+  function append(u, parts) {
+    if (!parts.length) return u;
+    var i = u.indexOf('#'), h = i < 0 ? '' : u.slice(i);
+    if (i >= 0) u = u.slice(0, i);
+    return u + (u.indexOf('?') < 0 ? '?' : '&') + parts.join('&') + h;
+  }
+  function carry(u) {
+    try {
+      var have = {}, parts = [];
+      new URL(u, w.location.href).searchParams.forEach(function (_v, k) { have[k.toLowerCase()] = 1; });
+      new URLSearchParams(w.location.search).forEach(function (v, k) {
+        var l = k.toLowerCase();
+        if (CARRY.test(l) && v && !have[l]) { have[l] = 1; parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(v)); }
+      });
+      return append(u, parts);
+    } catch (e) { return u; }
+  }
+  w.gdMtaCarry = carry;
+  w.gdMtaCheckoutUrl = function (u) {
+    var out = String(u);
+    try {
+      var m = w.gdmta;
+      if (m && !Array.isArray(m) && typeof m.decorate === 'function') {
+        var dec = String(m.decorate(out) || out);
+        var vid = typeof m.vid === 'function' ? m.vid() : null;
+        if (vid && !new URL(dec).searchParams.has('attributes[_gd_vid]')) dec = append(dec, ['attributes%5B_gd_vid%5D=' + encodeURIComponent(vid)]);
+        out = dec;
+      }
+    } catch (e) { out = String(u); }
+    return carry(out);
+  };
+  d.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    try {
+      var t = new URL(a.href);
+      if (t.hostname !== w.location.hostname && /(^|\.)cleriva\.com$/.test(t.hostname)) a.href = carry(a.href);
+    } catch (x) { /* leave the link alone */ }
+  }, true);
+})(window, document);
+</script>
 <!-- Triple Whale: headless installation for hejdda-1c.myshopify.com -->
 <link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
 <link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
@@ -2324,7 +2376,10 @@ function checkoutCart(){
   if(cdQty>=1)parts.push(`${VAR_BREATH}:1`);
   if(cdQty>=2)parts.push(`${VAR_MYSTERY}:1`);
   if(cdQty>=3)parts.push(`${VAR_CASE}:1`);
-  window.location.href=`https://cleriva.com/cart/${parts.join(',')}`;
+  let u=`https://cleriva.com/cart/${parts.join(',')}`;
+  if(window.CRO&&typeof window.CRO.decorate==='function'){try{u=window.CRO.decorate(u)||u;}catch(e){}}
+  if(typeof window.gdMtaCheckoutUrl==='function')u=window.gdMtaCheckoutUrl(u);
+  window.location.href=u;
 }
 window.addEventListener('pageshow',function(e){
   if(e.persisted){
