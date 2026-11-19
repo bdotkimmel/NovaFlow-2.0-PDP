@@ -1029,7 +1029,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="addon-ck" id="h-uvc-ck">+</div>
         <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589&width=96" alt="UV-C Sterilizer" style="width:44px;height:44px;object-fit:contain;border-radius:10px;background:var(--mist);flex-shrink:0"/>
         <div class="addon-b"><h5>Add Sterilizing Kit</h5><p>UV-C sterilizer + 6 extra silicone sleeve sets</p></div>
-        <div class="addon-p" id="h-uvc-p" data-usd="19.99">$19.99</div>
+        <div class="addon-p" id="h-uvc-p" data-kit-price>Checking price…</div>
         <div class="addon-qty" id="h-uvc-qty">
           <button class="aq-btn" onclick="adjQty('h-uvc',-1,event)">−</button>
           <span class="aq-count" id="h-uvc-n">1</span>
@@ -1564,7 +1564,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="addon-ck" id="uvc-ck">+</div>
       <img src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589&width=96" alt="UV-C Sterilizer" style="width:44px;height:44px;object-fit:contain;border-radius:10px;background:var(--mist);flex-shrink:0"/>
       <div class="addon-b"><h5>Add Sterilizing Kit</h5><p>UV-C sterilizer + 6 extra silicone sleeve sets</p></div>
-      <div class="addon-p" id="uvc-p" data-usd="19.99">$19.99</div>
+      <div class="addon-p" id="uvc-p" data-kit-price>Checking price…</div>
       <div class="addon-qty" id="uvc-qty">
         <button class="aq-btn" onclick="adjQty('uvc',-1,event)">−</button>
         <span class="aq-count" id="uvc-n">1</span>
@@ -1796,7 +1796,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="font-size:12px;color:var(--muted);margin-top:3px">UV-C sterilizer + 6 extra silicone sleeve sets</p>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0">
-        <div class="cd-kit-price" id="cd-kit-added-price">$19.99</div>
+        <div class="cd-kit-price" id="cd-kit-added-price">Checking price…</div>
         <div style="display:flex;align-items:center;gap:5px">
           <button class="aq-btn" onclick="adjCartKitAdded(-1,event)">−</button>
           <span class="aq-count" id="cd-kit-added-n">1</span>
@@ -1814,7 +1814,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h5>Add Sterilizing Kit</h5>
           <p>UV-C sterilizer + 6 extra silicone sleeve sets</p>
         </div>
-        <div class="cd-kit-price" data-usd="19.99">$19.99</div>
+        <div class="cd-kit-price" data-kit-price>Checking price…</div>
         <div class="addon-qty">
           <button class="aq-btn" onclick="adjCartKit(-1,event)">−</button>
           <span class="aq-count" id="cd-kit-n">1</span>
@@ -1967,53 +1967,62 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
 /* ── Pricing engine ── */
 const DEVICE_PRICES={1:59.99,2:44.99,3:39.99};
 const COMPARE_EACH=59.99;
-function fmtP(usd){return window.fmtPrice?window.fmtPrice(usd):'$'+usd.toFixed(2);}
+const SINGLE_COMPARE=75.00;
+const PRIORITY_PRICE=2.99;
+const HARD_PRICES={CAD:{single:79.99,compare:99.99},GBP:{single:47.99,compare:59.99}};
+const CURRENCY_SYMBOLS={USD:'$',GBP:'£',EUR:'€',CAD:'CA$',AUD:'A$',NZD:'NZ$',CHF:'CHF ',JPY:'¥',SGD:'S$',HKD:'HK$',MXN:'MX$',INR:'₹',BRL:'R$',ZAR:'R ',DKK:'kr ',SEK:'kr ',NOK:'kr ',AED:'AED ',SAR:'SAR '};
+// hardPrices pins the single-device price (and optionally its compare-at price) in that currency.
+function makePrices(currency,rate,hardPrices){
+  const symbol=CURRENCY_SYMBOLS[currency]||currency+' ';
+  const convert=usd=>currency==='USD'?usd:Math.floor(usd*rate)+0.99;
+  const format=amount=>symbol+(currency==='JPY'?Math.ceil(amount):amount.toFixed(2));
+  const hard=hardPrices||HARD_PRICES[currency];
+  const hardCompare=hard&&hard.compare!==undefined;
+  return {
+    format,
+    fromUSD(usd){
+      if(hardCompare&&usd===SINGLE_COMPARE)return format(hard.compare);
+      return currency==='JPY'?symbol+Math.ceil(usd*rate):format(convert(usd));
+    },
+    device:qty=>qty===1&&hard?hard.single:convert(DEVICE_PRICES[qty]),
+    compare:qty=>qty===1?(hardCompare?hard.compare:rate===1?SINGLE_COMPARE:convert(SINGLE_COMPARE)):qty*convert(COMPARE_EACH),
+    priority:convert(PRIORITY_PRICE)
+  };
+}
+const usdPrices=makePrices('USD',1);
+let devicePrices=usdPrices;
 function currentQty(){
   for(let i=1;i<=3;i++){const el=document.getElementById('h-b'+i);if(el&&el.classList.contains('on'))return i;}
   return 1;
 }
-const SINGLE_COMPARE=75.00; // launch price for 1 device (USD)
-function ch99(x){return Math.floor(x)+0.99;}
+// A checked offer and a cart containing the kit use the quote's price list.
+// Every unchecked offer uses the original IP-based device prices independently.
+function pricesFor(withKit){
+  return withKit&&kitPrice()!==null?kitQuote.prices:devicePrices;
+}
 function updateBuyUI(n){
-  const totalUsd=n*DEVICE_PRICES[n];
-  const cmpUsd=n===1?SINGLE_COMPARE:n*COMPARE_EACH;
-  let nowL,wasL;
-  if(window._hardSingle&&n===1){
-    nowL=window._hardSingle.now;wasL=window._hardSingle.was;
-  } else if(window._fxRate&&window._fxRate!==1){
-    nowL=ch99(DEVICE_PRICES[n]*window._fxRate)*n;
-    wasL=(n===1?ch99(SINGLE_COMPARE*window._fxRate):ch99(COMPARE_EACH*window._fxRate)*n);
-  } else {
-    nowL=totalUsd;wasL=cmpUsd;
-  }
-  const fmtL=window._DEVICE_PRICES?window.fmtLocal:function(x){return '$'+x.toFixed(2);};
-  const savePct=Math.round((1-nowL/wasL)*100);
-  const now=fmtL(nowL),was=fmtL(wasL);
-  // Hero price row
-  const pn=document.getElementById('hero-price-now');
-  const pw=document.getElementById('hero-price-was');
-  const ps=document.getElementById('hero-price-save');
-  if(pn)pn.textContent=now;
-  if(pw){pw.textContent=was;pw.style.visibility='visible';}
-  if(ps){ps.textContent='SAVE '+savePct+'%';ps.style.visibility='visible';}
-  // CTAs — include sterilizing kit upsell if selected in that section
-  [['hero-atc-btn','h-uvc-addon',function(){return hUvcQty;}],['offer-atc-btn','uvc-addon',function(){return uvcQty;}]].forEach(function(a){
-    const btn=document.getElementById(a[0]);
-    if(!btn)return;
-    const addonEl=document.getElementById(a[1]);
-    const kitOn=addonEl&&addonEl.classList.contains('addon-on');
-    const kitL=window._KIT_PRICE||19.99;
-    const kitAmt=kitOn?a[2]()*kitL:0;
-    const nowT=fmtL(Math.round((nowL+kitAmt)*100)/100);
-    const wasT=fmtL(Math.round((wasL+kitAmt)*100)/100);
-    btn.innerHTML='Add To Cart — '+nowT+'&nbsp;<span class="atc-was">'+wasT+'</span>';
-  });
-  // Discount code bar amount
-  const ca=document.getElementById('code-amt');
-  if(ca){
-    const saved=Math.round(wasL-nowL);
-    const fmtRound=window._DEVICE_PRICES?function(x){return window.fmtLocal(x).replace(/\.00$/,'');}:function(x){return '$'+x;};
-    ca.textContent=fmtRound(saved)+' OFF';
+  for(const [prefix,addonId,btnId,qty] of [
+    ['h','h-uvc-addon','hero-atc-btn',hUvcQty],['o','uvc-addon','offer-atc-btn',uvcQty]
+  ]){
+    const selected=document.getElementById(addonId).classList.contains('addon-on');
+    const prices=pricesFor(selected);
+    const now=n*prices.device(n),was=prices.compare(n);
+    const grid=document.getElementById(prefix+'-b1').parentElement;
+    grid.querySelectorAll('[data-usd]').forEach(el=>{
+      const usd=Number(el.dataset.usd);
+      el.textContent=prices.fromUSD(usd);
+    });
+    if(prefix==='h'){
+      document.getElementById('hero-price-now').textContent=prices.format(now);
+      const wasEl=document.getElementById('hero-price-was'),saveEl=document.getElementById('hero-price-save');
+      wasEl.textContent=prices.format(was);wasEl.style.visibility='visible';
+      saveEl.textContent='SAVE '+Math.round((1-now/was)*100)+'%';saveEl.style.visibility='visible';
+      document.getElementById('code-amt').textContent=prices.format(Math.round(was-now)).replace(/\.00$/,'')+' OFF';
+    }
+    const btn=document.getElementById(btnId),unit=kitPrice();
+    if(selected&&unit===null){btn.textContent=kitPriceStatus();continue;}
+    const kit=selected?qty*unit:0;
+    btn.innerHTML='Add To Cart — '+prices.format(now+kit)+'&nbsp;<span class="atc-was">'+prices.format(was+kit)+'</span>';
   }
 }
 window.updateBuyUI=updateBuyUI;
@@ -2071,7 +2080,7 @@ function toggleAddon(){
   const on=el.classList.toggle('addon-on');
   ck.textContent=on?'✓':'+';
   el.setAttribute('aria-checked',String(on));
-  if(on){uvcQty=1;document.getElementById('uvc-n').textContent=1;}
+  if(on){uvcQty=1;document.getElementById('uvc-n').textContent=1;if(kitPrice()===null)refreshKit();}
   updateBuyUI(currentQty());
 }
 function toggleHAddon(){
@@ -2080,7 +2089,7 @@ function toggleHAddon(){
   const on=el.classList.toggle('addon-on');
   ck.textContent=on?'✓':'+';
   el.setAttribute('aria-checked',String(on));
-  if(on){hUvcQty=1;document.getElementById('h-uvc-n').textContent=1;}
+  if(on){hUvcQty=1;document.getElementById('h-uvc-n').textContent=1;if(kitPrice()===null)refreshKit();}
   updateBuyUI(currentQty());
 }
 
@@ -2104,20 +2113,210 @@ function expertToggle(){
 /* ── Cart drawer / checkout ── */
 const VAR_WHITE='52709201641783';
 const VAR_BLACK='52709201609015';
-const VAR_KIT='52686809956663';
+/* The CRO edge Worker owns assignment. Shopify owns each variant's market price. */
+const KIT_VARIANTS={a:'52686809956663',b:'53595750990135'};
+const KIT_DEADLINE_MS=6500, FX_WAIT_MS=2000;
+let kitMarket=null, marketRequest=null, kitQuote=null, kitRequest=null;
+// Share the original reads on first load. A kit retry may start fresh without
+// cancelling or replacing the pending device-only geolocation / FX response.
+let geoRead=null,ratesRead=null;
+function initialGeo(){if(!geoRead)geoRead=fetchGeo();return geoRead;}
+function initialRates(){if(!ratesRead)ratesRead=fetchRates();return ratesRead;}
+// The edge Worker writes window.CRO on every page it serves and lists only running tests.
+function croAssignments(){
+  const cro=window.CRO;
+  return cro&&cro.assignments&&typeof cro.assignments==='object'?cro.assignments:null;
+}
+function assignedKit(){
+  const assignments=croAssignments();
+  const group=assignments?assignments.thy8o3xu:undefined;
+  // With the edge script present and no thy8o3xu arm, this visitor is outside the test: it is paused
+  // or ended, or the visitor is excluded or unassigned. An arm left in _cro or _cro_o no longer applies.
+  if(assignments&&group===undefined)return KIT_VARIANTS.a;
+  // The edge keeps the visitor's own assignment in _cro and a forced one in _cro_o.
+  // Multiple scoped cookies can be visible after a domain or path change.
+  const stored=[],shown=[];
+  const entries=document.cookie.split(/;\s*/);
+  for(let i=0;i<entries.length;i++){
+    const match=/^(_cro|_cro_o)=([^;]*)$/.exec(entries[i]);
+    if(!match)continue;
+    let value;
+    try{value=decodeURIComponent(match[2]);}catch(e){return null;}
+    const arms=match[1]==='_cro'?stored:shown;
+    value.split(/[.~]/).forEach(token=>{
+      if(token.indexOf('thy8o3xu-')!==0)return;
+      const arm=token.split('-')[1];
+      if(arms.indexOf(arm)<0)arms.push(arm);
+    });
+  }
+  if(stored.length>1||shown.length>1)return null;
+  const saved=shown.length?shown[0]:stored[0];
+  // Without window.CRO (edge outage, cold isolate) a saved arm cannot be confirmed: refuse the kit.
+  if(saved!==undefined&&(saved==='0'?undefined:saved)!==group)return null;
+  if(group===undefined)return KIT_VARIANTS.a;
+  return group==='a'||group==='b'?KIT_VARIANTS[group]:null;
+}
+function kitPrice(){
+  return kitQuote && kitQuote.id===assignedKit()?kitQuote.amount:null;
+}
+function kitPriceStatus(){
+  return kitRequest?'Checking kit price…':'Kit price unavailable';
+}
+function renderKit(){
+  const amount=kitPrice();
+  const label=amount===null?'Check price':kitQuote.prices.format(amount);
+  document.querySelectorAll('[data-kit-price]').forEach(el=>{el.textContent=label;});
+  renderPrices();
+  if(amount!==null)document.dispatchEvent(new Event('nf2-kit-quoted'));
+}
+function marketPricing(){
+  if(marketRequest&&!marketRequest.retryable)return marketRequest;
+  // Keep a known market on a retry. Only the newest attempt may publish prices.
+  const first=!marketRequest;
+  const request={ready:false,retryable:false};
+  marketRequest=request;
+  request.market=(kitMarket?Promise.resolve(kitMarket):lookupMarket(first?initialGeo:fetchGeo)).then(market=>{
+    if(request!==marketRequest)throw new Error('Market lookup superseded');
+    kitMarket=market;
+    return market;
+  });
+  // Device and priority lines in a kit basket are estimated in the market currency. A missing or slow
+  // exchange rate resolves to null, and the quote then estimates from Shopify's device price instead.
+  request.rate=request.market.then(market=>marketRate(market.currency,first?initialRates:fetchRates)).then(rate=>{
+    if(request!==marketRequest)return rate;
+    const recover=request.retryable;
+    request.ready=true;
+    request.retryable=false;
+    if(recover&&!kitRequest)refreshKit();
+    return rate;
+  });
+  request.rate.catch(()=>{});
+  return request;
+}
+function marketRate(currency,readRates){
+  if(currency==='USD'||HARD_PRICES[currency])return deviceRate(currency,readRates);
+  let timer;
+  const wait=new Promise(resolve=>{timer=setTimeout(()=>resolve(null),FX_WAIT_MS);});
+  return Promise.race([deviceRate(currency,readRates).catch(()=>null),wait]).then(rate=>{
+    clearTimeout(timer);
+    return rate;
+  });
+}
+async function readKitQuote(){
+  const request=marketPricing();
+  let timer,active=true;
+  try{
+    // Start Shopify as soon as the market is known. The deadline covers the market lookup and the
+    // bounded exchange-rate wait; each Shopify read has its own timeout.
+    const quote=request.market.then(market=>{
+      if(!active)throw new Error('Kit lookup expired');
+      return fetchKitQuote(market);
+    });
+    const rate=request.ready?request.rate:Promise.race([request.rate,new Promise((_,reject)=>{
+      timer=setTimeout(()=>reject(new Error('Kit market unavailable')),KIT_DEADLINE_MS);
+    })]);
+    const results=await Promise.all([quote,rate]);
+    return await quotePrices(results[0],results[1]);
+  }catch(error){
+    if(!request.ready)request.retryable=true;
+    throw error;
+  }finally{active=false;clearTimeout(timer);}
+}
+async function quotePrices(quote,rate){
+  let prices;
+  if(rate!==null)prices=makePrices(quote.currency,rate);
+  else{
+    // No usable exchange rate: pin one device at Shopify's price in this market and scale the rest.
+    const single=await fetchDevicePrice(quote);
+    prices=makePrices(quote.currency,single/DEVICE_PRICES[1],{single});
+  }
+  return {id:quote.id,amount:quote.amount,country:quote.country,currency:quote.currency,prices};
+}
+// AbortSignal.timeout needs Safari 16 or Chrome 103. Older engines get an AbortController timer.
+// Engines without AbortController (before Safari 12.1) only get the deadline in withinTime.
+function timeoutSignal(ms){
+  if(typeof AbortSignal!=='undefined'&&typeof AbortSignal.timeout==='function')return AbortSignal.timeout(ms);
+  if(typeof AbortController!=='function')return undefined;
+  const controller=new AbortController();
+  setTimeout(()=>controller.abort(),ms);
+  return controller.signal;
+}
+function withinTime(promise,ms){
+  let timer;
+  const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Request timed out')),ms);});
+  return Promise.race([promise,deadline]).then(value=>{clearTimeout(timer);return value;},error=>{clearTimeout(timer);throw error;});
+}
+async function shopifyMarketQuery(query,variables){
+  const body=await withinTime(fetch('https://cleriva.com/api/2026-10/graphql.json',{
+    method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},
+    signal:timeoutSignal(6500),body:JSON.stringify({query,variables})
+  }).then(response=>{
+    if(!response.ok)throw new Error('Shopify market unavailable');
+    return response.json();
+  }),6500);
+  const {data,errors}=body;
+  if(errors||!data){
+    // Shopify answered and refused the request, for example an unknown CountryCode.
+    const error=new Error('Shopify market unavailable');
+    error.rejected=true;
+    throw error;
+  }
+  return data;
+}
+async function fetchKitQuote(requested){
+  const id=assignedKit();
+  if(!requested||!requested.country||!id)throw new Error('Kit pricing is still loading');
+  const gid='gid://shopify/ProductVariant/'+id;
+  const query=`query Kit($id: ID!, $country: CountryCode!) @inContext(country: $country) {
+    localization { country { isoCode currency { isoCode } } }
+    node(id:$id) { ... on ProductVariant { id availableForSale price { amount currencyCode } } }
+  }`;
+  const data=await shopifyMarketQuery(query,{id:gid,country:requested.country});
+  const item=data.node,market=data.localization&&data.localization.country;
+  const price=item&&item.price,amount=Number(price&&price.amount);
+  if(!item||!item.availableForSale||item.id!==gid||id!==assignedKit()||
+      requested!==kitMarket||!market||market.isoCode!==requested.country||
+      !price||price.currencyCode!==requested.currency||
+      !market.currency||market.currency.isoCode!==requested.currency||
+      !isFinite(amount)||amount<=0)throw new Error('Kit price unavailable');
+  return {id,amount,country:market.isoCode,currency:price.currencyCode};
+}
+async function fetchDevicePrice(market){
+  const gid='gid://shopify/ProductVariant/'+VAR_BLACK;
+  const query=`query Device($id: ID!, $country: CountryCode!) @inContext(country: $country) {
+    node(id:$id) { ... on ProductVariant { id price { amount currencyCode } } }
+  }`;
+  const data=await shopifyMarketQuery(query,{id:gid,country:market.country});
+  const item=data.node,price=item&&item.price,amount=Number(price&&price.amount);
+  if(!item||item.id!==gid||!price||price.currencyCode!==market.currency||!isFinite(amount)||amount<=0){
+    throw new Error('Device price unavailable');
+  }
+  return amount;
+}
+function refreshKit(){
+  if(!kitRequest){
+    const settle=ready=>{kitRequest=null;renderKit();return ready;};
+    kitRequest=readKitQuote().then(quote=>{kitQuote=quote;return true;},()=>{kitQuote=null;return false;}).then(settle);
+  }
+  return kitRequest;
+}
 const VAR_PRIORITY='50661579325751';
-const KIT_PRICE=19.99;
-const PRIORITY_PRICE=2.99;
 let cdPriorityOn=false;
 let cdQty=2,cdAddonQty=1,cdAddonOn=false;
 let cdColors=['black','black','black'];
 let cartHas=false;
+let checkoutAttempt=null;
 
 /* ── Persistent cart ── */
 function saveCartState(){
   if(!cartHas)return;
-  try{localStorage.setItem('nf2_cart',JSON.stringify({qty:cdQty,colors:cdColors,kit:cdAddonOn,kitQty:cdAddonQty,priority:cdPriorityOn}));}catch(e){}
+  const state=cartState();
+  if(checkoutAttempt&&checkoutAttempt.state!==state)resetCheckout();
+  try{localStorage.setItem('nf2_cart',state);}catch(e){}
   updateCartBadge();
+}
+function cartState(){
+  return JSON.stringify({qty:cdQty,colors:cdColors,kit:cdAddonOn,kitQty:cdAddonQty,priority:cdPriorityOn});
 }
 function updateCartBadge(){
   const b=document.getElementById('hdr-cart-badge');
@@ -2143,7 +2342,7 @@ var CART_GIFTS=[
 function renderCartGifts(){
   const wrap=document.getElementById('cd-gifts');
   if(!wrap)return;
-  const fp=window.fmtPrice||function(n){return'$'+n.toFixed(2);};
+  const fp=pricesFor(cdAddonOn).fromUSD;
   wrap.innerHTML='';
   const glbl=document.getElementById('cd-gifts-lbl');
   if(glbl)glbl.style.display=cdQty>=1?'':'none';
@@ -2164,6 +2363,7 @@ function cdDevQty(d){
   updateCartTotals();
 }
 function removeDevices(){
+  resetCheckout();
   cartHas=false;
   try{localStorage.removeItem('nf2_cart');}catch(e){}
   updateCartBadge();
@@ -2184,8 +2384,11 @@ function unsyncPageKit(){
 }
 function removeCartKit(){
   cdAddonOn=false;cdAddonQty=1;
+  // A kit-price message from an earlier attempt no longer applies to a device-only basket.
+  resetCheckout();
   unsyncPageKit();
   syncCartKitUI();
+  renderCartColors();
   updateCartTotals();
 }
 function viewCart(){
@@ -2213,7 +2416,8 @@ function viewCart(){
   }catch(e){}
 })();
 
-function openCart(qty){
+function openCart(qty,placement){
+  resetCheckout();
   cartHas=true;
   setDrawerEmpty(false);
   cdQty=qty;
@@ -2223,10 +2427,9 @@ function openCart(qty){
   const pck=document.getElementById('cd-priority-ck');
   if(prow)prow.classList.remove('addon-on');
   if(pck)pck.textContent='+';
-  const heroOn=document.getElementById('h-uvc-addon')&&document.getElementById('h-uvc-addon').classList.contains('addon-on');
-  const offerOn=document.getElementById('uvc-addon')&&document.getElementById('uvc-addon').classList.contains('addon-on');
-  cdAddonOn=heroOn||offerOn;
-  cdAddonQty=cdAddonOn?(heroOn?hUvcQty:uvcQty):1;
+  const lower=placement==='lower';
+  cdAddonOn=document.getElementById(lower?'uvc-addon':'h-uvc-addon').classList.contains('addon-on');
+  cdAddonQty=cdAddonOn?(lower?uvcQty:hUvcQty):1;
   syncCartKitUI();
   renderCartColors();
   updateCartTotals();
@@ -2255,6 +2458,7 @@ function syncCartKitUI(){
   }
 }
 function closeCart(){
+  resetCheckout();
   document.getElementById('cdrawer-overlay').classList.remove('show');
   document.getElementById('cdrawer').classList.remove('show');
 }
@@ -2272,10 +2476,10 @@ function renderCartColors(){
   if(!wrap)return;
   updateCartProdImg();
   wrap.innerHTML='';
-  const fmt=window._DEVICE_PRICES?window.fmtLocal:(window.fmtPrice||function(n){return'$'+n.toFixed(2);});
-  const dp=window._DEVICE_PRICES||DEVICE_PRICES;
-  document.getElementById('cd-prod-sub').textContent=`${cdQty} device${cdQty>1?'s':''} · ${fmt(dp[cdQty])}/ea`;
-  document.getElementById('cd-prod-price').textContent=fmt(cdQty*dp[cdQty]);
+  const prices=pricesFor(cdAddonOn),fmt=prices.format;
+  const each=prices.device(cdQty);
+  document.getElementById('cd-prod-sub').textContent=`${cdQty} device${cdQty>1?'s':''} · ${fmt(each)}/ea`;
+  document.getElementById('cd-prod-price').textContent=fmt(cdQty*each);
   const dn=document.getElementById('cd-dev-n');if(dn)dn.textContent=cdQty;
   renderCartGifts();
   for(let i=0;i<cdQty;i++){
@@ -2310,8 +2514,10 @@ function toggleCartKit(){
   const kck=document.getElementById('cd-kit-ck');
   if(krow)krow.classList.toggle('addon-on',cdAddonOn);
   if(kck)kck.textContent=cdAddonOn?'✓':'+';
-  if(cdAddonOn){cdAddonQty=1;document.getElementById('cd-kit-n').textContent=1;}
-  else{unsyncPageKit();}
+  if(cdAddonOn){cdAddonQty=1;document.getElementById('cd-kit-n').textContent=1;if(kitPrice()===null)refreshKit();}
+  else{resetCheckout();unsyncPageKit();}
+  renderCartColors();
+  syncCartKitUI();
   updateCartTotals();
 }
 function adjCartKitAdded(delta,e){
@@ -2328,17 +2534,16 @@ function adjCartKit(delta,e){
   updateCartTotals();
 }
 function updateCartTotals(){
-  const dp=window._DEVICE_PRICES||DEVICE_PRICES;
-  const kp=window._KIT_PRICE||KIT_PRICE;
-  const pp=window._PRIORITY_PRICE||PRIORITY_PRICE;
-  const deviceTotal=cdQty*dp[cdQty];
+  const prices=pricesFor(cdAddonOn),fmt=prices.format;
+  const kp=kitPrice(),pp=prices.priority;
+  const deviceTotal=cdQty*prices.device(cdQty);
   const kitTotal=cdAddonOn?cdAddonQty*kp:0;
   const priorityTotal=cdPriorityOn?pp:0;
   const total=deviceTotal+kitTotal+priorityTotal;
-  const fmt=window._DEVICE_PRICES?window.fmtLocal:(window.fmtPrice||function(n){return'$'+n.toFixed(2);});
-  document.getElementById('cd-total-amt').textContent=fmt(total);
+  document.querySelector('#cd-priority-row [data-usd]').textContent=cdAddonOn?fmt(pp):prices.fromUSD(PRIORITY_PRICE);
+  document.getElementById('cd-total-amt').textContent=cdAddonOn&&kp===null?kitPriceStatus():fmt(total);
   const kap=document.getElementById('cd-kit-added-price');
-  if(kap)kap.textContent=fmt(cdAddonQty*kp);
+  if(kap)kap.textContent=kp===null?'Check price':kitQuote.prices.format(cdAddonQty*kp);
   saveCartState();
 }
 function togglePriority(){
@@ -2349,18 +2554,46 @@ function togglePriority(){
   if(ck)ck.textContent=cdPriorityOn?'✓':'+';
   updateCartTotals();
 }
-let _coBusy=false;
-function checkoutCart(){
-  if(_coBusy)return;
-  _coBusy=true;
+function resetCheckout(message='Try It Risk-Free →'){
+  checkoutAttempt=null;
+  const button=document.querySelector('.cd-cta');
+  if(button){button.disabled=false;button.textContent=message;}
+}
+function checkoutArmMatches(url){
+  const target='thy8o3xu:';
+  const tags=[];
+  const values=url.searchParams.getAll('attributes[_cro]');
+  if(values.length>1)return false;
+  if(values.length){
+    const attr=/^[0-9a-z]{16}q?\|([^|]*)$/.exec(values[0]);
+    if(!attr)return false;
+    attr[1].split(',').forEach(token=>{
+      if(token.indexOf(target)===0)tags.push(token.slice(target.length));
+    });
+  }
+  const assignments=croAssignments(),arm=assignments?assignments.thy8o3xu:undefined;
+  // Outside a running test the CRO script can still carry the visitor's old arm. It owns that
+  // attribute, and the control kit is the right one whatever the leftover tag says.
+  if(assignments&&arm===undefined)return true;
+  return arm===undefined?tags.length===0:tags.length===1&&tags[0]===arm;
+}
+async function checkoutCart(){
+  if(checkoutAttempt||!cartHas)return;
+  const attempt={state:cartState()};
+  checkoutAttempt=attempt;
   const _cbtn=document.querySelector('.cd-cta');
   if(_cbtn){_cbtn.disabled=true;_cbtn.textContent='Loading Secure Checkout…';}
-  if(window.fbq){
-    var dp={1:59.99,2:44.99,3:39.99};
-    var kp=19.99;
-    var pp=2.99;
-    var val=(cdQty*dp[cdQty])+(cdAddonOn?cdAddonQty*kp:0)+(cdPriorityOn?pp:0);
-    fbq('track','InitiateCheckout',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:['52709201609015','52709201641783'],currency:'USD',value:val,num_items:cdQty});
+  let kit;
+  if(cdAddonOn){
+    const displayed=kitPrice()===null?null:kitQuote;
+    const ready=await refreshKit();
+    if(checkoutAttempt!==attempt)return;
+    if(!ready||!displayed||displayed.id!==kitQuote.id||displayed.amount!==kitQuote.amount||
+        displayed.currency!==kitQuote.currency||displayed.country!==kitQuote.country){
+      resetCheckout(ready?'Review the kit price and try checkout again.':'Kit price unavailable. Retry or remove the kit.');
+      return;
+    }
+    kit=kitQuote;
   }
   const slice=cdColors.slice(0,cdQty);
   const blacks=slice.filter(c=>c==='black').length;
@@ -2368,7 +2601,7 @@ function checkoutCart(){
   const parts=[];
   if(blacks>0)parts.push(`${VAR_BLACK}:${blacks}`);
   if(whites>0)parts.push(`${VAR_WHITE}:${whites}`);
-  if(cdAddonOn)parts.push(`${VAR_KIT}:${cdAddonQty}`);
+  if(cdAddonOn)parts.push(`${kit.id}:${cdAddonQty}`);
   if(cdPriorityOn)parts.push(`${VAR_PRIORITY}:1`);
   const VAR_BREATH='52072818606391';  // Breathing Reset guide — every order (verified in Shopify)
   const VAR_MYSTERY='52072818934071'; // Mystery Gift — 2+ (verified in Shopify)
@@ -2379,17 +2612,28 @@ function checkoutCart(){
   let u=`https://cleriva.com/cart/${parts.join(',')}`;
   if(window.CRO&&typeof window.CRO.decorate==='function'){try{u=window.CRO.decorate(u)||u;}catch(e){}}
   if(typeof window.gdMtaCheckoutUrl==='function')u=window.gdMtaCheckoutUrl(u);
+  if(cdAddonOn){
+    const checkoutUrl=new URL(u);
+    if(kit.id!==assignedKit()||!checkoutArmMatches(checkoutUrl)){
+      resetCheckout('Reload to verify your kit price.');
+      return;
+    }
+    checkoutUrl.searchParams.set('country',kit.country);
+    checkoutUrl.searchParams.set('currency',kit.currency);
+    u=checkoutUrl.href;
+  }
+  if(window.fbq){
+    const prices=kit?kit.prices:usdPrices;
+    const value=cdQty*prices.device(cdQty)+(kit?cdAddonQty*kit.amount:0)+(cdPriorityOn?prices.priority:0);
+    try{fbq('track','InitiateCheckout',{content_name:'NovaFlow 2.0',content_type:'product',content_ids:[VAR_BLACK,VAR_WHITE],currency:kit?kit.currency:'USD',value:kit?Math.round(value*100)/100:value,num_items:cdQty});}catch(e){}
+  }
   window.location.href=u;
 }
 window.addEventListener('pageshow',function(e){
-  if(e.persisted){
-    _coBusy=false;
-    const btn=document.querySelector('.cd-cta');
-    if(btn){btn.disabled=false;btn.textContent='Try It Risk-Free →';}
-  }
+  if(e.persisted)resetCheckout();
 });
-function atcHero(){openCart(currentQty());}
-function atcMain(){openCart(currentQty());}
+function atcHero(){openCart(currentQty(),'hero');}
+function atcMain(){openCart(currentQty(),'lower');}
 
 // Initialize default bundle (1)
 hqty(1);
@@ -2542,60 +2786,116 @@ if(window.ResizeObserver){
 })();
 
 /* ── Multi-currency ── */
-(async function(){
-  const SYM={USD:'$',GBP:'£',EUR:'€',CAD:'CA$',AUD:'A$',NZD:'NZ$',CHF:'CHF ',JPY:'¥',SGD:'S$',HKD:'HK$',MXN:'MX$',INR:'₹',BRL:'R$',ZAR:'R ',DKK:'kr ',SEK:'kr ',NOK:'kr ',AED:'AED ',SAR:'SAR '};
-  let cur='USD',sym='$',rate=1;
-  function up99(n){return Math.floor(n)+0.99;}
-  window.fmtPrice=function(usd){
-    if(cur==='USD')return '$'+usd.toFixed(2);
-    if(cur==='JPY')return sym+Math.ceil(usd*rate);
-    return sym+up99(usd*rate).toFixed(2);
-  };
-  window.fmtLocal=function(n){
-    if(cur==='USD')return '$'+n.toFixed(2);
-    if(cur==='JPY')return sym+Math.ceil(n);
-    return sym+n.toFixed(2);
-  };
-  var HARD={CAD:{single:79.99,compare:99.99},GBP:{single:47.99,compare:59.99}};
+function validCountry(code){
+  return typeof code==='string'&&/^[A-Z]{2}$/.test(code)&&code!=='XX'&&code!=='ZZ';
+}
+function validCurrency(code){
+  return typeof code==='string'&&/^[A-Z]{3}$/.test(code)&&code!=='XXX'&&code!=='XTS';
+}
+// Shopify's selling market for a country. Shopify answers with its fallback market (US/USD today)
+// for a country Cleriva does not sell to, and with its default localization when no country is given.
+async function shopifyMarket(country){
+  const query=country?`query Market($country: CountryCode!) @inContext(country: $country) {
+    localization { country { isoCode currency { isoCode } } }
+  }`:`query Market {
+    localization { country { isoCode currency { isoCode } } }
+  }`;
+  const data=await shopifyMarketQuery(query,country?{country}:{});
+  const market=data.localization&&data.localization.country;
+  const currency=market&&market.currency&&market.currency.isoCode;
+  if(!market||!validCountry(market.isoCode)||!validCurrency(currency))throw new Error('Shopify market unavailable');
+  return {country:market.isoCode,currency};
+}
+async function fetchGeo(){
+  const response=await fetch('https://ipapi.co/json/');
+  return {ok:response.ok,geo:await response.json()};
+}
+function geoCountry(readGeo){
+  return readGeo().then(({ok,geo})=>ok&&geo&&validCountry(geo.country_code)?geo.country_code:null).catch(()=>null);
+}
+async function traceCountry(){
   try{
-    const params=new URLSearchParams(window.location.search);
-    const requestedCurrency=(params.get('currency')||'').toUpperCase();
-    const forceUSD=requestedCurrency==='USD'||(!requestedCurrency&&(params.get('country')||'').toUpperCase()==='US');
-    if(!forceUSD){
-      const geo=await fetch('https://ipapi.co/json/').then(r=>r.json());
-      cur=geo.currency||'USD';
-    }
-    sym=SYM[cur]||(cur+' ');
-    if(cur!=='USD'&&!HARD[cur]){
-      const fx=await fetch('https://open.er-api.com/v6/latest/USD').then(r=>r.json());
-      rate=(fx.rates&&fx.rates[cur])||1;
-    }
-  }catch(e){}
-  if(cur==='USD')return;
-  if(HARD[cur]){
-    rate=HARD[cur].single/59.99;
-    window._hardSingle={now:HARD[cur].single,was:HARD[cur].compare};
-  }
-  window._fxRate=rate;
-  document.querySelectorAll('[data-usd]').forEach(function(el){
-    el.textContent=window.fmtPrice(parseFloat(el.dataset.usd));
-  });
-  if(window._hardSingle){
-    document.querySelectorAll('[data-usd="75.00"]').forEach(function(el){
-      el.textContent=window.fmtLocal(window._hardSingle.was);
+    const response=await fetch('/cdn-cgi/trace',{
+      credentials:'omit',cache:'no-store',redirect:'error',signal:timeoutSignal(2500)
     });
+    if(!response.ok)return null;
+    const text=await response.text(),pattern=/^loc=([^\r\n]*)\r?$/gm,found=[];
+    let match;
+    while((match=pattern.exec(text)))found.push(match[1]);
+    return found.length===1&&validCountry(found[0])?found[0]:null;
+  }catch(e){return null;}
+}
+// The first valid country from either read, or null once both have failed.
+function firstCountry(reads){
+  return new Promise(resolve=>{
+    let left=reads.length;
+    reads.forEach(read=>read.then(country=>{
+      if(country)resolve(country);
+      else if(--left===0)resolve(null);
+    }));
+  });
+}
+async function ipCountry(readGeo){
+  const primary=geoCountry(readGeo);
+  // Hedge a slow lookup with Cloudflare's location. Keep a late valid response usable.
+  let timer;
+  const quick=await Promise.race([primary,new Promise(resolve=>{timer=setTimeout(resolve,1200);})]);
+  clearTimeout(timer);
+  if(quick)return quick;
+  return firstCountry([traceCountry(),primary]);
+}
+// The kit's market: a usable campaign country, then the visitor's IP country, then Shopify's default.
+// A Shopify outage fails the attempt so Retry can recover it; it never switches the market.
+async function lookupMarket(readGeo=fetchGeo){
+  const params=new URLSearchParams(window.location.search);
+  const requested=(params.get('country')||'').trim().toUpperCase();
+  // Ignore a country Shopify does not recognise (?country=UK) or does not sell to.
+  // The currency parameter never selects the kit market: Shopify sells each country in one currency.
+  if(validCountry(requested)){
+    try{
+      const market=await shopifyMarket(requested);
+      if(market.country===requested)return market;
+    }catch(error){if(!error.rejected)throw error;}
   }
-  window._cartPriceLabels={
-    1:window.fmtPrice(59.99)+'/ea',
-    2:window.fmtPrice(44.99)+'/ea',
-    3:window.fmtPrice(39.99)+'/ea'
-  };
-  window._DEVICE_PRICES={1:up99(59.99*rate),2:up99(44.99*rate),3:up99(39.99*rate)};
-  window._KIT_PRICE=up99(19.99*rate);
-  window._PRIORITY_PRICE=up99(2.99*rate);
-  // Refresh dynamic price displays in new currency
-  if(window.updateBuyUI)window.updateBuyUI(currentQty());
-})();
+  const country=await ipCountry(readGeo);
+  if(country){
+    try{return await shopifyMarket(country);}
+    catch(error){if(!error.rejected)throw error;}
+  }
+  return shopifyMarket(null);
+}
+async function fetchRates(){
+  const response=await fetch('https://open.er-api.com/v6/latest/USD');
+  return {ok:response.ok,rates:(await response.json()).rates};
+}
+async function deviceRate(currency,readRates){
+  if(currency==='USD')return 1;
+  if(HARD_PRICES[currency])return HARD_PRICES[currency].single/59.99;
+  const {ok,rates}=await readRates();
+  const rate=rates?rates[currency]:undefined;
+  if(!ok||typeof rate!=='number'||!isFinite(rate)||rate<=0)throw new Error('Exchange rate unavailable');
+  return rate;
+}
+
+function renderPrices(){
+  updateBuyUI(currentQty());
+  if(cartHas)renderCartColors();
+  updateCartTotals();
+}
+async function loadDevicePrices(){
+  const params=new URLSearchParams(window.location.search);
+  const requested=(params.get('currency')||'').toUpperCase();
+  if(requested==='USD'||(!requested&&(params.get('country')||'').toUpperCase()==='US'))return;
+  try{
+    const {ok,geo}=await initialGeo();
+    if(!ok||!validCurrency(geo.currency)||geo.currency==='USD')return;
+    const rate=await deviceRate(geo.currency,initialRates);
+    devicePrices=makePrices(geo.currency,rate);
+  }catch(e){return;}
+  renderPrices();
+}
+loadDevicePrices();
+refreshKit();
 </script>
 <script>
 (function(){
@@ -2623,6 +2923,7 @@ if(window.ResizeObserver){
     '52709201609015': '10886709575991',
     '52709201641783': '10886709575991',
     '52686809956663': '10243429826871',
+    '53595750990135': '11079603061047',
     '50661579325751': '10191614804279'
   };
   function snapshot() {
@@ -2632,29 +2933,47 @@ if(window.ResizeObserver){
       const variant = color === 'white' ? VAR_WHITE : VAR_BLACK;
       items[variant] = (items[variant] || 0) + 1;
     });
-    if (cdAddonOn) items[VAR_KIT] = cdAddonQty;
+    const selectedKit=cdAddonOn&&assignedKit();
+    if (selectedKit) items[selectedKit] = cdAddonQty;
     if (cdPriorityOn) items[VAR_PRIORITY] = 1;
     return items;
   }
+  let pendingKit;
+  function trackAddition(variant,quantity) {
+    try {
+      if(typeof window.TriplePixel==='function')window.TriplePixel('AddToCart',{item:products[variant],q:quantity,v:variant});
+    } catch (error) {
+      console.warn('Triple Whale cart tracking failed',error);
+    }
+  }
+  document.addEventListener('nf2-kit-quoted',function(){
+    if(pendingKit && pendingKit.variant===assignedKit() && cdAddonOn && cartHas){
+      trackAddition(pendingKit.variant,Math.min(cdAddonQty,pendingKit.quantity));
+    }
+    pendingKit=null;
+  });
   function trackAdditions(before, after) {
-    if (typeof window.TriplePixel !== 'function') return;
+    if(pendingKit){
+      const remaining=after[pendingKit.variant]||0;
+      if(remaining)pendingKit.quantity=Math.min(remaining,pendingKit.quantity);
+      else pendingKit=null;
+    }
     Object.keys(after).forEach(function (variant) {
       const quantity = after[variant] - (before[variant] || 0);
       if (quantity > 0) {
-        try {
-          window.TriplePixel('AddToCart', {item: products[variant], q: quantity, v: variant});
-        } catch (error) {
-          console.warn('Triple Whale cart tracking failed', error);
-        }
+        if(variant===assignedKit()&&kitPrice()===null){
+          pendingKit={variant,quantity:quantity+(pendingKit?pendingKit.quantity:0)};
+        }else trackAddition(variant,quantity);
       }
     });
   }
   // Explicit Add to Cart clicks represent a new selection; drawer edits send only added units.
   ['openCart', 'cdDevQty', 'setColor', 'toggleCartKit', 'adjCartKitAdded',
-   'adjCartKit', 'togglePriority'].forEach(function (name) {
+   'adjCartKit', 'togglePriority', 'removeDevices', 'removeCartKit'].forEach(function (name) {
     const original = window[name];
     window[name] = function () {
       const before = name === 'openCart' ? {} : snapshot();
+      if(name==='openCart')pendingKit=null;
       const result = original.apply(this, arguments);
       trackAdditions(before, snapshot());
       return result;
