@@ -225,10 +225,16 @@ button{font-family:inherit}
 .blist-note{font-size:12px;color:var(--muted);margin-bottom:26px;margin-top:10px}
 
 /* Stock bar */
-.stock-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.stock-bar-track{flex:1;height:9px;background:var(--mist);border-radius:99px;overflow:hidden}
-.stock-bar-fill{height:100%;width:82%;background:linear-gradient(90deg,var(--red),#E4484F);border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.stock-bar-lbl{font-size:13px;font-weight:800;color:var(--red);white-space:nowrap}
+.stock-bar-wrap{box-sizing:border-box;padding:12px;margin-bottom:22px;border-radius:12px;background:#fff7f7;color:#be1820}
+.stock-bar-heading{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;line-height:1.35}
+.stock-bar-heading svg{width:18px;height:18px;flex:none}
+.stock-bar-track{display:block;width:100%;height:7px;margin:10px 0 8px;appearance:none;-webkit-appearance:none;border:0;border-radius:99px;overflow:hidden;background:#f1dfdf;color:#be1820}
+.stock-bar-track::-webkit-progress-bar{background:#f1dfdf;border-radius:99px}
+.stock-bar-track::-webkit-progress-value{background:#be1820;border-radius:99px}
+.stock-bar-track::-moz-progress-bar{background:#be1820;border-radius:99px}
+.stock-bar-stats{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font-size:13px;line-height:1.4}
+.stock-bar-lbl{font-weight:700}
+.stock-bar-remaining{color:#595659;margin-left:auto}
 .live-feed{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted);margin:-12px 0 22px;min-height:18px;opacity:0;transition:opacity .5s}
 .live-feed.show{opacity:1}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
@@ -1140,8 +1146,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
-        <div class="stock-bar-track"><div class="stock-bar-fill" id="stock-bar-fill"></div></div>
-        <span class="stock-bar-lbl" id="stock-bar-lbl">82% of Batch 6 claimed</span>
+        <div class="stock-bar-heading">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c1 5 7 7 7 13a7 7 0 0 1-14 0c0-2 1-4 2-5 0 3 2 4 4 4 2-4-1-6 1-12Z"/></svg>
+          Black Friday Stock Is Running Low
+        </div>
+        <progress class="stock-bar-track" value="84" max="100" aria-label="Batch 6 claimed">84%</progress>
+        <div class="stock-bar-stats">
+          <span class="stock-bar-lbl" id="stock-bar-lbl">84% of Batch 6 claimed</span>
+          <span class="stock-bar-remaining">16% remaining</span>
+        </div>
       </div>
       <div class="live-feed" id="live-feed"><span class="live-dot"></span><span id="live-feed-txt"></span></div>
 
@@ -1726,7 +1739,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="promo-hd">BLACK FRIDAY SALE<br/>SAVE UP TO <span data-max-percent>47%</span></h2>
       <p class="promo-sub" style="max-width:520px">Every launch order helps us commit to a bigger batch, which drops our cost per unit — so we're giving that savings back to the people who order first.</p>
       <p style="font-size:13px;font-weight:800;color:var(--red);margin-top:14px;letter-spacing:.02em">Limit: 3 per customer</p>
-      <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">82% of Batch 6 claimed — order now, ships by <span id="promo-ship-date">—</span></p>
+      <p style="display:inline-block;margin-top:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:12px 22px;border-radius:100px">84% of Batch 6 claimed — order now, ships by <span id="promo-ship-date">—</span></p>
     </div>
 
     <!-- Bundle cards -->
@@ -2121,17 +2134,14 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
 
 /* ── Stock bar + live purchase feed (persists across refresh) ── */
 (function(){
-  var fill=document.getElementById('stock-bar-fill');
   var lbl=document.getElementById('stock-bar-lbl');
   var feed=document.getElementById('live-feed');
   var txt=document.getElementById('live-feed-txt');
-  if(!fill||!lbl||!feed||!txt)return;
+  if(!lbl||!feed||!txt)return;
   var KEY='nf2_feed_v1';
   var BASE=['Sarah M.','Jake T.','Priya K.','Daniel R.','Emily W.','Marcus J.','Hannah B.','Chris P.','Aisha L.','Tom H.','Jess F.','Ryan C.','Megan S.','Liam O.','Nina V.','Alex G.','Rachel D.','Ben K.','Sofia A.','Kyle M.','Laura N.','Derek W.','Chloe R.','Sam B.','Grace T.','Nate F.','Ivy C.','Owen S.'];
   var NAMES,i=0,nextAt=null,done=false;
 
-  function pctFor(n){return n>=24?84:n>=4?83:82;}
-  function setPct(p){fill.style.width=p+'%';lbl.textContent=p+'% of Batch 6 claimed';}
   function qty(){var r=Math.random();return r<.44?2:r<.84?3:1;}
   function delayFor(n){
     var base;
@@ -2166,7 +2176,6 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
     NAMES=BASE.slice();
     for(var s=NAMES.length-1;s>0;s--){var j=Math.floor(Math.random()*(s+1));var t=NAMES[s];NAMES[s]=NAMES[j];NAMES[j]=t;}
   }
-  setPct(pctFor(i));
   window._feedI=i;
   if(done||i>=NAMES.length)return;
 
@@ -2176,7 +2185,6 @@ function nealScroll(dir){var c=document.getElementById('neal-videos');if(!c)retu
     i++;
     txt.textContent=name+' just purchased '+qty()+'\u00d7 NovaFlow 2.0';
     feed.classList.add('show');
-    setPct(pctFor(i));
     window._feedI=i;
     var d=delayFor(i);
     nextAt=Date.now()+d;
@@ -2972,11 +2980,7 @@ if(window.ResizeObserver){
   color: #141414;
 }
 </style>
-<style>
-#shopify-section-novaflow-lander-preview #stock-bar-fill {
-  display: block;
-}
-</style>
+
 <style>
 #shopify-section-novaflow-lander-preview {
   letter-spacing: normal;
