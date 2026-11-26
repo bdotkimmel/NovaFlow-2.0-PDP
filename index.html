@@ -1200,7 +1200,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- Benefits checklist -->
-      <div class="blist-hd">What 50,000+ NovaFlow Users Noticed:</div>
+      <div class="blist-hd">What users of the original NovaFlow reported</div>
       <div class="blist">
         <div class="bli">
           <span class="bli-ico ico-rose"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 7 5.5 7 8v7c0 1.1-.4 2-1 2.5"/><path d="M12 3c3 0 5 2.5 5 5v7c0 1.1.4 2 1 2.5"/><path d="M9 17.5C9 19 10.3 20 12 20s3-1 3-2.5"/></svg></span>
@@ -1219,7 +1219,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span><b>Calmer,</b> less swollen nasal tissue</span>
         </div>
       </div>
-      <p class="blist-note">*Reported by users of the original NovaFlow red light device. Individual results vary.</p>
 
       <!-- Stock bar -->
       <div class="stock-bar-wrap">
@@ -2047,7 +2046,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ── Cart Drawer ── -->
 <div class="cdrawer-overlay" id="cdrawer-overlay" onclick="closeCart()"></div>
-<div class="cdrawer" id="cdrawer">
+<div class="cdrawer drawer-box" id="cdrawer">
   <div class="cdrawer-head">
     <h3>Your Order</h3>
     <button class="cdrawer-close" onclick="closeCart()">✕</button>
@@ -2062,6 +2061,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="cd-empty-btn" onclick="closeCart();document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})">Shop NovaFlow 2.0</button>
     </div>
     <div id="cd-main">
+<div class="nf-deal-strip"><div><strong>BLACK FRIDAY SAVINGS</strong><small>You save <span id="nf-cart-save"></span> on your devices</small></div><b>SAVE <span id="nf-cart-pct"></span>%</b></div>
     <div class="cd-prod">
       <img class="cd-prod-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_58.png?v=1786326765&width=160" alt="NovaFlow 2.0"/>
       <div class="cd-prod-info">
@@ -2075,15 +2075,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="cd-prod-right">
         <div class="cd-prod-price" id="cd-prod-price">$89.98</div>
-        <button class="cd-remove" onclick="removeDevices()">Remove</button>
+        <s class="nf-device-msrp" id="nf-cart-msrp"></s><button class="cd-remove" onclick="removeDevices()">Remove</button>
       </div>
     </div>
 
-    <!-- Free gifts included -->
-    <div class="cd-sec-lbl" id="cd-gifts-lbl">🎁 Free gifts included</div>
-    <div class="cd-gifts" id="cd-gifts"></div>
-    <div class="cd-sec-lbl">Choose your color</div>
     <div id="cd-colors"></div>
+    <div class="cd-gifts" id="cd-gifts" aria-label="Included free gifts"></div>
     <div class="cd-divider"></div>
     <div id="cd-kit-added" style="display:none;align-items:center;gap:10px;background:#fff;border:1.5px solid rgba(190,24,32,.25);border-radius:14px;padding:12px 14px;margin-bottom:2px">
       <img class="cd-kit-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_18.png?v=1784281589&width=96" alt="UV-C Sterilizer"/>
@@ -2122,7 +2119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img class="cd-kit-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Say_Goodbye_to_Congestion_Permanently._-_2025-05-29T023055.001.png?v=1748511069&width=96" alt="Priority Processing"/>
         <div class="cd-kit-info">
           <h5>Priority Processing</h5>
-          <p>Move your order to the front of the queue and protect it from any damage or loss.</p>
+          <p>Move your order to the front of the queue.</p>
         </div>
         <div class="cd-kit-price" data-usd="2.99">$2.99</div>
       </div>
@@ -2130,13 +2127,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div><!-- /cd-main -->
   </div>
   <div class="cdrawer-foot" id="cd-foot">
+    <div class="nf-saved"><span>Device savings</span><span id="nf-foot-save"></span></div>
     <div class="cd-total-row">
       <span class="cd-total-lbl">Total</span>
       <span class="cd-total-amt" id="cd-total-amt">$89.98</span>
     </div>
     <p style="text-align:right;font-size:11px;color:var(--muted);margin:4px 0 0">Shipping &amp; taxes calculated at checkout</p>
     <button class="cd-cta" onclick="checkoutCart()">Try It Risk-Free →</button>
-    <p class="cd-guarantee">🔒 120-day money-back guarantee · Secured shipping</p>
+    <div class="nf-trust"><span>120-day guarantee</span><span>Secured shipping</span><span>Free gift included</span></div>
   </div>
 </div>
 
@@ -2665,6 +2663,12 @@ function updateCartTotals(){
   const total=deviceTotal+kitTotal+priorityTotal;
   const fmt=window._DEVICE_PRICES?window.fmtLocal:(window.fmtPrice||function(n){return'$'+n.toFixed(2);});
   document.getElementById('cd-total-amt').textContent=cdAddonOn&&(!Number.isFinite(kp)||!kitCurrencyMatches())?'Kit price unavailable':fmt(total);
+  const msrp=cdQty*(window._DEVICE_COMPARE || MSRP_USD);
+  const saved=fmt(msrp-deviceTotal);
+  document.getElementById('nf-cart-msrp').textContent=fmt(msrp);
+  document.getElementById('nf-cart-save').textContent=saved;
+  document.getElementById('nf-foot-save').textContent=saved;
+  document.getElementById('nf-cart-pct').textContent=savingsPercent(deviceTotal,msrp);
   const kap=document.getElementById('cd-kit-added-price');
   if(kap)kap.textContent=Number.isFinite(kp)?window.ClerivaKit.money(Math.round(cdAddonQty*kp*100)):'Unavailable';
   saveCartState();
@@ -3241,7 +3245,7 @@ if(window.ClerivaKit)window.ClerivaKit.render();
 <script>
 (function(){
 const p=document.querySelector('#cd-kit-row .cd-kit-info p');
-if(p)p.innerHTML='<strong class="pdp-kit-hook">Your nose is home to thousands of bacteria.</strong><strong>The UV-C sterilizer kills up to 99.9% of bacteria on your device in just 3 minutes.</strong><span class="pdp-kit-sleeves">Includes 6 extra sleeve sets</span>';
+if(p)p.textContent='UV-C sterilizer + 6 sleeve sets';
 })();
 </script>
 </div>
@@ -3297,7 +3301,8 @@ if(p)p.innerHTML='<strong class="pdp-kit-hook">Your nose is home to thousands of
   button.type='button';button.className='nf-kit-action';
   function sync(){
     const selected=row.classList.contains('addon-on');
-    button.textContent=selected?'Remove sterilizing kit':'Add sterilizing kit';
+    button.textContent=selected?'Remove':'+ Add';
+    button.setAttribute('aria-label',selected?'Remove sterilizing kit':'Add sterilizing kit');
     button.setAttribute('aria-pressed',String(selected));
   }
   button.addEventListener('click',function(event){
@@ -3555,5 +3560,54 @@ if(p)p.innerHTML='<strong class="pdp-kit-hook">Your nose is home to thousands of
 </script>
 
 
+<style>
+#cdrawer .nf-deal-strip{display:flex;align-items:center;gap:9px;padding:10px 12px;margin-bottom:12px;border-radius:12px;background:linear-gradient(105deg,#ad0713,#80050c);color:white;line-height:1.2}
+#cdrawer .nf-deal-strip::before{content:"ϟ";font:italic 900 28px/1 Arial;color:white}
+#cdrawer .nf-deal-strip strong{display:block;font:italic 800 15px/1.2 Inter,Arial,sans-serif;color:white}
+#cdrawer .nf-deal-strip small{display:block;color:white;font-size:12px;margin-top:2px}
+#cdrawer .nf-deal-strip b{margin-left:auto;white-space:nowrap;color:#a50915;background:white;border-radius:30px;padding:6px 9px;font-size:12px}
+#cdrawer .cdrawer-head{padding:10px 14px!important}
+#cdrawer .cdrawer-head h3{font-size:20px;font-weight:800}
+#cdrawer .cdrawer-body{padding:8px 14px 0}
+#cdrawer .cdrawer-foot{padding:9px 14px max(10px,env(safe-area-inset-bottom))!important}
+#cdrawer .cd-prod{margin:0 0 7px;gap:9px}
+#cdrawer .cd-prod-info{min-width:0}
+#cdrawer .cd-prod-name{line-height:1.18}
+#cdrawer .cd-prod-img{width:54px;height:54px}
+#cdrawer .cd-prod-right{gap:2px}
+#cdrawer .cd-prod-sub{font-size:12px}
+#cdrawer .cd-qty{margin-top:3px}
+#cdrawer .aq-btn{min-width:28px;min-height:28px}
+#cdrawer .cd-device-row{margin-bottom:4px;gap:5px}
+#cdrawer .cd-device-lbl{font-size:12px}
+#cdrawer .cd-swatches{gap:4px}
+#cdrawer .cd-swatch{padding:3px 8px;min-height:29px;font-size:12px}
+#cdrawer .cd-swatch-dot{width:20px;height:20px}
+#cdrawer .cd-sec-lbl,#cdrawer .cd-upsell-lbl,#cdrawer .cd-divider{display:none}
+#cdrawer .shared-gifts,#cdrawer .cd-gifts{display:grid!important;gap:4px!important;margin:7px 0!important}
+#cdrawer .shared-gift,#cdrawer .cd-gift-row{margin:0!important;padding:5px 9px!important;gap:8px!important;background:#fff2f3!important;border:1px solid #f4d6d9!important;border-radius:10px}
+#cdrawer .shared-gift img,#cdrawer .cd-gift-img{width:32px;height:32px;object-fit:contain}
+#cdrawer .shared-gift strong,#cdrawer .cd-gift-free{font-size:10px!important;background:#b60a20;border-radius:20px;color:white!important;padding:3px 8px}
+#cdrawer .shared-kit,#cdrawer #cd-kit-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:2px 8px;padding:8px 9px;background:#f1f6eb;border:1px solid #c8d9bb;border-radius:12px}
+#cdrawer .shared-kit .cd-kit-img,#cdrawer #cd-kit-row .cd-kit-img{grid-column:1;grid-row:1/3;width:40px;height:40px}
+#cdrawer .shared-kit h5,#cdrawer #cd-kit-row h5{grid-column:2;grid-row:1;font-size:14px;line-height:1.15}
+#cdrawer .shared-kit p,#cdrawer #cd-kit-row p{grid-column:2;grid-row:2;font-size:11px;line-height:1.2;margin:0}
+#cdrawer .shared-kit .cd-kit-price,#cdrawer #cd-kit-row .cd-kit-price{grid-column:3;grid-row:1;font-weight:800;text-align:right}
+#cdrawer .shared-kit .nf-kit-action,#cdrawer #cd-kit-row .nf-kit-action{grid-column:3;grid-row:2;min-height:25px;width:auto;padding:2px 9px;border-radius:20px;border:1px solid #638847;background:#fff;color:#345723;font-size:12px;font-weight:750}
+
+#cdrawer .shared-priority,#cdrawer #cd-priority-row{padding:6px 9px;margin-top:6px;gap:7px;border:1px solid #ddd;border-radius:11px}
+#cdrawer .shared-priority img,#cdrawer #cd-priority-row img{width:29px;height:29px}
+#cdrawer .shared-priority p,#cdrawer #cd-priority-row p{font-size:11px;line-height:1.2}
+#cdrawer .shared-priority h5,#cdrawer #cd-priority-row h5{font-size:13px}
+#cdrawer .cd-cta{padding:11px 14px;margin-top:6px;background:linear-gradient(100deg,#d40b19,#a9050c);color:white;border-radius:99px;box-shadow:0 2px 4px #82020b25}
+#cdrawer .nf-trust{display:flex;justify-content:space-around;align-items:center;gap:5px;margin:7px 0 0;font-size:10px;line-height:1.2;text-align:center;color:#373139}
+#cdrawer .nf-trust span+span{border-left:1px solid #ddd;padding-left:7px}
+#cdrawer .nf-device-msrp{color:#686873;font-size:13px;text-decoration:line-through}
+#cdrawer .nf-saved{display:flex;justify-content:space-between;align-items:center;color:#ac0c1a;font-size:13px;font-weight:700;margin:0 0 2px}
+#cdrawer .cd-total-amt{line-height:1.15}
+#cdrawer .cd-total-row{margin:0}
+@media(max-width:600px){#cdrawer.drawer-box,#cdrawer .drawer__inner{width:min(100vw,460px);max-width:100vw;border-radius:18px 0 0 18px}}
+
+</style>
 </body>
 </html>
