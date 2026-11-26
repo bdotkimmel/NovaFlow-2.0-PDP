@@ -4,7 +4,7 @@
 <script>
 // Standalone market snapshot; Shopify validates stock, discounts and final totals at checkout.
 (function(){
- const markets={"US": {"country": "US", "currency": "USD", "device": 5999, "priority": 299, "kit": {"id": 52686809956663, "handle": "sterilizing-kit", "price": 2499, "compare": 5999, "available": true}}, "CA": {"country": "CA", "currency": "CAD", "device": 7999, "priority": 399, "kit": {"id": 52686809956663, "handle": "sterilizing-kit", "price": 3499, "compare": 3999, "available": true}}, "GB": {"country": "GB", "currency": "GBP", "device": 4799, "priority": 299, "kit": {"id": 52686809956663, "handle": "sterilizing-kit", "price": 2000, "compare": 4570, "available": true}}};
+ const markets={"US":{"country":"US","currency":"USD","device":5999,"priority":299,"kit":{"id":52686809956663,"handle":"sterilizing-kit","price":2499,"compare":5999,"available":true},"deviceCompare":7499},"CA":{"country":"CA","currency":"CAD","device":7999,"priority":399,"kit":{"id":52686809956663,"handle":"sterilizing-kit","price":3499,"compare":3999,"available":true},"deviceCompare":9999},"GB":{"country":"GB","currency":"GBP","device":4799,"priority":299,"kit":{"id":52686809956663,"handle":"sterilizing-kit","price":1999,"compare":4570,"available":true},"deviceCompare":5999}};
  const params=new URLSearchParams(location.search);
  const currencies={USD:'US',CAD:'CA',GBP:'GB'};
  const country=(params.get('country')||currencies[(params.get('currency')||'').toUpperCase()]||'US').toUpperCase();
@@ -13,7 +13,7 @@
  window.Shopify={shop:'hejdda-1c.myshopify.com',currency:{active:market.currency,rate:market.device/5999},country:market.country,routes:{root:'https://cleriva.com/'}};
  const selected=()=>({...market.kit,arm:'a',experiment:false,currency:market.currency});
  const money=cents=>new Intl.NumberFormat('en',{style:'currency',currency:market.currency}).format(cents/100);
- const render=()=>{document.querySelectorAll('[data-cro-kit-price]').forEach(el=>{const text=money(market.kit.price);if(el.textContent!==text)el.textContent=text;});window.dispatchEvent(new CustomEvent('cleriva:kit-price'));};
+ const render=()=>{document.querySelectorAll('[data-cro-kit-price]').forEach(el=>{const text=market.kit.available?money(market.kit.price):'Unavailable';if(el.textContent!==text)el.textContent=text;});window.dispatchEvent(new CustomEvent('cleriva:kit-price'));};
  window.ClerivaKit={selected,money,render,attributes:async()=>({}),prepare:async()=>{const item=selected();if(!item.available)throw new Error('Sterilizing Kit is currently unavailable.');return {...item,attributes:{}};}};
  document.addEventListener('DOMContentLoaded',render);window.addEventListener('pageshow',render);
 })();
@@ -296,6 +296,7 @@ button{font-family:inherit}
 .atc .atc-prices{white-space:nowrap}
 .atc .atc-was{font-size:.88em;font-weight:600;color:#c8c8c8;text-decoration:line-through}
 .atc .atc-icon{flex:0 0 18px}
+@media(max-width:767px){.atc .atc-copy{display:flex;flex-direction:column;align-items:center;gap:3px}.atc .atc-prices>span[aria-hidden]{display:none}.atc:has(.atc-copy){padding-inline:12px;gap:7px}.atc .atc-copy>span:first-child{font-size:clamp(13px,3.65vw,16px)}}
 .atc.kit-price-unavailable > *{display:none}
 .atc.kit-price-unavailable::after{content:"Kit price unavailable"}
 .atc-micro{display:flex;align-items:center;justify-content:center;gap:18px;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:12px;flex-wrap:wrap}
@@ -1299,7 +1300,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </ul>
           </div>
           <div class="kc-side">
-            <div class="addon-p kc-price" id="h-uvc-p" data-cro-kit-price>Unavailable</div>
+            <div class="nf-kit-prices"><div class="addon-p kc-price" id="h-uvc-p" data-cro-kit-price>Unavailable</div><span class="nf-kit-deal" data-nf-page-kit-deal hidden><s data-nf-kit-compare></s><span class="nf-kit-off" data-nf-kit-off></span></span></div>
             <div class="addon-qty" id="h-uvc-qty">
               <button type="button" class="aq-btn" aria-label="One fewer kit" onclick="adjQty('h-uvc',-1,event)">−</button>
               <span class="aq-count" id="h-uvc-n">1</span>
@@ -1871,7 +1872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </ul>
         </div>
         <div class="kc-side">
-          <div class="addon-p kc-price" id="uvc-p" data-cro-kit-price>Unavailable</div>
+          <div class="nf-kit-prices"><div class="addon-p kc-price" id="uvc-p" data-cro-kit-price>Unavailable</div><span class="nf-kit-deal" data-nf-page-kit-deal hidden><s data-nf-kit-compare></s><span class="nf-kit-off" data-nf-kit-off></span></span></div>
           <div class="addon-qty" id="uvc-qty">
             <button type="button" class="aq-btn" aria-label="One fewer kit" onclick="adjQty('uvc',-1,event)">−</button>
             <span class="aq-count" id="uvc-n">1</span>
@@ -2061,7 +2062,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="cd-empty-btn" onclick="closeCart();document.getElementById('qty-selector').scrollIntoView({behavior:'smooth',block:'center'})">Shop NovaFlow 2.0</button>
     </div>
     <div id="cd-main">
-<div class="nf-deal-strip"><div><strong>BLACK FRIDAY SAVINGS</strong><small>You save <span id="nf-cart-save"></span> on your devices</small></div><b>SAVE <span id="nf-cart-pct"></span>%</b></div>
+<div class="nf-deal-strip"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="m15.4 1-12 13h7L8.6 23 21 9.8h-7z"/></svg><div><strong>BLACK FRIDAY SAVINGS</strong><small>You’re saving <span id="nf-cart-save"></span> today!</small></div><b>SAVE <span id="nf-cart-pct"></span>%</b></div>
     <div class="cd-prod">
       <img class="cd-prod-img" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_58.png?v=1786326765&width=160" alt="NovaFlow 2.0"/>
       <div class="cd-prod-info">
@@ -2089,7 +2090,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="font-size:12px;color:var(--muted);margin-top:3px">UV-C sterilizer + 6 extra silicone sleeve sets</p>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0">
-        <div class="cd-kit-price" id="cd-kit-added-price">Unavailable</div>
+        <div class="nf-kit-prices"><div class="cd-kit-price" id="cd-kit-added-price">Unavailable</div><span class="nf-kit-deal" data-nf-cart-kit-added-deal hidden><s data-nf-kit-compare></s></span></div>
         <div style="display:flex;align-items:center;gap:5px">
           <button class="aq-btn" onclick="adjCartKitAdded(-1,event)">−</button>
           <span class="aq-count" id="cd-kit-added-n">1</span>
@@ -2107,7 +2108,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h5>Add Sterilizing Kit</h5>
           <p>UV-C sterilizer + 6 extra silicone sleeve sets</p>
         </div>
-        <div class="cd-kit-price" data-cro-kit-price>Unavailable</div>
+        <div class="nf-kit-prices"><div class="cd-kit-price" data-cro-kit-price>Unavailable</div><span class="nf-kit-deal" data-nf-cart-kit-deal hidden><s data-nf-kit-compare></s><span class="nf-kit-off" data-nf-kit-off></span></span></div>
         <div class="addon-qty">
           <button class="aq-btn" onclick="adjCartKit(-1,event)">−</button>
           <span class="aq-count" id="cd-kit-n">1</span>
@@ -2127,14 +2128,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div><!-- /cd-main -->
   </div>
   <div class="cdrawer-foot" id="cd-foot">
-    <div class="nf-saved"><span>Device savings</span><span id="nf-foot-save"></span></div>
+    <div class="nf-saved"><span>You saved</span><span id="nf-foot-save"></span></div>
     <div class="cd-total-row">
       <span class="cd-total-lbl">Total</span>
       <span class="cd-total-amt" id="cd-total-amt">$89.98</span>
     </div>
     <p style="text-align:right;font-size:11px;color:var(--muted);margin:4px 0 0">Shipping &amp; taxes calculated at checkout</p>
-    <button class="cd-cta" onclick="checkoutCart()">Try It Risk-Free →</button>
-    <div class="nf-trust"><span>120-day guarantee</span><span>Secured shipping</span><span>Free gift included</span></div>
+    <button class="cd-cta" onclick="checkoutCart()"><span class="nf-cta-inner"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M12 2 3.5 5.5v6.3c0 4.9 4.1 8.5 8.5 10.6 4.4-2.1 8.5-5.7 8.5-10.6V5.5z"/><path d="m8.5 12 2.4 2.4 4.6-5"/></svg>Try It Risk-Free →</span></button>
+    <div class="nf-trust"><span><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M12 2 3.5 5.5v6.3c0 4.9 4.1 8.5 8.5 10.6 4.4-2.1 8.5-5.7 8.5-10.6V5.5z"/><path d="m8.5 12 2.4 2.4 4.6-5"/></svg><b>120-Day<br>Guarantee</b></span><span><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M2 4.5h12v12H8m6-9h4l3.7 5v4h-2.3m-5.4 0h1.2M2 4.5v12h2"/><circle cx="6.1" cy="17.6" r="2"/><circle cx="17.5" cy="17.6" r="2"/></svg><b>Secured<br>Shipping</b></span><span><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><rect x="2.8" y="8" width="18.4" height="4.2" rx="1"/><path d="M4.6 12.2V21h14.8v-8.8M12 8v13M12 8C5 9 4 3.5 7.3 3.2 10 3 12 8 12 8Zm0 0s2-5 4.7-4.8C20 3.5 19 9 12 8Z"/></svg><b>Free Gift<br>Included</b></span></div>
   </div>
 </div>
 
@@ -2323,21 +2324,22 @@ function updateBuyUI(n){
   if(pn)pn.textContent=now;
   if(pw){pw.textContent=was;pw.style.visibility='visible';}
   if(ps){ps.textContent='SAVE '+savePct+'%';ps.style.visibility='visible';}
-  // CTAs — include sterilizing kit upsell if selected in that section
-  [['hero-atc-btn','h-uvc-addon',function(){return hUvcQty;}],['offer-atc-btn','uvc-addon',function(){return uvcQty;}]].forEach(function(a){
-    const btn=document.getElementById(a[0]);
+  // Both buttons open the same basket. Match the existing hero-first kit selection.
+  const heroKit=document.getElementById('h-uvc-addon')?.classList.contains('addon-on');
+  const offerKit=document.getElementById('uvc-addon')?.classList.contains('addon-on');
+  const kitQty=heroKit?hUvcQty:offerKit?uvcQty:0;
+  const kit=nfKitPricing();
+  document.querySelectorAll('[data-nf-page-kit-deal]').forEach(el=>nfRenderKitDeal(el,kit));
+  ['hero-atc-btn','offer-atc-btn'].forEach(function(id){
+    const btn=document.getElementById(id);
     if(!btn)return;
-    const addonEl=document.getElementById(a[1]);
-    const kitOn=addonEl&&addonEl.classList.contains('addon-on');
-    const kitL=kitPrice();
-    if(kitOn && (!Number.isFinite(kitL) || !kitCurrencyMatches())){
+    if(kitQty&&!kit){
       btn.classList.add('kit-price-unavailable');
       btn.setAttribute('aria-label','Kit price unavailable');
       return;
     }
-    const kitAmt=kitOn?a[2]()*kitL:0;
-    const nowT=fmtL(Math.round((nowL+kitAmt)*100)/100);
-    const wasT=fmtL(Math.round((wasL+kitAmt)*100)/100);
+    const nowT=fmtL((Math.round(nowL*100)+kitQty*(kit?.price||0))/100);
+    const wasT=fmtL((Math.round(wasL*100)+kitQty*(kit?.compare||0))/100);
     btn.classList.remove('kit-price-unavailable');
     btn.removeAttribute('aria-label');
     btn.querySelector('.atc-now').textContent=nowT;
@@ -2428,6 +2430,28 @@ const VAR_WHITE='52709201641783';
 const VAR_BLACK='52709201609015';
 function kitSelected(){return window.ClerivaKit?.selected();}
 function kitPrice(){return kitSelected()?.price / 100;}
+function nfKitPricing(){
+  const item=kitSelected();
+  const currency=window._croDeviceCurrency||window.Shopify?.currency?.active||'USD';
+  if(!item?.available||item.currency!==currency||!Number.isSafeInteger(item.price)||item.price<=0)return null;
+  const compare=Number.isSafeInteger(item.compare)&&item.compare>item.price?item.compare:item.price;
+  return {price:item.price,compare};
+}
+function nfRenderKitDeal(el,kit,quantity=1){
+  if(!el)return;
+  const compare=el.querySelector('[data-nf-kit-compare]');
+  const off=el.querySelector('[data-nf-kit-off]');
+  const hasDeal=!!kit&&kit.compare>kit.price;
+  el.hidden=!hasDeal;
+  const was=hasDeal?window.ClerivaKit.money(kit.compare*quantity):'';
+  if(compare.textContent!==was)compare.textContent=was;
+  if(hasDeal)compare.setAttribute('aria-label','MSRP '+was);
+  else compare.removeAttribute('aria-label');
+  if(off){
+    const label=hasDeal?savingsPercent(kit.price,kit.compare)+'% OFF':'';
+    if(off.textContent!==label)off.textContent=label;
+  }
+}
 function kitCurrencyMatches(){return kitSelected()?.currency === (window._croDeviceCurrency || 'USD');}
 const VAR_PRIORITY='50661579325751';
 
@@ -2460,9 +2484,9 @@ function setDrawerEmpty(empty){
   if(f)f.style.display=empty?'none':'block';
 }
 var CART_GIFTS=[
-  {q:1,img:'https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_17_bfa65875-cf79-4ef1-8a7f-af4a36a0d0fa.png?v=1784281446&width=96',name:'Breathing Reset Guide',sub:'Mucus clearing breathwork',val:24.99},
-  {q:2,img:'https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_16_95353d2b-974d-4012-979d-b1dc30d7b834.png?v=1784281443&width=96',name:'Mystery Gift',sub:'Surprise bonus gift',val:null},
-  {q:3,img:'https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_15.png?v=1784281288&width=96',name:'Portable Case',sub:'Travel-ready storage',val:14.99}
+  {q:1,img:'https://cleriva.com/cdn/shop/files/BreathingReset.png?v=1776925399&width=100',name:'Breathing Reset Guide',sub:'by Julien Fatisson',val:null},
+  {q:2,img:'https://cleriva.com/cdn/shop/files/SayGoodbyetoCongestionPermanently.-2025-07-02T234428.628.png?v=1751525078&width=100',name:'Mystery Gift',sub:'Surprise bonus gift',val:null},
+  {q:3,img:'https://cleriva.com/cdn/shop/files/ClerivaContent_49_ea54c103-18d8-48c8-85fb-8799ed63b163.png?v=1767417728&width=100',name:'Portable Case',sub:'Travel-ready storage',val:14.99}
 ];
 function renderCartGifts(){
   const wrap=document.getElementById('cd-gifts');
@@ -2474,7 +2498,7 @@ function renderCartGifts(){
   CART_GIFTS.filter(function(g){return cdQty>=g.q;}).forEach(function(g){
     const row=document.createElement('div');
     row.className='cd-gift-row';
-    row.innerHTML='<img class="cd-gift-img" src="'+g.img+'" alt="'+g.name+'"/>'+
+    row.innerHTML='<span class="nf-gift-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><rect x="2.8" y="8" width="18.4" height="4.2" rx="1"/><path d="M4.6 12.2V21h14.8v-8.8M12 8v13M12 8C5 9 4 3.5 7.3 3.2 10 3 12 8 12 8Zm0 0s2-5 4.7-4.8C20 3.5 19 9 12 8Z"/></svg></span><img class="cd-gift-img" src="'+g.img+'" alt="'+g.name+'"/>'+
       '<div class="cd-gift-info"><div class="cd-gift-name">'+g.name+'</div><div class="cd-gift-sub">'+g.sub+'</div></div>'+
       '<div class="cd-gift-right"><span class="cd-gift-free">FREE</span>'+(g.val?'<span class="cd-gift-val">'+fp(g.val)+'</span>':'')+'</div>';
     wrap.appendChild(row);
@@ -2584,9 +2608,9 @@ function closeCart(){
   document.getElementById('cdrawer-overlay').classList.remove('show');
   document.getElementById('cdrawer').classList.remove('show');
 }
-const CART_IMG_WHITE='https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ChatGPT_Image_Aug_9_2026_08_28_04_PM.png?v=1786332494&width=160';
-const CART_IMG_BLACK='https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_58.png?v=1786326765&width=160';
-const CART_IMG_MULTI='https://cdn.shopify.com/s/files/1/0912/3738/4503/files/Cleriva_Content_58.png?v=1786326765&width=160';
+const CART_IMG_WHITE='https://cleriva.com/cdn/shop/files/ClerivaContent_22.png?v=1784418515&width=160';
+const CART_IMG_BLACK='https://cleriva.com/cdn/shop/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517&width=160';
+const CART_IMG_MULTI='https://cleriva.com/cdn/shop/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517&width=160';
 function updateCartProdImg(){
   const el=document.querySelector('.cd-prod-img');
   if(!el)return;
@@ -2600,22 +2624,22 @@ function renderCartColors(){
   wrap.innerHTML='';
   const fmt=window._DEVICE_PRICES?window.fmtLocal:(window.fmtPrice||function(n){return'$'+n.toFixed(2);});
   const dp=window._DEVICE_PRICES||DEVICE_PRICES;
-  document.getElementById('cd-prod-sub').textContent=`${cdQty} device${cdQty>1?'s':''} · ${fmt(dp[cdQty])}/ea`;
+  document.getElementById('cd-prod-sub').textContent='Dual Light Sinus Clearing Device';
   document.getElementById('cd-prod-price').textContent=fmt(cdQty*dp[cdQty]);
   const dn=document.getElementById('cd-dev-n');if(dn)dn.textContent=cdQty;
   renderCartGifts();
   for(let i=0;i<cdQty;i++){
-    const lbl=cdQty===1?'Your device':`Device ${i+1}`;
+    const lbl=cdQty===1?'Color:':`Device ${i+1}`;
     const row=document.createElement('div');
     row.className='cd-device-row';
     row.innerHTML=`
       <span class="cd-device-lbl">${lbl}</span>
       <div class="cd-swatches">
         <div class="cd-swatch ${cdColors[i]==='black'?'on-black':''}" id="cd-sw-${i}-b" onclick="setColor(${i},'black')">
-          <img class="cd-swatch-dot" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517&width=56" alt="Black"/>Black
+          <img class="cd-swatch-dot" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_21_7f43e004-6eda-4259-b87e-075a02be4fe1.png?v=1784418517&width=56" alt=""/>Black 2.0
         </div>
         <div class="cd-swatch ${cdColors[i]==='white'?'on-white':''}" id="cd-sw-${i}-w" onclick="setColor(${i},'white')">
-          <img class="cd-swatch-dot" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_22.png?v=1784418515&width=56" alt="White"/>White
+          <img class="cd-swatch-dot" src="https://cdn.shopify.com/s/files/1/0912/3738/4503/files/ClerivaContent_22.png?v=1784418515&width=56" alt=""/>White 2.0
         </div>
       </div>`;
     wrap.appendChild(row);
@@ -2655,22 +2679,32 @@ function adjCartKit(delta,e){
 }
 function updateCartTotals(){
   const dp=window._DEVICE_PRICES||DEVICE_PRICES;
-  const kp=kitPrice();
-  const pp=window._PRIORITY_PRICE||PRIORITY_PRICE;
-  const deviceTotal=cdQty*dp[cdQty];
-  const kitTotal=cdAddonOn?cdAddonQty*kp:0;
-  const priorityTotal=cdPriorityOn?pp:0;
-  const total=deviceTotal+kitTotal+priorityTotal;
+  const deviceTotal=Math.round((window._DEVICE_TOTALS?.[cdQty]??cdQty*dp[cdQty])*100);
+  const deviceMsrp=Math.max(deviceTotal,Math.round(cdQty*(window._DEVICE_COMPARE??MSRP_USD)*100));
+  const kit=nfKitPricing();
+  const kitQty=cdAddonOn?cdAddonQty:0;
+  const unavailable=kitQty>0&&!kit;
+  const priorityTotal=cdPriorityOn?Math.round((window._PRIORITY_PRICE??PRIORITY_PRICE)*100):0;
+  const total=deviceTotal+kitQty*(kit?.price||0)+priorityTotal;
+  const msrp=deviceMsrp+kitQty*(kit?.compare||0)+priorityTotal;
   const fmt=window._DEVICE_PRICES?window.fmtLocal:(window.fmtPrice||function(n){return'$'+n.toFixed(2);});
-  document.getElementById('cd-total-amt').textContent=cdAddonOn&&(!Number.isFinite(kp)||!kitCurrencyMatches())?'Kit price unavailable':fmt(total);
-  const msrp=cdQty*(window._DEVICE_COMPARE || MSRP_USD);
-  const saved=fmt(msrp-deviceTotal);
-  document.getElementById('nf-cart-msrp').textContent=fmt(msrp);
-  document.getElementById('nf-cart-save').textContent=saved;
-  document.getElementById('nf-foot-save').textContent=saved;
-  document.getElementById('nf-cart-pct').textContent=savingsPercent(deviceTotal,msrp);
+  const money=cents=>fmt(cents/100);
+  document.getElementById('cd-total-amt').textContent=unavailable?'Kit price unavailable':money(total);
+  const saved=msrp-total;
+  const hidden=unavailable||saved<=0;
+  const cartSave=document.getElementById('nf-cart-save');
+  const footSave=document.getElementById('nf-foot-save');
+  const deviceCompare=document.getElementById('nf-cart-msrp');
+  deviceCompare.textContent=money(deviceMsrp);
+  deviceCompare.hidden=deviceMsrp<=deviceTotal;
+  cartSave.textContent=footSave.textContent=hidden?'':money(saved);
+  cartSave.closest('.nf-deal-strip')?.toggleAttribute('hidden',hidden);
+  footSave.closest('.nf-saved')?.toggleAttribute('hidden',hidden);
+  document.getElementById('nf-cart-pct').textContent=hidden?'':savingsPercent(total,msrp);
+  nfRenderKitDeal(document.querySelector('[data-nf-cart-kit-deal]'),kit);
   const kap=document.getElementById('cd-kit-added-price');
-  if(kap)kap.textContent=Number.isFinite(kp)?window.ClerivaKit.money(Math.round(cdAddonQty*kp*100)):'Unavailable';
+  if(kap)kap.textContent=kit?money(cdAddonQty*kit.price):'Unavailable';
+  nfRenderKitDeal(document.querySelector('[data-nf-cart-kit-added-deal]'),kit,cdAddonQty);
   saveCartState();
 }
 function togglePriority(){
@@ -2956,7 +2990,7 @@ if(window.ResizeObserver){
   const priority=window.NF_MARKET.priority;
   // Existing LAUNCHBOGO50 (one half-price device) and LAUNCHB2G1 (one free).
   const totals={1:device,2:device+Math.round(device*0.5),3:device*2};
-  const compare=Math.round(device*MSRP_USD/59.99);
+  const compare=window.NF_MARKET.deviceCompare;
   window._croDeviceCurrency=cur;
   window._DEVICE_TOTALS=Object.fromEntries(Object.entries(totals).map(([q,cents])=>[q,cents/100]));
   window._DEVICE_PRICES=Object.fromEntries(Object.entries(totals).map(([q,cents])=>[q,cents/100/Number(q)]));
@@ -3152,6 +3186,20 @@ if(window.ClerivaKit)window.ClerivaKit.render();
 </script>
 
 <style>
+
+/* NovaFlow kit price and compare-at */
+.nf-kit-prices{display:flex;flex-direction:column;gap:2px;align-items:flex-end;line-height:1.15;white-space:nowrap}
+.nf-kit-deal{display:flex;flex-wrap:nowrap;align-items:center;gap:5px;font-size:11px;font-weight:650}
+.nf-kit-deal[hidden]{display:none}
+.nf-kit-deal s{color:var(--muted,#57595d)}
+.nf-kit-off{font-size:10px;font-weight:800;color:#2d5a0b}
+
+.kc-side .nf-kit-prices{align-items:center}
+:is(#h-uvc-addon,#uvc-addon).addon-on .nf-kit-prices .kc-price{display:block}
+
+#cd-kit-row .nf-kit-prices{grid-column:3;grid-row:1;align-self:center}
+#cdrawer .nf-deal-strip[hidden],#cdrawer .nf-saved[hidden]{display:none}
+
 /* Sterilizing Kit card, compact layout (Growth Dept 2026-11-24). Container queries size it to its column. */
 :is(#h-uvc-addon,#uvc-addon).kc{display:block;container-type:inline-size;padding:0;margin-bottom:16px;cursor:default;text-align:left;border:2px solid #BACEAE;border-radius:18px;background:linear-gradient(100deg,#FCFDFB 0%,#F4F8F1 42%,#EAF1E5 100%);box-shadow:0 3px 12px rgba(62,100,34,.11);transition:border-color .2s,box-shadow .2s}
 :is(#h-uvc-addon,#uvc-addon).kc:hover{border-color:#A2BE91}
@@ -3245,7 +3293,7 @@ if(window.ClerivaKit)window.ClerivaKit.render();
 <script>
 (function(){
 const p=document.querySelector('#cd-kit-row .cd-kit-info p');
-if(p)p.textContent='UV-C sterilizer + 6 sleeve sets';
+if(p)p.innerHTML='Kills up to 99.9% of bacteria<span class="nf-kit-second">UV-C sterilizer + 6 sleeve sets</span>';
 })();
 </script>
 </div>
@@ -3608,6 +3656,53 @@ if(p)p.textContent='UV-C sterilizer + 6 sleeve sets';
 #cdrawer .cd-total-row{margin:0}
 @media(max-width:600px){#cdrawer.drawer-box,#cdrawer .drawer__inner{width:min(100vw,460px);max-width:100vw;border-radius:18px 0 0 18px}}
 
+#cdrawer.drawer-box,#cdrawer .drawer__inner.cdrawer{box-sizing:border-box;top:50%;bottom:auto;right:6px;translate:0 -50%;width:min(460px,calc(100vw - 12px));max-width:calc(100vw - 12px);height:auto!important;max-height:calc(100dvh - 12px);border-radius:20px;box-shadow:0 8px 28px #1b10122e}
+#cdrawer .cdrawer-body{flex:0 1 auto!important;min-height:0;padding:0 14px 8px;overscroll-behavior:contain}
+#cdrawer .cdrawer-head{padding:10px 18px 8px!important;border:0}
+#cdrawer .cdrawer-head h3{font-weight:800;font-size:21px}
+#cdrawer .cdrawer-close{width:31px;height:31px;min-height:31px;min-width:31px;background:#fff;border:1px solid #e5e3e4}
+#cdrawer .nf-deal-strip{padding:8px 12px;margin:0 0 12px;gap:10px}
+#cdrawer .nf-deal-strip:before{display:none}
+#cdrawer .nf-deal-strip svg{width:24px;height:26px;color:white;flex:none}
+#cdrawer .nf-deal-strip strong{font-size:16px}
+#cdrawer .nf-deal-strip small{font-size:13px}
+#cdrawer .cd-prod{gap:9px;align-items:center;margin:0 0 8px}
+#cdrawer .cd-prod-img{width:64px;height:64px;padding:5px;border-radius:12px;object-fit:contain}
+#cdrawer .cd-prod-name{font-size:16px;line-height:1.18;color:#121212}
+#cdrawer .cd-prod-sub{font-size:12px;line-height:1.25;color:#262327}
+#cdrawer .cd-prod-price{font-size:17px}
+#cdrawer .cd-remove{font-size:12px;color:#231f21}
+#cdrawer .cd-swatches{display:grid;grid-template-columns:1fr 1fr;flex:1;gap:6px}
+#cdrawer .cd-swatch{justify-content:center;gap:5px;min-height:34px;font-size:12px;white-space:nowrap}
+#cdrawer .cd-swatch.on-black:after,#cdrawer .cd-swatch.on-white:after{content:"✓";font-size:10px;width:15px;height:15px;display:grid;place-items:center;background:#fff;color:#111;border-radius:50%;box-shadow:0 0 0 1px #ababab}
+#cdrawer .cd-device-lbl{min-width:44px;font-weight:650;color:#58525b}
+#cdrawer .cd-device-row{margin:5px 0;gap:6px}
+#cdrawer .shared-gift,#cdrawer .cd-gift-row{min-height:47px;padding:5px 8px!important}
+#cdrawer .nf-gift-icon{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:#cb0a1a;color:white}
+#cdrawer .nf-gift-icon svg{width:16px;height:16px}
+#cdrawer .shared-gift img,#cdrawer .cd-gift-img{width:37px;height:40px;background:transparent;object-fit:contain}
+#cdrawer .cd-gift-sub,#cdrawer .nf-book-author{font-size:12px;color:#332b30}
+#cdrawer .cd-gift-free,#cdrawer .shared-gift strong{background:#cf3849;padding:4px 10px;font-size:11px!important}
+#cdrawer .shared-gifts [data-gift-id="52072818606391"]{order:-2}
+#cdrawer .shared-gifts [data-gift-id="52072818934071"]{order:-1}
+#cdrawer .shared-kit,#cdrawer #cd-kit-row{grid-template-columns:44px minmax(0,1fr) auto;grid-template-rows:auto auto auto;gap:0 8px;padding:7px 9px}
+#cdrawer .shared-kit .cd-kit-img,#cdrawer #cd-kit-row .cd-kit-img{width:44px;height:44px;grid-row:1/4}
+#cdrawer .shared-kit h5,#cdrawer #cd-kit-row h5{font-size:15px}
+#cdrawer .shared-kit p,#cdrawer #cd-kit-row p{grid-row:2/4;font-size:11px;line-height:1.25}
+#cdrawer .nf-kit-second{display:block}
+#cdrawer .shared-kit .nf-kit-action,#cdrawer #cd-kit-row .nf-kit-action{grid-row:3}
+#cdrawer .shared-kit>.shared-original-price{grid-row:2}
+#cdrawer .shared-kit-selected{grid-row:4}
+#cdrawer .cdrawer-foot{border-top:1px solid #e8e4e7;padding:9px 15px max(13px,env(safe-area-inset-bottom))!important}
+#cdrawer .cd-total-lbl{font-size:16px;color:#262326}
+#cdrawer .cd-cta{font-size:17px;font-weight:800;min-height:42px}
+#cdrawer .cd-cta .nf-cta-inner{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+#cdrawer .nf-cta-inner svg{width:20px;height:20px}
+#cdrawer .nf-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:10px;font-size:11px;line-height:1.14;text-align:left;color:#242124}
+#cdrawer .nf-trust>span{display:flex;justify-content:center;align-items:center;gap:6px}
+#cdrawer .nf-trust svg{flex:none;width:20px;height:20px}
+#cdrawer .nf-trust>span:last-child svg{color:#bc0b19}
+@media(max-width:355px){#cdrawer .cd-swatch{gap:3px;padding-inline:4px;font-size:11px}#cdrawer .cd-swatch-dot{width:15px;height:15px}#cdrawer .nf-deal-strip{padding-inline:8px;gap:5px}#cdrawer .nf-deal-strip strong{font-size:13px}#cdrawer .nf-trust{font-size:10px}#cdrawer .nf-trust svg{width:16px}}
 </style>
 </body>
 </html>
